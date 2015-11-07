@@ -1,6 +1,7 @@
 package com.izor066.android.mediatracker.api.model.database.table;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 /**
@@ -39,6 +40,24 @@ public class BooksTable extends Table {
             return writableDB.insert(BooksTable.NAME, null, values);
         }
     }
+
+    public static String getTitle(Cursor cursor) {
+        return getString(cursor, COLUMN_TITLE);
+    }
+
+    public static String getAuthor(Cursor cursor) {
+        return getString(cursor, COLUMN_AUTHOR);
+    }
+
+
+    public static long getDatePublished(Cursor cursor) {
+        return getLong(cursor, COLUMN_DATE_PUBLISHED);
+    }
+
+    public static Cursor getRowFromTitle(SQLiteDatabase readonlyDatabase, String title) {
+        return readonlyDatabase.query(true, NAME, null, COLUMN_TITLE + " = ?",
+                new String[]{title}, null, null, null, null);
+    } // ToDo: Implement a different recovery method, titles might duplicate
 
     @Override
     public String getName() {

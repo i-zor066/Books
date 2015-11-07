@@ -12,7 +12,7 @@ import com.izor066.android.mediatracker.api.model.database.table.Table;
 
 public class DatabaseOpenHelper extends SQLiteOpenHelper {
 
-    private static final String NAME = "mediatracker_db";
+    public static final String NAME = "mediatracker_db";
 
     private static final int VERSION = 1;
 
