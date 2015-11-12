@@ -15,6 +15,8 @@ public class BooksTable extends Table {
     private static final String COLUMN_TITLE = "title";
     private static final String COLUMN_AUTHOR = "author";
     private static final String COLUMN_DATE_PUBLISHED = "date_published";
+    private static final String COLUMN_COVER_IMG_URI = "cover_img_uri";
+    private static final String COLUMN_SYNOPSIS = "synopsis";
 
     public static class Builder implements Table.Builder {
 
@@ -32,6 +34,16 @@ public class BooksTable extends Table {
 
         public Builder setDatePublished(long datePublished) {
             values.put(COLUMN_DATE_PUBLISHED, datePublished);
+            return this;
+        }
+
+        public Builder setCoverImgUri(String coverImgUri) {
+            values.put(COLUMN_COVER_IMG_URI, coverImgUri);
+            return this;
+        }
+
+        public Builder setSynopsis(String synopsis) {
+            values.put(COLUMN_SYNOPSIS, synopsis);
             return this;
         }
 
@@ -54,6 +66,14 @@ public class BooksTable extends Table {
         return getLong(cursor, COLUMN_DATE_PUBLISHED);
     }
 
+    public static String getCoverImgUri(Cursor cursor) {
+        return getString(cursor, COLUMN_COVER_IMG_URI);
+    }
+
+    public static String getSynopsis(Cursor cursor) {
+        return getString(cursor, COLUMN_SYNOPSIS);
+    }
+
     public static Cursor getRowFromTitle(SQLiteDatabase readonlyDatabase, String title) {
         return readonlyDatabase.query(true, NAME, null, COLUMN_TITLE + " = ?",
                 new String[]{title}, null, null, null, null);
@@ -69,7 +89,9 @@ public class BooksTable extends Table {
         return "CREATE TABLE " + getName() + " ("
                 + COLUMN_ID + " INTEGER PRIMARY KEY,"
                 + COLUMN_TITLE + " TEXT,"
-                + COLUMN_DATE_PUBLISHED + " INTEGER)";
+                + COLUMN_DATE_PUBLISHED + " INTEGER,"
+                + COLUMN_COVER_IMG_URI + " TEXT,"
+                + COLUMN_SYNOPSIS + " TEXT)";
     }
 
 }
