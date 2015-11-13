@@ -148,7 +148,7 @@ public class DataSource {
                 .insert(writableDatabase);
 
         new BooksTable.Builder()
-                .setTitle("Reamde")
+                .setTitle("Ancilliary Justice")
                 .setAuthor("Ann Leckie")
                 .setDatePublished(1380585600)
                 .setCoverImgUri("https://d.gr-assets.com/books/1397215917l/17333324.jpg")
