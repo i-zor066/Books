@@ -26,7 +26,7 @@
             <ImageView
                 android:id="@+id/iv_img_placeholder"
                 android:layout_width="75dp"
-                android:layout_height="105dp"
+                android:layout_height="108dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:src="@drawable/ic_book_black"
@@ -42,21 +42,36 @@
             android:layout_height="wrap_content"
             android:text="The Caves of Steel (Robot Series #1) "
             android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/abc_text_size_headline_material"
+            android:textSize="@dimen/abc_text_size_large_material"
             android:layout_toRightOf="@id/fl_image_header"
             android:layout_alignParentTop="true"
-            android:paddingTop="5dp"/>
+            android:layout_marginTop="0dp"
+            android:paddingTop="0dp"/>
 
-        <TextView
-            android:id="@+id/tv_book_author"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:id="@+id/ll_author_wrapper"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_book_title"
             android:layout_marginTop="8dp"
-            android:text="Isaac Asimov"
-            android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/abc_text_size_medium_material"
-            android:layout_toRightOf="@id/fl_image_header"/>
+            android:layout_toRightOf="@id/fl_image_header"
+            android:layout_below="@+id/tv_book_title">
+
+            <TextView
+                android:id="@+id/tv_book_by"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/by_author"
+                android:layout_marginRight="4dp"
+                android:textSize="@dimen/abc_text_size_medium_material" />
+
+            <TextView
+                android:id="@+id/tv_book_author"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Isaac Asimov"
+                android:textSize="@dimen/abc_text_size_medium_material" />
+        </LinearLayout>
 
     </RelativeLayout>
 
@@ -64,6 +79,7 @@
         android:id="@+id/ll_tag_wrapper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:layout_below="@+id/rl_book_wrapper">
 
         <TextView
