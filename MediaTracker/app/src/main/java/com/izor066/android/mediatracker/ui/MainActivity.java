@@ -24,7 +24,7 @@ import com.izor066.android.mediatracker.ui.adapter.ItemAdapter;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, ItemAdapter.OnBookClickListener {
 
     String TAG = getClass().getSimpleName();
     private ItemAdapter itemAdapter;
@@ -49,7 +49,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         List<Book> allbooks = MediaTrackerApplication.getSharedDataSource().getAllBooks();
 
-        itemAdapter = new ItemAdapter();
+
+        itemAdapter = new ItemAdapter(this);
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_activity_media_tracker);
 
@@ -118,5 +119,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onClick(View v) {
         Toast.makeText(this, "Add new entry", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onBookClick(Book book) {
+        Toast.makeText(this, book.getTitle(), Toast.LENGTH_SHORT).show();
     }
 }

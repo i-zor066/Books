@@ -20,6 +20,16 @@ import com.squareup.picasso.Picasso;
  */
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemAdapterViewHolder>  {
 
+    public static interface OnBookClickListener {
+        public void onBookClick(Book book);
+    }
+    
+    private final OnBookClickListener listener;
+    
+    public ItemAdapter(OnBookClickListener listener) {
+        this.listener = listener;
+    }
+
     @Override
     public ItemAdapterViewHolder onCreateViewHolder(ViewGroup viewGroup, int index) {
         View inflate = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.book, viewGroup, false);
@@ -29,7 +39,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemAdapterVie
     @Override
     public void onBindViewHolder(ItemAdapterViewHolder itemAdapterViewHolder, int i) {
         DataSource sharedDataSource = MediaTrackerApplication.getSharedDataSource();
-        itemAdapterViewHolder.update(sharedDataSource.getAllBooks().get(i));
+        itemAdapterViewHolder.update(sharedDataSource.getAllBooks().get(i), listener);
     }
 
     @Override
@@ -37,22 +47,27 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemAdapterVie
         return MediaTrackerApplication.getSharedDataSource().getAllBooks().size();
     }
 
-    class ItemAdapterViewHolder extends RecyclerView.ViewHolder {
+    class ItemAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView bookCover;
         TextView bookTitle;
         TextView bookAuthor;
+        Book book;
+        OnBookClickListener listener;
 
         public ItemAdapterViewHolder(View itemView) {
             super(itemView);
             bookCover = (ImageView) itemView.findViewById(R.id.iv_img_placeholder);
             bookTitle = (TextView) itemView.findViewById(R.id.tv_book_title);
             bookAuthor = (TextView) itemView.findViewById(R.id.tv_book_author);
+            itemView.setOnClickListener(this);
         }
 
-        void update(Book book) {
+        void update(Book book, OnBookClickListener listener) {
+            this.book = book;
             bookTitle.setText(book.getTitle());
             bookAuthor.setText(book.getAuthor());
+            this.listener = listener;
 
             Context context = bookCover.getContext();
 
@@ -61,8 +76,13 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemAdapterVie
                     .into(bookCover);
         }
 
+        // OnClickListener
 
-
+        @Override
+        public void onClick(View v) {
+            listener.onBookClick(book);
+           // Toast.makeText(itemView.getContext(), book.getTitle(), Toast.LENGTH_SHORT).show();
+        }
     }
 
 
