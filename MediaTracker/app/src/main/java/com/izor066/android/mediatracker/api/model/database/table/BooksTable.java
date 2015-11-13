@@ -75,9 +75,12 @@ public class BooksTable extends Table {
     }
 
     public static Cursor getRowFromTitle(SQLiteDatabase readonlyDatabase, String title) {
-        return readonlyDatabase.query(true, NAME, null, COLUMN_TITLE + " = ?",
-                new String[]{title}, null, null, null, null);
+        return readonlyDatabase.query(true, NAME, null, COLUMN_TITLE + " = ?", new String[]{title}, null, null, null, null);
     } // ToDo: Implement a different recovery method, titles might duplicate
+
+    public static Cursor fetchAllBooks(SQLiteDatabase readonlyDatabase) {
+        return readonlyDatabase.rawQuery("SELECT * FROM " + NAME + " ORDER BY ?", new String[]{COLUMN_TITLE});
+    }
 
     @Override
     public String getName() {
@@ -89,6 +92,7 @@ public class BooksTable extends Table {
         return "CREATE TABLE " + getName() + " ("
                 + COLUMN_ID + " INTEGER PRIMARY KEY,"
                 + COLUMN_TITLE + " TEXT,"
+                + COLUMN_AUTHOR + " TEXT, "
                 + COLUMN_DATE_PUBLISHED + " INTEGER,"
                 + COLUMN_COVER_IMG_URI + " TEXT,"
                 + COLUMN_SYNOPSIS + " TEXT)";
