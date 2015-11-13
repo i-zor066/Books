@@ -7,22 +7,27 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.izor066.android.mediatracker.MediaTrackerApplication;
 import com.izor066.android.mediatracker.R;
 import com.izor066.android.mediatracker.api.model.Book;
+import com.izor066.android.mediatracker.ui.adapter.ItemAdapter;
 
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     String TAG = getClass().getSimpleName();
+    private ItemAdapter itemAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +48,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
 
         List<Book> allbooks = MediaTrackerApplication.getSharedDataSource().getAllBooks();
-        Book testBook = allbooks.get(0);
-        Log.v(TAG, testBook.toString());
+
+        itemAdapter = new ItemAdapter();
+
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_activity_media_tracker);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(itemAdapter);
+
+        TextView firstRun = (TextView) findViewById(R.id.tv_click_plus);
+
+        if (allbooks.size() > 0) {
+            firstRun.setVisibility(View.GONE);
+        }
+
     }
 
     @Override
