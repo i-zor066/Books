@@ -9,6 +9,9 @@ import com.izor066.android.mediatracker.api.model.Book;
 import com.izor066.android.mediatracker.api.model.database.DatabaseOpenHelper;
 import com.izor066.android.mediatracker.api.model.database.table.BooksTable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by igor on 7/11/15.
  */
@@ -40,6 +43,7 @@ public class DataSource {
                 .setCoverImgUri(book.getCoverImgUri())
                 .setSynopsis(book.getSynopsis())
                 .insert(writableDatabase);
+
     }
 
     public Book getBookFromDBwithTitle(String title) {
@@ -50,6 +54,18 @@ public class DataSource {
         return book;
     }
 
+    public List<Book> getAllBooks() {
+        Cursor cursor = BooksTable.fetchAllBooks(databaseOpenHelper.getReadableDatabase());
+        List<Book> allBooks = new ArrayList<Book>();
+        if (cursor.moveToFirst()) {
+            do {
+                allBooks.add(bookFromCursor(cursor));
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        return allBooks;
+    }
+
     private static Book bookFromCursor(Cursor cursor) {
         String title = BooksTable.getTitle(cursor);
         String author = BooksTable.getAuthor(cursor);
@@ -58,6 +74,8 @@ public class DataSource {
         String synopsis = BooksTable.getSynopsis(cursor);
         return new Book(title, author, datePublished, coverimgUri, synopsis);
     }
+
+
 
     private void createPlaceholderData() {
         SQLiteDatabase writableDatabase = databaseOpenHelper.getWritableDatabase();

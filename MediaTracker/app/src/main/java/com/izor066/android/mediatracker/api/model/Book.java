@@ -12,13 +12,23 @@ public class Book {
     private String synopsis;
     //ToDo: Add cover image
 
-
     public Book(String title, String author, long datePublished, String coverImgUri, String synopsis) {
         this.title = title;
         this.author = author;
         this.datePublished = datePublished;
         this.coverImgUri = coverImgUri;
         this.synopsis = synopsis;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "title='" + title + '\'' +
+                ", author='" + author + '\'' +
+                ", datePublished=" + datePublished +
+                ", coverImgUri='" + coverImgUri + '\'' +
+                ", synopsis='" + synopsis + '\'' +
+                '}';
     }
 
     public String getTitle() {

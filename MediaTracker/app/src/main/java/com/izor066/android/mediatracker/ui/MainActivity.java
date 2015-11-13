@@ -8,14 +8,21 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.izor066.android.mediatracker.MediaTrackerApplication;
 import com.izor066.android.mediatracker.R;
+import com.izor066.android.mediatracker.api.model.Book;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+
+    String TAG = getClass().getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +41,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        List<Book> allbooks = MediaTrackerApplication.getSharedDataSource().getAllBooks();
+        Book testBook = allbooks.get(0);
+        Log.v(TAG, testBook.toString());
     }
 
     @Override
