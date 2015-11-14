@@ -11,4 +11,8 @@
     <string name="click_plus_to_add">Click + to add an item.</string>
     <string name="tags_label">Tags:</string>
     <string name="by_author">by</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_new_entry_text">There are multiple ways of adding a new entry.</string>
 </resources>

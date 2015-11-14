@@ -1,8 +1,10 @@
 package com.izor066.android.mediatracker.ui;
 
+
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -21,6 +23,7 @@ import com.izor066.android.mediatracker.MediaTrackerApplication;
 import com.izor066.android.mediatracker.R;
 import com.izor066.android.mediatracker.api.model.Book;
 import com.izor066.android.mediatracker.ui.adapter.ItemAdapter;
+import com.izor066.android.mediatracker.ui.fragment.AddBookDialogFragment;
 
 import java.util.List;
 
@@ -118,11 +121,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onClick(View v) {
-        Toast.makeText(this, "Add new entry", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Add new entry", Toast.LENGTH_SHORT).show();
+        showAddBookDialogFragment();
     }
 
     @Override
     public void onBookClick(Book book) {
         Toast.makeText(this, book.getTitle(), Toast.LENGTH_SHORT).show();
+    }
+
+    private void showAddBookDialogFragment() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        AddBookDialogFragment addBookDialogFragment = new AddBookDialogFragment();
+        addBookDialogFragment.show(fragmentManager, "New Entry");
     }
 }

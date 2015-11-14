@@ -6,4 +6,6 @@
 
     <color name="colorBackground">#e0e0e0</color>
     <color name="textWhite">#FFFFFF</color>
+
+    <color name="transBlack">#00000000</color>
 </resources>

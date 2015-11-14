@@ -1,0 +1,57 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context="com.izor066.android.mediatracker.ui.fragment.AddBookDialogFragment">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/fr_add_a_new_entry"
+        android:text="@string/add_new_entry_text"
+        android:padding="22dp"
+        android:textSize="@dimen/abc_text_size_medium_material"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ll_new_entry_buttons_wrapper"
+        android:orientation="vertical"
+        android:layout_gravity="right|bottom"
+        android:layout_margin="14dp">
+
+        <Button
+            android:id="@+id/bt_add_manually"
+            style="@style/Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Manually"
+            android:textSize="@dimen/abc_text_size_button_material"
+            android:layout_gravity="end"
+            android:textAlignment="textEnd"
+            android:textAllCaps="true"/>
+        <Button
+            android:id="@+id/bt_search_goodreads"
+            style="@style/Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Search GoodReads"
+            android:textSize="@dimen/abc_text_size_button_material"
+            android:layout_gravity="end"
+            android:textAlignment="textEnd"
+            android:textAllCaps="true"/>
+        <Button
+            android:id="@+id/bt_add_book_cancel"
+            style="@style/Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:textSize="@dimen/abc_text_size_button_material"
+            android:layout_gravity="end"
+            android:textAlignment="textEnd"
+            android:textAllCaps="true"/>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -20,8 +20,8 @@ import com.squareup.picasso.Picasso;
  */
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemAdapterViewHolder>  {
 
-    public static interface OnBookClickListener {
-        public void onBookClick(Book book);
+    public interface OnBookClickListener {
+         void onBookClick(Book book);
     }
     
     private final OnBookClickListener listener;
