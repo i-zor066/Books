@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item android:title="Sections">
+            <menu>
+                <item
+                    android:id="@+id/nav_books"
+                    android:icon="@drawable/ic_book_black"
+                    android:title="Books" />
+                <item
+                    android:id="@+id/nav_tv_series"
+                    android:icon="@drawable/ic_media_black"
+                    android:title="TV Series" />
+            </menu>
+        </item>
+
+        <item android:title="Tags">
+            <menu>
+                <item
+                    android:id="@+id/nav_under_construction"
+                    android:icon="@android:drawable/stat_notify_error"
+                    android:title="Under construction" />
+            </menu>
+        </item>
+    </group>
+
+</menu>
