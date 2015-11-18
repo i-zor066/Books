@@ -1,10 +1,13 @@
 package com.izor066.android.mediatracker.ui.fragment;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.widget.DatePicker;
+
+import com.izor066.android.mediatracker.ui.UIUtils;
 
 import java.util.Calendar;
 
@@ -12,6 +15,12 @@ import java.util.Calendar;
  * Created by igor on 14/11/15.
  */
 public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+
+    public interface OnDatePubSetListener {
+        public void onDatePubSet (int datePub);
+    }
+
+    OnDatePubSetListener onDatePubSetListener;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -26,6 +35,15 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
     }
 
     public void onDateSet(DatePicker view, int year, int month, int day) {
-        // Do something with the date chosen by the user
+        int datePub = UIUtils.componentTimeToTimestamp(year, month, day);
+        onDatePubSetListener.onDatePubSet(datePub);
+
+
+    }
+
+    @Override
+    public void onAttach(Activity a) {
+        super.onAttach(a);
+        onDatePubSetListener = (OnDatePubSetListener) a;
     }
 }

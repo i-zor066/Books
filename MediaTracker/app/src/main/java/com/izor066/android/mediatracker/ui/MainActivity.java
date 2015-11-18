@@ -135,4 +135,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         AddBookDialogFragment addBookDialogFragment = new AddBookDialogFragment();
         addBookDialogFragment.show(fragmentManager, "New Entry");
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        itemAdapter.notifyDataSetChanged();
+    }
 }

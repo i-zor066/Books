@@ -23,6 +23,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/et_add_new_title"
+            android:inputType="text"
+            android:imeOptions="actionDone"
             android:textSize="@dimen/abc_text_size_medium_material"/>
 
         <TextView
@@ -37,6 +39,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/et_add_new_author"
+            android:inputType="text"
+            android:imeOptions="actionDone"
             android:textSize="@dimen/abc_text_size_medium_material"/>
 
         <TextView
@@ -74,6 +78,7 @@
             android:lines="10"
             android:minLines="6"
             android:gravity="top|left"
+            android:imeOptions="actionDone"
             android:maxLines="25"
             android:scrollbars="vertical" />
 
@@ -89,7 +94,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/et_add_cover"
-            android:textSize="@dimen/abc_text_size_medium_material"
+            android:textSize="@dimen/abc_text_size_small_material"
+            android:inputType="textUri"
+            android:imeOptions="actionDone"
             android:hint="Paste URL"/>
 
         <LinearLayout
@@ -101,7 +108,7 @@
             android:layout_marginTop="10dp">
 
             <Button
-                android:id="@+id/bt_add_book_cancel"
+                android:id="@+id/btn_add_book_cancel"
                 style="@style/Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -112,7 +119,7 @@
                 android:textAllCaps="true"/>
 
             <Button
-                android:id="@+id/bt_search_goodreads"
+                android:id="@+id/btn_add_book_submit"
                 style="@style/Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
