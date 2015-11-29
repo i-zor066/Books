@@ -10,10 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.izor066.android.mediatracker.R;
 import com.izor066.android.mediatracker.ui.AddNewEntryManually;
+import com.izor066.android.mediatracker.ui.SearchGoogleBooks;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -66,7 +66,10 @@ public class AddBookDialogFragment extends DialogFragment implements Button.OnCl
             Intent intent = new Intent(getActivity(), AddNewEntryManually.class);
             this.startActivity(intent);
         } else if (v == v.findViewById(R.id.bt_search_goodreads)) {
-            Toast.makeText(getActivity(), "Search GoodReads", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity(), "Search GoodReads", Toast.LENGTH_SHORT).show();
+            dismiss();
+            Intent intent = new Intent(getActivity(), SearchGoogleBooks.class);
+            this.startActivity(intent);
         } else {
             dismiss();
         }
