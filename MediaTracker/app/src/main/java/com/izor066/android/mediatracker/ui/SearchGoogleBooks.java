@@ -1,7 +1,9 @@
 package com.izor066.android.mediatracker.ui;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,6 +12,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.api.services.books.model.Volumes;
+import com.izor066.android.mediatracker.GoogleBooks.Search;
 import com.izor066.android.mediatracker.R;
 
 public class SearchGoogleBooks extends AppCompatActivity implements TextView.OnEditorActionListener{
@@ -18,6 +22,7 @@ public class SearchGoogleBooks extends AppCompatActivity implements TextView.OnE
 
     private String searchString ="";
     EditText searchGoogleBooks;
+    private SearchTask task;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,9 +56,30 @@ public class SearchGoogleBooks extends AppCompatActivity implements TextView.OnE
         if (actionId == EditorInfo.IME_ACTION_SEARCH) {
             searchString = searchGoogleBooks.getText().toString();
             Toast.makeText(this, "Search for: " + searchString, Toast.LENGTH_SHORT).show();
+            task = new SearchTask();
+            task.execute(searchString);
             return true;
         }
         return false;
     }
-    
+
+    private class SearchTask extends AsyncTask<String, Void, Volumes> {
+
+        @Override
+        protected Volumes doInBackground(String... params) {
+            Log.v(TAG + "Search term", String.valueOf(params));
+            return Search.searchVolumes(params[0]);
+        }
+
+        @Override
+        protected void onPostExecute(Volumes searchListResponse) {
+            if (searchListResponse == null)
+                return;
+
+            Log.d(TAG, String.valueOf(searchListResponse));
+        }
+    }
+
+
+
 }
