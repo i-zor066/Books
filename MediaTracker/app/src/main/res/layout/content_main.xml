@@ -17,7 +17,7 @@
         android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/click_plus"
+        android:id="@+id/tv_click_plus"
         android:text="@string/click_plus_to_add"
         android:textSize="@dimen/abc_text_size_large_material"
         android:textColor="@color/textWhite"
@@ -26,4 +26,9 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"/>
     </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_activity_media_tracker"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </RelativeLayout>
