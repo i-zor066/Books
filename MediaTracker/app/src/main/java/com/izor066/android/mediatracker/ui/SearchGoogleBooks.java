@@ -26,11 +26,11 @@ import com.izor066.android.mediatracker.ui.adapter.SearchResultsAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchGoogleBooks extends AppCompatActivity implements TextView.OnEditorActionListener{
+public class SearchGoogleBooks extends AppCompatActivity implements TextView.OnEditorActionListener {
 
     String TAG = getClass().getSimpleName();
 
-    private String searchString ="";
+    private String searchString = "";
     EditText searchGoogleBooks;
     private SearchTask task;
     List<Book> resultsToAdd = new ArrayList<Book>();
@@ -106,26 +106,26 @@ public class SearchGoogleBooks extends AppCompatActivity implements TextView.OnE
 
             resultsToAdd.clear();
 
-           for (int i = 0; i < searchListResponse.getItems().size(); i++) {
-               Volume volume = searchListResponse.getItems().get(i);
+            for (int i = 0; i < searchListResponse.getItems().size(); i++) {
+                Volume volume = searchListResponse.getItems().get(i);
 
-               List<String> authors = volume.getVolumeInfo().getAuthors();
-               StringBuilder sb = new StringBuilder();
-               for (String author : authors) {
-                   sb.append(", " + author);
-               }
-               String authorsAll = sb.toString().replaceFirst(", ", "");
+                List<String> authors = volume.getVolumeInfo().getAuthors();
+                StringBuilder sb = new StringBuilder();
+                for (String author : authors) {
+                    sb.append(", " + author);
+                }
+                String authorsAll = sb.toString().replaceFirst(", ", "");
 
 
-               Book book = new Book(
-                       volume.getVolumeInfo().getTitle(),
-                       authorsAll,
-                       1439251200,
-                       volume.getVolumeInfo().getImageLinks().getThumbnail(),
-                       volume.getVolumeInfo().getDescription() );
+                Book book = new Book(
+                        volume.getVolumeInfo().getTitle(),
+                        authorsAll,
+                        1439251200, // ToDo: parse the date
+                        volume.getVolumeInfo().getImageLinks().getThumbnail(),
+                        volume.getVolumeInfo().getDescription());
 
-               resultsToAdd.add(book);
-           }
+                resultsToAdd.add(book);
+            }
 
             searchResultsAdapter.notifyDataSetChanged();
 
@@ -134,7 +134,6 @@ public class SearchGoogleBooks extends AppCompatActivity implements TextView.OnE
 
 
     }
-
 
 
 }
