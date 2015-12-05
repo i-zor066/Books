@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/rl_search_poi_wrapper"
+    android:padding="16dp"
+    android:orientation="horizontal">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rl_search_book_wrapper"
+        android:layout_weight="80">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fl_search_image_header">
+
+            <ProgressBar
+                android:id="@+id/pb_rss_item"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_gravity="center"
+                android:indeterminateOnly="true"
+                android:indeterminate="true" />
+
+            <ImageView
+                android:id="@+id/iv_search_img_placeholder"
+                android:layout_width="37dp"
+                android:layout_height="54dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:src="@drawable/ic_book_black"
+                android:scaleType="centerCrop"
+                android:layout_alignTop="@+id/tv_search_book_title"
+                android:layout_marginRight="15dp" />
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tv_search_book_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="The Caves of Steel (Robot Series #1) adding adding adding "
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/abc_text_size_medium_material"
+            android:layout_toRightOf="@id/fl_search_image_header"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="0dp"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"/>
+
+        <LinearLayout
+            android:id="@+id/ll_author_wrapper"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_toRightOf="@id/fl_search_image_header"
+            android:layout_below="@+id/tv_search_book_title">
+
+            <TextView
+                android:id="@+id/tv_search_book_by"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/by_author"
+                android:layout_marginRight="4dp"
+                android:textSize="@dimen/abc_text_size_small_material" />
+
+            <TextView
+                android:id="@+id/tv_search_book_author"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Isaac Asimov"
+                android:textSize="@dimen/abc_text_size_small_material" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rl_search_add_wrapper"
+        android:layout_weight="20">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ib_search_add"
+            android:src="@drawable/ic_add_black"
+            android:background="@color/transBlack" />
+    </RelativeLayout>
+
+
+</LinearLayout>

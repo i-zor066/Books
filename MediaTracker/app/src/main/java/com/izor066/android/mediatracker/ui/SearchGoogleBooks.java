@@ -3,6 +3,9 @@ package com.izor066.android.mediatracker.ui;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -14,7 +17,13 @@ import android.widget.Toast;
 
 import com.google.api.services.books.model.Volumes;
 import com.izor066.android.mediatracker.GoogleBooks.Search;
+import com.izor066.android.mediatracker.MediaTrackerApplication;
 import com.izor066.android.mediatracker.R;
+import com.izor066.android.mediatracker.api.model.Book;
+import com.izor066.android.mediatracker.ui.adapter.SearchResultsAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SearchGoogleBooks extends AppCompatActivity implements TextView.OnEditorActionListener{
 
@@ -23,6 +32,7 @@ public class SearchGoogleBooks extends AppCompatActivity implements TextView.OnE
     private String searchString ="";
     EditText searchGoogleBooks;
     private SearchTask task;
+    List<Book> resultsToAdd = new ArrayList<Book>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +44,20 @@ public class SearchGoogleBooks extends AppCompatActivity implements TextView.OnE
         searchGoogleBooks.setOnEditorActionListener(this);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        Book placeholderBook = MediaTrackerApplication.getSharedDataSource().getAllBooks().get(0);
+        resultsToAdd.add(placeholderBook);
+
+        SearchResultsAdapter searchResultsAdapter = new SearchResultsAdapter(resultsToAdd);
+
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_search_results);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        recyclerView.setAdapter(searchResultsAdapter);
+
+
     }
 
     @Override
@@ -77,6 +101,9 @@ public class SearchGoogleBooks extends AppCompatActivity implements TextView.OnE
                 return;
 
             Log.d(TAG, String.valueOf(searchListResponse));
+
+
+            //ToDo: Create a List<Books>, then update searchResultAdapter
         }
     }
 
