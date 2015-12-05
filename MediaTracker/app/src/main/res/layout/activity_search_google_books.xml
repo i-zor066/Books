@@ -17,6 +17,15 @@
         android:imeOptions="actionSearch"
         android:textSize="@dimen/abc_text_size_medium_material"/>
 
+    <ProgressBar
+        android:id="@+id/pb_search_books_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center"
+        android:indeterminateOnly="true"
+        android:indeterminate="true"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_search_results"
         android:layout_width="match_parent"

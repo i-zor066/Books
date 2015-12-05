@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +40,7 @@ public class SearchGoogleBooks extends AppCompatActivity implements TextView.OnE
     List<Book> resultsToAdd = new ArrayList<Book>();
     SearchResultsAdapter searchResultsAdapter;
     RecyclerView recyclerView;
+    ProgressBar pb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +66,9 @@ public class SearchGoogleBooks extends AppCompatActivity implements TextView.OnE
         recyclerView.setAdapter(searchResultsAdapter);
 
         recyclerView.setVisibility(View.GONE);
+
+        pb = (ProgressBar) findViewById(R.id.pb_search_books_item);
+        pb.setVisibility(View.GONE);
 
 
     }
@@ -111,6 +116,13 @@ public class SearchGoogleBooks extends AppCompatActivity implements TextView.OnE
     private class SearchTask extends AsyncTask<String, Void, Volumes> {
 
         @Override
+        protected void onPreExecute() {
+            resultsToAdd.clear();
+            searchResultsAdapter.notifyDataSetChanged();
+            pb.setVisibility(View.VISIBLE);
+        }
+
+        @Override
         protected Volumes doInBackground(String... params) {
             Log.v(TAG + "Search term", String.valueOf(params));
             return Search.searchVolumes(params[0]);
@@ -122,8 +134,7 @@ public class SearchGoogleBooks extends AppCompatActivity implements TextView.OnE
                 return;
 
             Log.d(TAG, String.valueOf(searchListResponse));
-
-            resultsToAdd.clear();
+            
 
             for (int i = 0; i < searchListResponse.getItems().size(); i++) {
                 Volume volume = searchListResponse.getItems().get(i);
@@ -145,6 +156,7 @@ public class SearchGoogleBooks extends AppCompatActivity implements TextView.OnE
 
                 resultsToAdd.add(book);
             }
+            pb.setVisibility(View.GONE);
 
             searchResultsAdapter.notifyDataSetChanged();
             recyclerView.setVisibility(View.VISIBLE);
