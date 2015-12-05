@@ -27,7 +27,10 @@ import com.izor066.android.mediatracker.R;
 import com.izor066.android.mediatracker.api.model.Book;
 import com.izor066.android.mediatracker.ui.adapter.SearchResultsAdapter;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class SearchGoogleBooks extends AppCompatActivity implements TextView.OnEditorActionListener, SearchResultsAdapter.OnResultClickListener {
@@ -42,6 +45,8 @@ public class SearchGoogleBooks extends AppCompatActivity implements TextView.OnE
     SearchResultsAdapter searchResultsAdapter;
     RecyclerView recyclerView;
     ProgressBar pb;
+
+    SimpleDateFormat simpleDateformat = new SimpleDateFormat("yyyy-MM-dd");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,11 +136,18 @@ public class SearchGoogleBooks extends AppCompatActivity implements TextView.OnE
 
         @Override
         protected void onPostExecute(Volumes searchListResponse) {
-            if (searchListResponse == null)
+            if (searchListResponse == null) {
+                pb.setVisibility(View.GONE);
                 return;
+            }
 
             Log.d(TAG, String.valueOf(searchListResponse));
+            
 
+            if (searchListResponse.getItems() == null) {
+                pb.setVisibility(View.GONE);
+                return;
+            }
 
             for (int i = 0; i < searchListResponse.getItems().size(); i++) {
                 Volume volume = searchListResponse.getItems().get(i);
@@ -155,11 +167,25 @@ public class SearchGoogleBooks extends AppCompatActivity implements TextView.OnE
                     thumbnail = volume.getVolumeInfo().getImageLinks().getThumbnail();
                 }
 
+                String dateString = volume.getVolumeInfo().getPublishedDate();
+                Log.e(TAG, "Date: " + dateString);
+
+
+                Date date = new Date();
+                if (dateString!=null) {
+
+                    try {
+                        date = simpleDateformat.parse(dateString);
+                    } catch (ParseException e) {
+                        Log.e(TAG, "Cannot parse date: " + dateString);
+                    }
+                }
+
 
                 Book book = new Book(
                         volume.getVolumeInfo().getTitle(),
                         authorsAll,
-                        1439251200, // ToDo: parse the date
+                        date.getTime(),
                         thumbnail,
                         volume.getVolumeInfo().getDescription());
 
