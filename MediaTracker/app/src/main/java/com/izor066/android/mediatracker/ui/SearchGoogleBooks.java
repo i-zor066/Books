@@ -1,5 +1,6 @@
 package com.izor066.android.mediatracker.ui;
 
+import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,7 +11,9 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,7 +29,7 @@ import com.izor066.android.mediatracker.ui.adapter.SearchResultsAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchGoogleBooks extends AppCompatActivity implements TextView.OnEditorActionListener {
+public class SearchGoogleBooks extends AppCompatActivity implements TextView.OnEditorActionListener, SearchResultsAdapter.OnResultClickListener {
 
     String TAG = getClass().getSimpleName();
 
@@ -35,6 +38,7 @@ public class SearchGoogleBooks extends AppCompatActivity implements TextView.OnE
     private SearchTask task;
     List<Book> resultsToAdd = new ArrayList<Book>();
     SearchResultsAdapter searchResultsAdapter;
+    RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,14 +54,16 @@ public class SearchGoogleBooks extends AppCompatActivity implements TextView.OnE
         Book placeholderBook = MediaTrackerApplication.getSharedDataSource().getAllBooks().get(0);
         resultsToAdd.add(placeholderBook);
 
-        searchResultsAdapter = new SearchResultsAdapter(resultsToAdd);
+        searchResultsAdapter = new SearchResultsAdapter(resultsToAdd, this);
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_search_results);
+        recyclerView = (RecyclerView) findViewById(R.id.rv_search_results);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         recyclerView.setAdapter(searchResultsAdapter);
+
+        recyclerView.setVisibility(View.GONE);
 
 
     }
@@ -84,9 +90,22 @@ public class SearchGoogleBooks extends AppCompatActivity implements TextView.OnE
             Toast.makeText(this, "Search for: " + searchString, Toast.LENGTH_SHORT).show();
             task = new SearchTask();
             task.execute(searchString);
+            InputMethodManager inputMethodManager = (InputMethodManager)  this.getSystemService(Activity.INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void onResultClick(Book book) {
+        Toast.makeText(this, "View details for: " + book.getTitle(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onResultAddClick(Book book) {
+        Toast.makeText(this, "Added entry: " + book.getTitle(), Toast.LENGTH_SHORT).show();
+        MediaTrackerApplication.getSharedDataSource().insertBookToDatabase(book);
     }
 
     private class SearchTask extends AsyncTask<String, Void, Volumes> {
@@ -121,13 +140,14 @@ public class SearchGoogleBooks extends AppCompatActivity implements TextView.OnE
                         volume.getVolumeInfo().getTitle(),
                         authorsAll,
                         1439251200, // ToDo: parse the date
-                        volume.getVolumeInfo().getImageLinks().getThumbnail(),
+                        volume.getVolumeInfo().getImageLinks().getThumbnail(), // ToDo; account for the possibility of thumbnail being null
                         volume.getVolumeInfo().getDescription());
 
                 resultsToAdd.add(book);
             }
 
             searchResultsAdapter.notifyDataSetChanged();
+            recyclerView.setVisibility(View.VISIBLE);
 
 
         }

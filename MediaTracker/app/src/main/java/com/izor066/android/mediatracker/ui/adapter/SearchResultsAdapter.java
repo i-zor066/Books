@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.izor066.android.mediatracker.R;
 import com.izor066.android.mediatracker.api.model.Book;
@@ -22,10 +21,18 @@ import java.util.List;
  */
 public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdapter.SearchResultsViewHolder>  {
 
+    public interface OnResultClickListener {
+        void onResultClick(Book book);
+        void onResultAddClick (Book book);
+    }
+
+    private final OnResultClickListener listener;
+
     public List<Book> mResultList = new ArrayList<>();
 
-    public SearchResultsAdapter(List<Book> searchResultList) {
+    public SearchResultsAdapter(List<Book> searchResultList, OnResultClickListener listener) {
         mResultList = searchResultList;
+        this.listener = listener;
     }
 
     @Override
@@ -36,7 +43,7 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
 
     @Override
     public void onBindViewHolder(SearchResultsViewHolder searchResultsViewHolder, int i) {
-        searchResultsViewHolder.update(mResultList.get(i));
+        searchResultsViewHolder.update(mResultList.get(i), listener);
     }
 
     @Override
@@ -51,6 +58,7 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
         TextView bookAuthor;
         ImageButton addBook;
         Book book;
+        OnResultClickListener listener;
 
 
         public SearchResultsViewHolder(View itemView) {
@@ -60,12 +68,14 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
             bookAuthor = (TextView) itemView.findViewById(R.id.tv_search_book_author);
             addBook = (ImageButton) itemView.findViewById(R.id.ib_search_add);
             addBook.setOnClickListener(this);
+            itemView.setOnClickListener(this);
         }
 
-        void update(Book book) {
+        void update(Book book, OnResultClickListener listener) {
             this.book = book;
             bookTitle.setText(book.getTitle());
             bookAuthor.setText(book.getAuthor());
+            this.listener = listener;
 
             Context context = bookCover.getContext();
 
@@ -77,7 +87,13 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
 
         @Override
         public void onClick(View v) {
-            Toast.makeText(itemView.getContext(), book.getTitle(), Toast.LENGTH_SHORT).show();
+           // Toast.makeText(itemView.getContext(), book.getTitle(), Toast.LENGTH_SHORT).show();
+
+            if (v.getId() == R.id.ib_search_add) {
+                listener.onResultAddClick(book);
+            } else {
+                listener.onResultClick(book);
+            }
         }
     }
 
