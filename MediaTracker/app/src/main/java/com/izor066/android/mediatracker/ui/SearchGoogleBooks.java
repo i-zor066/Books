@@ -35,6 +35,7 @@ public class SearchGoogleBooks extends AppCompatActivity implements TextView.OnE
     String TAG = getClass().getSimpleName();
 
     private String searchString = "";
+    private final String IMAGE_PLACEHOLDER = "https://s.gr-assets.com/assets/nophoto/book/blank-133x176-8b769f39ba6687a82d2eef30bdf46977.jpg";
     EditText searchGoogleBooks;
     private SearchTask task;
     List<Book> resultsToAdd = new ArrayList<Book>();
@@ -134,7 +135,7 @@ public class SearchGoogleBooks extends AppCompatActivity implements TextView.OnE
                 return;
 
             Log.d(TAG, String.valueOf(searchListResponse));
-            
+
 
             for (int i = 0; i < searchListResponse.getItems().size(); i++) {
                 Volume volume = searchListResponse.getItems().get(i);
@@ -146,12 +147,20 @@ public class SearchGoogleBooks extends AppCompatActivity implements TextView.OnE
                 }
                 String authorsAll = sb.toString().replaceFirst(", ", "");
 
+                String thumbnail;
+
+                if (volume.getVolumeInfo().getImageLinks() == null) {
+                    thumbnail = IMAGE_PLACEHOLDER;
+                } else {
+                    thumbnail = volume.getVolumeInfo().getImageLinks().getThumbnail();
+                }
+
 
                 Book book = new Book(
                         volume.getVolumeInfo().getTitle(),
                         authorsAll,
                         1439251200, // ToDo: parse the date
-                        volume.getVolumeInfo().getImageLinks().getThumbnail(), // ToDo; account for the possibility of thumbnail being null
+                        thumbnail,
                         volume.getVolumeInfo().getDescription());
 
                 resultsToAdd.add(book);
