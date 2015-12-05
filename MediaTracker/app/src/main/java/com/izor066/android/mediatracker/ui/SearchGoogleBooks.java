@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.api.services.books.model.Volume;
 import com.google.api.services.books.model.Volumes;
 import com.izor066.android.mediatracker.GoogleBooks.Search;
 import com.izor066.android.mediatracker.MediaTrackerApplication;
@@ -33,6 +34,7 @@ public class SearchGoogleBooks extends AppCompatActivity implements TextView.OnE
     EditText searchGoogleBooks;
     private SearchTask task;
     List<Book> resultsToAdd = new ArrayList<Book>();
+    SearchResultsAdapter searchResultsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +50,7 @@ public class SearchGoogleBooks extends AppCompatActivity implements TextView.OnE
         Book placeholderBook = MediaTrackerApplication.getSharedDataSource().getAllBooks().get(0);
         resultsToAdd.add(placeholderBook);
 
-        SearchResultsAdapter searchResultsAdapter = new SearchResultsAdapter(resultsToAdd);
+        searchResultsAdapter = new SearchResultsAdapter(resultsToAdd);
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_search_results);
 
@@ -102,9 +104,35 @@ public class SearchGoogleBooks extends AppCompatActivity implements TextView.OnE
 
             Log.d(TAG, String.valueOf(searchListResponse));
 
+            resultsToAdd.clear();
 
-            //ToDo: Create a List<Books>, then update searchResultAdapter
+           for (int i = 0; i < searchListResponse.getItems().size(); i++) {
+               Volume volume = searchListResponse.getItems().get(i);
+
+               List<String> authors = volume.getVolumeInfo().getAuthors();
+               StringBuilder sb = new StringBuilder();
+               for (String author : authors) {
+                   sb.append(", " + author);
+               }
+               String authorsAll = sb.toString().replaceFirst(", ", "");
+
+
+               Book book = new Book(
+                       volume.getVolumeInfo().getTitle(),
+                       authorsAll,
+                       1439251200,
+                       volume.getVolumeInfo().getImageLinks().getThumbnail(),
+                       volume.getVolumeInfo().getDescription() );
+
+               resultsToAdd.add(book);
+           }
+
+            searchResultsAdapter.notifyDataSetChanged();
+
+
         }
+
+
     }
 
 
