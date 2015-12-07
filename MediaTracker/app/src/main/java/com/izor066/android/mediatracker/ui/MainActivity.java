@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onBookClick(Book book) {
-        Toast.makeText(this, book.getTitle(), Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this, book.getTitle(), Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, BookDetails.class);
         String id = "Edit";
         intent.putExtra("Book", book);

@@ -26,7 +26,7 @@ public class BookDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_details);
 
-        // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         title = (TextView) findViewById(R.id.tv_book_details_title);
         author = (TextView) findViewById(R.id.tv_book_details_author);
@@ -51,6 +51,17 @@ public class BookDetails extends AppCompatActivity {
 //           ...
 //        } ToDo: ReUse activity for use in seeing the details of search results
 
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
+
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//            case android.R.id.home:
+//                NavUtils.navigateUpFromSameTask(this);
+//                return true;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 }

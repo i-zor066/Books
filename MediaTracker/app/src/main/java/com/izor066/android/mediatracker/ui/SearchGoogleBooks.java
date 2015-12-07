@@ -1,6 +1,7 @@
 package com.izor066.android.mediatracker.ui;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -111,6 +112,11 @@ public class SearchGoogleBooks extends AppCompatActivity implements TextView.OnE
     @Override
     public void onResultClick(Book book) {
         Toast.makeText(this, "View details for: " + book.getTitle(), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, BookDetails.class);
+        String id = "Add";
+        intent.putExtra("Book", book);
+        intent.putExtra("id", id);
+        this.startActivity(intent);
     }
 
     @Override
