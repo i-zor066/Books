@@ -176,7 +176,7 @@
 
 
         <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_book_details"
+            android:id="@+id/fab_book_details_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
@@ -186,6 +186,20 @@
             app:layout_anchor="@id/viewTwo"
             app:layout_anchorGravity="bottom|right|end"
             app:rippleColor="#FFF" />
+
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_book_details_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:clickable="true"
+            app:backgroundTint="@color/colorAccent"
+            android:src="@drawable/ic_edit_white"
+            app:layout_anchor="@id/viewTwo"
+            app:layout_anchorGravity="bottom|right|end"
+            app:rippleColor="#FFF" />
+
 
     </android.support.design.widget.CoordinatorLayout>
 

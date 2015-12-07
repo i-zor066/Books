@@ -2,15 +2,21 @@ package com.izor066.android.mediatracker.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.izor066.android.mediatracker.R;
 import com.izor066.android.mediatracker.api.model.Book;
 import com.squareup.picasso.Picasso;
 
-public class BookDetails extends AppCompatActivity {
+public class BookDetails extends AppCompatActivity implements View.OnClickListener {
+
+    String TAG = getClass().getSimpleName();
 
     Book book;
 
@@ -19,6 +25,8 @@ public class BookDetails extends AppCompatActivity {
     ImageView cover;
     TextView tags;
     TextView synopsis;
+    FloatingActionButton fabAdd;
+    FloatingActionButton fabEdit;
 
 
     @Override
@@ -45,23 +53,34 @@ public class BookDetails extends AppCompatActivity {
                 .load(book.getCoverImgUri())
                 .into(cover);
 
-//        String id = intent.getStringExtra("id");
-//
-//        if (id == "Edit") {
-//           ...
-//        } ToDo: ReUse activity for use in seeing the details of search results
+        String id = intent.getStringExtra("id");
+
+        fabAdd = (FloatingActionButton) findViewById(R.id.fab_book_details_add);
+        fabAdd.setOnClickListener(this);
+
+        fabEdit = (FloatingActionButton) findViewById(R.id.fab_book_details_edit);
+        fabEdit.setOnClickListener(this);
+
+
+        if (id == "Edit") {
+            fabAdd.setVisibility(View.GONE);
+            Log.e(TAG, id);
+         } else {
+            fabEdit.setVisibility(View.GONE);
+            Log.e(TAG, id);
+        }
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
     }
 
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case android.R.id.home:
-//                NavUtils.navigateUpFromSameTask(this);
-//                return true;
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.fab_book_details_add) {
+            Toast.makeText(this, "Add the book: " + book.getTitle(), Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Edit details of the book: " + book.getTitle(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }
