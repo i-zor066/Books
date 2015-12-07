@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.izor066.android.mediatracker" >
+    package="com.izor066.android.mediatracker">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -11,12 +11,12 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".ui.MainActivity"
             android:label="@string/section_name_books"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,10 +26,15 @@
         <activity
             android:name=".ui.AddNewEntryManually"
             android:label="@string/add_new_entry_man_activity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".ui.SearchGoogleBooks"
+        <activity
+            android:name=".ui.SearchGoogleBooks"
             android:label="@string/search_google_books_string"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".ui.BookDetails"
+            android:label="Book Details"
             android:screenOrientation="portrait">
         </activity>
     </application>
