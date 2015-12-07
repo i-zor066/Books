@@ -142,7 +142,7 @@ public class SearchGoogleBooks extends AppCompatActivity implements TextView.OnE
             }
 
             Log.d(TAG, String.valueOf(searchListResponse));
-            
+
 
             if (searchListResponse.getItems() == null) {
                 pb.setVisibility(View.GONE);

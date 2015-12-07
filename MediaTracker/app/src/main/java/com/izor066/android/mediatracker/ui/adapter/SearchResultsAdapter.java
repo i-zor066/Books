@@ -51,7 +51,7 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdap
         return mResultList.size();
     }
 
-    class SearchResultsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    static class SearchResultsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView bookCover;
         TextView bookTitle;
