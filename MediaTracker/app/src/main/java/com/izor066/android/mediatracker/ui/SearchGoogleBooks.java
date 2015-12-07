@@ -112,10 +112,8 @@ public class SearchGoogleBooks extends AppCompatActivity implements TextView.OnE
     @Override
     public void onResultClick(Book book) {
         Toast.makeText(this, "View details for: " + book.getTitle(), Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, BookDetails.class);
-        String id = "Add";
+        Intent intent = new Intent(this, SearchResultDetails.class);
         intent.putExtra("Book", book);
-        intent.putExtra("id", id);
         this.startActivity(intent);
     }
 

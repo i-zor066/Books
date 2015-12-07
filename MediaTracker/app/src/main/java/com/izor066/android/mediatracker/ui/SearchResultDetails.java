@@ -13,7 +13,7 @@ import com.izor066.android.mediatracker.R;
 import com.izor066.android.mediatracker.api.model.Book;
 import com.squareup.picasso.Picasso;
 
-public class BookDetails extends AppCompatActivity implements View.OnClickListener {
+public class SearchResultDetails extends AppCompatActivity implements View.OnClickListener {
 
     String TAG = getClass().getSimpleName();
 
@@ -22,22 +22,20 @@ public class BookDetails extends AppCompatActivity implements View.OnClickListen
     TextView title;
     TextView author;
     ImageView cover;
-    TextView tags;
     TextView synopsis;
-    FloatingActionButton fabEdit;
+    FloatingActionButton fabAdd;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_book_details);
+        setContentView(R.layout.activity_search_result_details);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         title = (TextView) findViewById(R.id.tv_book_details_title);
         author = (TextView) findViewById(R.id.tv_book_details_author);
         cover = (ImageView) findViewById(R.id.iv_img_details_placeholder);
-        tags = (TextView) findViewById(R.id.tv_details_tags);
         synopsis = (TextView) findViewById(R.id.tv_details_synopsis);
 
         Intent intent = getIntent();
@@ -52,8 +50,8 @@ public class BookDetails extends AppCompatActivity implements View.OnClickListen
                 .into(cover);
 
 
-        fabEdit = (FloatingActionButton) findViewById(R.id.fab_book_details_edit);
-        fabEdit.setOnClickListener(this);
+        fabAdd = (FloatingActionButton) findViewById(R.id.fab_book_details_add);
+        fabAdd.setOnClickListener(this);
 
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -62,8 +60,7 @@ public class BookDetails extends AppCompatActivity implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
-        Toast.makeText(this, "Edit details of the book: " + book.getTitle(), Toast.LENGTH_SHORT).show();
-
+            Toast.makeText(this, "Add the book: " + book.getTitle(), Toast.LENGTH_SHORT).show();
     }
 
 }
