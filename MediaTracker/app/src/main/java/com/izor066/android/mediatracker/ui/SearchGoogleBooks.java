@@ -40,6 +40,7 @@ public class SearchGoogleBooks extends AppCompatActivity implements TextView.OnE
 
     private String searchString = "";
     private final String IMAGE_PLACEHOLDER = "https://s.gr-assets.com/assets/nophoto/book/blank-133x176-8b769f39ba6687a82d2eef30bdf46977.jpg";
+    private final String AUTHOR_PLACEHOLDER = "Anonymous";
     EditText searchGoogleBooks;
     private SearchTask task;
     List<Book> resultsToAdd = new ArrayList<Book>();
@@ -156,12 +157,19 @@ public class SearchGoogleBooks extends AppCompatActivity implements TextView.OnE
             for (int i = 0; i < searchListResponse.getItems().size(); i++) {
                 Volume volume = searchListResponse.getItems().get(i);
 
+                String authorsAll;
+
+                if (volume.getVolumeInfo().getAuthors() == null) {
+                   authorsAll = AUTHOR_PLACEHOLDER;
+                } else {
+
                 List<String> authors = volume.getVolumeInfo().getAuthors();
                 StringBuilder sb = new StringBuilder();
                 for (String author : authors) {
                     sb.append(", " + author);
                 }
-                String authorsAll = sb.toString().replaceFirst(", ", "");
+                authorsAll = sb.toString().replaceFirst(", ", "");
+                }
 
                 String thumbnail;
 
