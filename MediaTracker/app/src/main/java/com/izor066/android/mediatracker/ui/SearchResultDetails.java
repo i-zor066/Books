@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.izor066.android.mediatracker.MediaTrackerApplication;
 import com.izor066.android.mediatracker.R;
 import com.izor066.android.mediatracker.api.model.Book;
 import com.squareup.picasso.Picasso;
@@ -60,7 +61,9 @@ public class SearchResultDetails extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onClick(View v) {
-            Toast.makeText(this, "Add the book: " + book.getTitle(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Added entry: " + book.getTitle(), Toast.LENGTH_SHORT).show();
+        MediaTrackerApplication.getSharedDataSource().insertBookToDatabase(book);
+        finish();
     }
 
 }
