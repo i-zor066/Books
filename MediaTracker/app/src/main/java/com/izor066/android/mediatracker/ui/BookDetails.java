@@ -13,6 +13,9 @@ import com.izor066.android.mediatracker.R;
 import com.izor066.android.mediatracker.api.model.Book;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class BookDetails extends AppCompatActivity implements View.OnClickListener {
 
     private final String TAG = getClass().getSimpleName();
@@ -25,6 +28,7 @@ public class BookDetails extends AppCompatActivity implements View.OnClickListen
     private TextView tags;
     private TextView synopsis;
     private FloatingActionButton fabEdit;
+    private TextView datePublished;
 
 
     @Override
@@ -39,6 +43,7 @@ public class BookDetails extends AppCompatActivity implements View.OnClickListen
         cover = (ImageView) findViewById(R.id.iv_img_details_placeholder);
         tags = (TextView) findViewById(R.id.tv_details_tags);
         synopsis = (TextView) findViewById(R.id.tv_details_synopsis);
+        datePublished = (TextView) findViewById(R.id.tv_details_date_published);
 
         Intent intent = getIntent();
         book = intent.getParcelableExtra("Book");
@@ -50,6 +55,13 @@ public class BookDetails extends AppCompatActivity implements View.OnClickListen
         Picasso.with(this)
                 .load(book.getCoverImgUri())
                 .into(cover);
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("d MMMM, y");
+        String datePub = "Unknown";
+        Date date = new Date(book.getDatePublished());
+        datePub = simpleDateFormat.format(date);
+
+        datePublished.setText(datePub);
 
 
         fabEdit = (FloatingActionButton) findViewById(R.id.fab_book_details_edit);
