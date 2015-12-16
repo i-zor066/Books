@@ -14,7 +14,7 @@ public class Book implements Parcelable {
     private final long datePublished;
     private final String coverImgUri;
     private final String synopsis;
-    //ToDo: Add cover image
+
 
     public Book(String title, String author, long datePublished, String coverImgUri, String synopsis) {
         this.title = title;
