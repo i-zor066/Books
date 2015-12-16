@@ -125,7 +125,9 @@ public class SearchGoogleBooks extends AppCompatActivity implements TextView.OnE
         private final SearchResultsAdapter searchResultsAdapter;
         private final ProgressBar pb;
         private final RecyclerView recyclerView;
-        private final SimpleDateFormat simpleDateformat = new SimpleDateFormat("yyyy-MM-dd");
+        private final SimpleDateFormat simpleDateformatComplete = new SimpleDateFormat("yyyy-MM-dd");
+        private final SimpleDateFormat simpleDateFormatYm = new SimpleDateFormat("yyyy-MM");
+        private final SimpleDateFormat simpleDateFormatY = new SimpleDateFormat("yyyy");
         private final String IMAGE_PLACEHOLDER = "https://s.gr-assets.com/assets/nophoto/book/blank-133x176-8b769f39ba6687a82d2eef30bdf46977.jpg";
         private final String AUTHOR_PLACEHOLDER = "Anonymous";
 
@@ -199,9 +201,19 @@ public class SearchGoogleBooks extends AppCompatActivity implements TextView.OnE
                 if (dateString!=null) {
 
                     try {
-                        date = simpleDateformat.parse(dateString);
+                        date = simpleDateformatComplete.parse(dateString);
                     } catch (ParseException e) {
-                        Log.e(TAG, "Cannot parse date: " + dateString);
+                        Log.e(TAG, "Could not parse: " + dateString + ", switching to yyyy-MM format.");
+                        try {
+                            date = simpleDateFormatYm.parse(dateString);
+                        } catch (ParseException f) {
+                            Log.e(TAG, "Could not parse: " + dateString + ", switching to yyyy format.");
+                            try {
+                                date = simpleDateFormatY.parse(dateString);
+                            } catch (ParseException g) {
+                                Log.e(TAG, "Could not parse: " + dateString + ". Human sacrifice, dogs and cats living together, mass hysteria.");
+                            }
+                        }
                     }
                 }
 
