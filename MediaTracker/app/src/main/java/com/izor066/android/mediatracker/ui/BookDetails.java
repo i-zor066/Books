@@ -15,16 +15,16 @@ import com.squareup.picasso.Picasso;
 
 public class BookDetails extends AppCompatActivity implements View.OnClickListener {
 
-    String TAG = getClass().getSimpleName();
+    private final String TAG = getClass().getSimpleName();
 
-    Book book;
+    private Book book;
 
-    TextView title;
-    TextView author;
-    ImageView cover;
-    TextView tags;
-    TextView synopsis;
-    FloatingActionButton fabEdit;
+    private TextView title;
+    private TextView author;
+    private ImageView cover;
+    private TextView tags;
+    private TextView synopsis;
+    private FloatingActionButton fabEdit;
 
 
     @Override

@@ -16,15 +16,15 @@ import com.squareup.picasso.Picasso;
 
 public class SearchResultDetails extends AppCompatActivity implements View.OnClickListener {
 
-    String TAG = getClass().getSimpleName();
+    private final String TAG = getClass().getSimpleName();
 
-    Book book;
+    private Book book;
 
-    TextView title;
-    TextView author;
-    ImageView cover;
-    TextView synopsis;
-    FloatingActionButton fabAdd;
+    private TextView title;
+    private TextView author;
+    private ImageView cover;
+    private TextView synopsis;
+    private FloatingActionButton fabAdd;
 
 
     @Override

@@ -36,19 +36,15 @@ import java.util.List;
 
 public class SearchGoogleBooks extends AppCompatActivity implements TextView.OnEditorActionListener, SearchResultsAdapter.OnResultClickListener {
 
-    String TAG = getClass().getSimpleName();
+    private final String TAG = getClass().getSimpleName();
 
     private String searchString = "";
-    private final String IMAGE_PLACEHOLDER = "https://s.gr-assets.com/assets/nophoto/book/blank-133x176-8b769f39ba6687a82d2eef30bdf46977.jpg";
-    private final String AUTHOR_PLACEHOLDER = "Anonymous";
-    EditText searchGoogleBooks;
-    private SearchTask task;
-    List<Book> resultsToAdd = new ArrayList<Book>();
-    SearchResultsAdapter searchResultsAdapter;
-    RecyclerView recyclerView;
-    ProgressBar pb;
+    private EditText searchGoogleBooks;
+    private List<Book> resultsToAdd = new ArrayList<Book>();
+    private SearchResultsAdapter searchResultsAdapter;
+    private RecyclerView recyclerView;
+    private ProgressBar pb;
 
-    SimpleDateFormat simpleDateformat = new SimpleDateFormat("yyyy-MM-dd");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +97,7 @@ public class SearchGoogleBooks extends AppCompatActivity implements TextView.OnE
         if (actionId == EditorInfo.IME_ACTION_SEARCH) {
             searchString = searchGoogleBooks.getText().toString();
             Toast.makeText(this, "Search for: " + searchString, Toast.LENGTH_SHORT).show();
-            task = new SearchTask();
+            SearchTask task = new SearchTask(resultsToAdd, searchResultsAdapter, pb, recyclerView);
             task.execute(searchString);
             InputMethodManager inputMethodManager = (InputMethodManager)  this.getSystemService(Activity.INPUT_METHOD_SERVICE);
             inputMethodManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
@@ -124,7 +120,23 @@ public class SearchGoogleBooks extends AppCompatActivity implements TextView.OnE
         MediaTrackerApplication.getSharedDataSource().insertBookToDatabase(book);
     }
 
-    private class SearchTask extends AsyncTask<String, Void, Volumes> {
+    private static class SearchTask extends AsyncTask<String, Void, Volumes> {
+        private final List<Book> resultsToAdd;
+        private final SearchResultsAdapter searchResultsAdapter;
+        private final ProgressBar pb;
+        private final RecyclerView recyclerView;
+        private final SimpleDateFormat simpleDateformat = new SimpleDateFormat("yyyy-MM-dd");
+        private final String IMAGE_PLACEHOLDER = "https://s.gr-assets.com/assets/nophoto/book/blank-133x176-8b769f39ba6687a82d2eef30bdf46977.jpg";
+        private final String AUTHOR_PLACEHOLDER = "Anonymous";
+
+        private final String TAG = getClass().getSimpleName();
+
+        public SearchTask(List<Book> resultsToAdd, SearchResultsAdapter searchResultsAdapter, ProgressBar pb, RecyclerView recyclerView) {
+            this.resultsToAdd = resultsToAdd;
+            this.searchResultsAdapter = searchResultsAdapter;
+            this.pb = pb;
+            this.recyclerView = recyclerView;
+        }
 
         @Override
         protected void onPreExecute() {
