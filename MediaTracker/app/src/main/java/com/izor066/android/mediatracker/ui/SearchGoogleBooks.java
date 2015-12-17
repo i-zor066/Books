@@ -217,13 +217,31 @@ public class SearchGoogleBooks extends AppCompatActivity implements TextView.OnE
                     }
                 }
 
+                String publisher = "Unknown";
+                if (volume.getVolumeInfo().getPublisher() != null) {
+                    publisher = volume.getVolumeInfo().getPublisher();
+                }
+
+                int pages = 0;
+                if (volume.getVolumeInfo().getPageCount() != null) {
+                    pages = volume.getVolumeInfo().getPageCount();
+                }
+
+                String description = "No description available";
+                if (volume.getVolumeInfo().getDescription() != null) {
+                    description = volume.getVolumeInfo().getDescription();
+                }
+
 
                 Book book = new Book(
                         volume.getVolumeInfo().getTitle(),
                         authorsAll,
                         date.getTime(),
                         thumbnail,
-                        volume.getVolumeInfo().getDescription());
+                        description,
+                        pages,
+                        publisher,
+                        System.currentTimeMillis());
 
                 resultsToAdd.add(book);
             }

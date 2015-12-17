@@ -29,6 +29,8 @@ public class BookDetails extends AppCompatActivity implements View.OnClickListen
     private TextView synopsis;
     private FloatingActionButton fabEdit;
     private TextView datePublished;
+    private TextView pages;
+    private TextView publisher;
 
 
     @Override
@@ -44,6 +46,8 @@ public class BookDetails extends AppCompatActivity implements View.OnClickListen
         tags = (TextView) findViewById(R.id.tv_details_tags);
         synopsis = (TextView) findViewById(R.id.tv_details_synopsis);
         datePublished = (TextView) findViewById(R.id.tv_details_date_published);
+        pages = (TextView) findViewById(R.id.tv_details_pages);
+        publisher = (TextView) findViewById(R.id.tv_details_publisher);
 
         Intent intent = getIntent();
         book = intent.getParcelableExtra("Book");
@@ -51,6 +55,8 @@ public class BookDetails extends AppCompatActivity implements View.OnClickListen
         title.setText(book.getTitle());
         author.setText(book.getAuthor());
         synopsis.setText(book.getSynopsis());
+        pages.setText(String.valueOf(book.getPages()));
+        publisher.setText(book.getPublisher());
 
         Picasso.with(this)
                 .load(book.getCoverImgUri())

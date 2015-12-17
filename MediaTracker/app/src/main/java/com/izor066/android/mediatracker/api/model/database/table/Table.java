@@ -62,4 +62,12 @@ public abstract class Table {
         return cursor.getFloat(columnIndex);
     }
 
+    protected static int getInt(Cursor cursor, String column) {
+        int columnIndex = cursor.getColumnIndex(column);
+        if (columnIndex == -1) {
+            return 0;
+        }
+        return cursor.getInt(columnIndex);
+    }
+
 }

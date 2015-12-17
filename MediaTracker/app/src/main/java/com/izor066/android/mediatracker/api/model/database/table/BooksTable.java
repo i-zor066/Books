@@ -17,6 +17,9 @@ public class BooksTable extends Table {
     private static final String COLUMN_DATE_PUBLISHED = "date_published";
     private static final String COLUMN_COVER_IMG_URI = "cover_img_uri";
     private static final String COLUMN_SYNOPSIS = "synopsis";
+    private static final String COLUMN_PAGES = "pages";
+    private static final String COLUMN_PUBLISHER = "publisher";
+    private static final String COLUMN_TIME_ADDED = "time_added";
 
     public static class Builder implements Table.Builder {
 
@@ -47,6 +50,23 @@ public class BooksTable extends Table {
             return this;
         }
 
+        public Builder setPages(int pages) {
+            values.put(COLUMN_PAGES, pages);
+            return this;
+        }
+
+        public Builder setPublisher(String publisher) {
+            values.put(COLUMN_PUBLISHER, publisher);
+            return this;
+        }
+
+        public Builder setTimeAdded(long timeAdded) {
+            values.put(COLUMN_TIME_ADDED, timeAdded);
+            return this;
+        }
+
+
+
         @Override
         public long insert(SQLiteDatabase writableDB) {
             return writableDB.insert(BooksTable.NAME, null, values);
@@ -74,6 +94,18 @@ public class BooksTable extends Table {
         return getString(cursor, COLUMN_SYNOPSIS);
     }
 
+    public static int getPages(Cursor cursor) {
+        return getInt(cursor, COLUMN_PAGES);
+    }
+
+    public static String getPublisher(Cursor cursor) {
+        return getString(cursor, COLUMN_PUBLISHER);
+    }
+
+    public static long getTimeAdded(Cursor cursor) {
+        return getLong(cursor, COLUMN_TIME_ADDED);
+    }
+
     public static Cursor getRowFromTitle(SQLiteDatabase readonlyDatabase, String title) {
         return readonlyDatabase.query(true, NAME, null, COLUMN_TITLE + " = ?", new String[]{title}, null, null, null, null);
     } // ToDo: Implement a different recovery method, titles might duplicate
@@ -95,7 +127,10 @@ public class BooksTable extends Table {
                 + COLUMN_AUTHOR + " TEXT, "
                 + COLUMN_DATE_PUBLISHED + " INTEGER,"
                 + COLUMN_COVER_IMG_URI + " TEXT,"
-                + COLUMN_SYNOPSIS + " TEXT)";
+                + COLUMN_SYNOPSIS + " TEXT,"
+                + COLUMN_PAGES + " INTEGER,"
+                + COLUMN_PUBLISHER + " TEXT,"
+                + COLUMN_TIME_ADDED + " INTEGER)";
     }
 
 }

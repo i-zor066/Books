@@ -29,6 +29,8 @@ public class SearchResultDetails extends AppCompatActivity implements View.OnCli
     private TextView synopsis;
     private FloatingActionButton fabAdd;
     private TextView datePublished;
+    private TextView pages;
+    private TextView publisher;
 
 
 
@@ -44,6 +46,8 @@ public class SearchResultDetails extends AppCompatActivity implements View.OnCli
         cover = (ImageView) findViewById(R.id.iv_img_details_placeholder);
         synopsis = (TextView) findViewById(R.id.tv_details_synopsis);
         datePublished = (TextView) findViewById(R.id.tv_details_date_published);
+        pages = (TextView) findViewById(R.id.tv_details_pages);
+        publisher = (TextView) findViewById(R.id.tv_details_publisher);
 
 
         Intent intent = getIntent();
@@ -52,6 +56,8 @@ public class SearchResultDetails extends AppCompatActivity implements View.OnCli
         title.setText(book.getTitle());
         author.setText(book.getAuthor());
         synopsis.setText(book.getSynopsis());
+        pages.setText(String.valueOf(book.getPages()));
+        publisher.setText(book.getPublisher());
 
         Picasso.with(this)
                 .load(book.getCoverImgUri())

@@ -14,14 +14,20 @@ public class Book implements Parcelable {
     private final long datePublished;
     private final String coverImgUri;
     private final String synopsis;
+    private final int pages;
+    private final String publisher;
+    private final long timeAdded;
 
 
-    public Book(String title, String author, long datePublished, String coverImgUri, String synopsis) {
+    public Book(String title, String author, long datePublished, String coverImgUri, String synopsis, int pages, String publisher, long timeAdded) {
         this.title = title;
         this.author = author;
         this.datePublished = datePublished;
         this.coverImgUri = coverImgUri;
         this.synopsis = synopsis;
+        this.pages = pages;
+        this.publisher = publisher;
+        this.timeAdded = timeAdded;
     }
 
     @Override
@@ -32,6 +38,9 @@ public class Book implements Parcelable {
                 ", datePublished=" + datePublished +
                 ", coverImgUri='" + coverImgUri + '\'' +
                 ", synopsis='" + synopsis + '\'' +
+                ", pages='" + pages + '\'' +
+                ", publisher='" + publisher + '\'' +
+                ", timeAdded='" + timeAdded + '\'' +
                 '}';
     }
 
@@ -55,6 +64,18 @@ public class Book implements Parcelable {
         return synopsis;
     }
 
+    public int getPages() {
+        return pages;
+    }
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public long getTimeAdded() {
+        return timeAdded;
+    }
+
 
     @Override
     public int describeContents() {
@@ -70,6 +91,9 @@ public class Book implements Parcelable {
         bundle.putLong("datePublished", datePublished);
         bundle.putString("coverImgUri", coverImgUri);
         bundle.putString("synopsis", synopsis);
+        bundle.putInt("pages", pages);
+        bundle.putString("publisher", publisher);
+        bundle.putLong("timeAdded", timeAdded);
 
         dest.writeBundle(bundle);
 
@@ -84,7 +108,10 @@ public class Book implements Parcelable {
                     bundle.getString("author"),
                     bundle.getLong("datePublished"),
                     bundle.getString("coverImgUri"),
-                    bundle.getString("synopsis"));
+                    bundle.getString("synopsis"),
+                    bundle.getInt("pages"),
+                    bundle.getString("publisher"),
+                    bundle.getLong("timeAdded"));
         }
 
         public Book[] newArray(int size) {

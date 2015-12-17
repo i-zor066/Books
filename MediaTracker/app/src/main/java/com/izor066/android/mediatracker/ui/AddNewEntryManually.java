@@ -39,6 +39,10 @@ public class AddNewEntryManually extends AppCompatActivity implements DatePicker
     private Button setCover;
     private Button submit;
     private Button cancel;
+    private EditText addNumberOfPages;
+    private int mPages;
+    private EditText addPublisher;
+    private String mPublisher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +60,12 @@ public class AddNewEntryManually extends AppCompatActivity implements DatePicker
 
         addCover = (EditText) findViewById(R.id.et_add_cover);
         addCover.setOnEditorActionListener(this);
+
+        addNumberOfPages = (EditText) findViewById(R.id.et_add_new_pages);
+        addNumberOfPages.setOnEditorActionListener(this);
+
+        addPublisher = (EditText) findViewById(R.id.et_add_new_publisher);
+        addPublisher.setOnEditorActionListener(this);
 
         coverPreview = (ImageView) findViewById(R.id.iv_img_preview);
 
@@ -123,8 +133,10 @@ public class AddNewEntryManually extends AppCompatActivity implements DatePicker
             mAddAuthor = addAuthor.getText().toString();
             mAddSynopsis = addSynopsis.getText().toString();
             mAddCover = addCover.getText().toString();
+            mPages = Integer.parseInt(addNumberOfPages.getText().toString());
+            mPublisher = addPublisher.getText().toString();
             Log.v(TAG, mAddSynopsis);
-            Book book = new Book(mAddTitle, mAddAuthor, (long) mPubDate, mAddCover, mAddSynopsis);
+            Book book = new Book(mAddTitle, mAddAuthor, (long) mPubDate, mAddCover, mAddSynopsis, mPages, mPublisher, System.currentTimeMillis());
             MediaTrackerApplication.getSharedDataSource().insertBookToDatabase(book);
             finish();
         }
@@ -147,6 +159,16 @@ public class AddNewEntryManually extends AppCompatActivity implements DatePicker
         if((EditorInfo.IME_ACTION_NEXT == actionId) && (v.getId() == R.id.et_add_new_synopsis)) {
             mAddSynopsis = addSynopsis.getText().toString();
             Log.v(TAG, mAddSynopsis);
+        }
+
+        if((EditorInfo.IME_ACTION_NEXT == actionId) && (v.getId() == R.id.et_add_new_pages)) {
+            mPages = Integer.parseInt(addNumberOfPages.getText().toString());
+            Log.v(TAG, String.valueOf(mPages));
+        }
+
+        if((EditorInfo.IME_ACTION_NEXT == actionId) && (v.getId() == R.id.et_add_new_publisher)) {
+            mPublisher = addPublisher.getText().toString();
+            Log.v(TAG, mPublisher);
         }
 
         if((EditorInfo.IME_ACTION_DONE == actionId) && (v.getId() == R.id.et_add_cover)) {
