@@ -162,12 +162,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onTitleSelected() {
         Toast.makeText(this, "TITLE", Toast.LENGTH_SHORT).show();
         currentSortOrder = "title";
+        itemAdapter.changeSortOrder(currentSortOrder);
+        itemAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onAuthorSelected() {
         Toast.makeText(this, "AUTHOR", Toast.LENGTH_SHORT).show();
         currentSortOrder = "author";
+        itemAdapter.changeSortOrder(currentSortOrder);
+        itemAdapter.notifyDataSetChanged();
 
     }
 
@@ -175,5 +179,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onAddedSelected() {
         Toast.makeText(this, "ADDED", Toast.LENGTH_SHORT).show();
         currentSortOrder = "added";
+        itemAdapter.changeSortOrder(currentSortOrder);
+        itemAdapter.notifyDataSetChanged();
     }
 }

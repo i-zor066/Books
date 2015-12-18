@@ -11,21 +11,31 @@ import android.widget.TextView;
 
 import com.izor066.android.mediatracker.MediaTrackerApplication;
 import com.izor066.android.mediatracker.R;
-import com.izor066.android.mediatracker.api.DataSource;
 import com.izor066.android.mediatracker.api.model.Book;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * Created by igor on 13/11/15.
  */
-public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemAdapterViewHolder>  {
+public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemAdapterViewHolder> {
+
+    private String currentSortOrder = "added"; // "title", "author"
+    private final OnBookClickListener listener;
 
     public interface OnBookClickListener {
-         void onBookClick(Book book);
+        void onBookClick(Book book);
     }
-    
-    private final OnBookClickListener listener;
-    
+
+    public void changeSortOrder(String currentSortOrder) {
+        this.currentSortOrder = currentSortOrder;
+    }
+
+
     public ItemAdapter(OnBookClickListener listener) {
         this.listener = listener;
     }
@@ -38,8 +48,38 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemAdapterVie
 
     @Override
     public void onBindViewHolder(ItemAdapterViewHolder itemAdapterViewHolder, int i) {
-        DataSource sharedDataSource = MediaTrackerApplication.getSharedDataSource();
-        itemAdapterViewHolder.update(sharedDataSource.getAllBooks().get(i), listener);
+        List<Book> bookList = new ArrayList<Book>();
+        bookList = MediaTrackerApplication.getSharedDataSource().getAllBooks();
+
+        if (currentSortOrder == "title") {
+
+            Collections.sort(bookList, new Comparator<Book>() {
+                public int compare(Book b1, Book b2) {
+                    return b1.getTitle().compareToIgnoreCase(b2.getTitle());
+                }
+            });
+        }
+
+        if (currentSortOrder == "author") {
+
+            Collections.sort(bookList, new Comparator<Book>() {
+                public int compare(Book b1, Book b2) {
+                    return b1.getAuthor().compareToIgnoreCase(b2.getAuthor());
+                }
+            });
+        }
+
+        if (currentSortOrder == "added") {
+
+            Collections.sort(bookList, new Comparator<Book>() {
+                public int compare(Book b1, Book b2) {
+                    return Long.compare(b1.getTimeAdded(), b2.getTimeAdded());
+                }
+            });
+        }
+
+
+        itemAdapterViewHolder.update(bookList.get(i), listener);
     }
 
     @Override
@@ -54,6 +94,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemAdapterVie
         TextView bookAuthor;
         Book book;
         OnBookClickListener listener;
+
 
         public ItemAdapterViewHolder(View itemView) {
             super(itemView);
@@ -81,10 +122,9 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemAdapterVie
         @Override
         public void onClick(View v) {
             listener.onBookClick(book);
-           // Toast.makeText(itemView.getContext(), book.getTitle(), Toast.LENGTH_SHORT).show();
+            // Toast.makeText(itemView.getContext(), book.getTitle(), Toast.LENGTH_SHORT).show();
         }
     }
-
 
 
 }
