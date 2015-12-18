@@ -25,6 +25,7 @@ public class SortItemsDialogFragment extends DialogFragment implements RadioGrou
     private RadioGroup sortItems;
     private OnSortingOptionSelectedListener onSortingOptionSelectedListener;
     private String currentSortCriteria = "added";
+    private boolean isAscending = true;
 
 
     public SortItemsDialogFragment() {

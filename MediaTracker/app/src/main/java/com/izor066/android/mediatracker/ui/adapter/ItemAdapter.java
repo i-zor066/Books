@@ -26,6 +26,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemAdapterVie
 
     private String currentSortCriteria = "added"; // "title", "author"
     private final OnBookClickListener listener;
+    private boolean isAscending = true;
 
     public interface OnBookClickListener {
         void onBookClick(Book book);
@@ -33,6 +34,10 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemAdapterVie
 
     public void changeSortCriteria(String currentSortCriteria) {
         this.currentSortCriteria = currentSortCriteria;
+    }
+
+    public void changeSortOrder() {
+        isAscending = !isAscending;
     }
 
 
@@ -76,6 +81,10 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemAdapterVie
                     return Long.compare(b1.getTimeAdded(), b2.getTimeAdded());
                 }
             });
+        }
+
+        if (!isAscending) {
+            Collections.reverse(bookList);
         }
 
 

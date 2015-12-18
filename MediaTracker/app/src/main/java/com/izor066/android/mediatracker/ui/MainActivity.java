@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     String TAG = getClass().getSimpleName();
     private ItemAdapter itemAdapter;
     private String currentSortCriteria = "added";
+    private boolean isAscending = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +98,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
+        if (id == R.id.action_order) {
+            isAscending = !isAscending;
+            itemAdapter.changeSortOrder();
+            itemAdapter.notifyDataSetChanged();
+            return true;
+        }
+
         if (id == R.id.action_sort) {
             showSortItemsDialogFragment();
             return true;
