@@ -24,7 +24,7 @@ public class SortItemsDialogFragment extends DialogFragment implements RadioGrou
     private RadioButton added;
     private RadioGroup sortItems;
     private OnSortingOptionSelectedListener onSortingOptionSelectedListener;
-    private String currentSortOrder = "added";
+    private String currentSortCriteria = "added";
 
 
     public SortItemsDialogFragment() {
@@ -68,20 +68,20 @@ public class SortItemsDialogFragment extends DialogFragment implements RadioGrou
         author = (RadioButton) view.findViewById(R.id.radio_author);
         added = (RadioButton) view.findViewById(R.id.radio_added);
 
-        currentSortOrder = getArguments().getString("sort");
+        currentSortCriteria = getArguments().getString("sort");
 
         sortItems = (RadioGroup) view.findViewById(R.id.rg_sort);
         sortItems.setOnCheckedChangeListener(this);
 
-        if (currentSortOrder == "added") {
+        if (currentSortCriteria == "added") {
             added.setChecked(true);
         }
 
-        if (currentSortOrder == "title") {
+        if (currentSortCriteria == "title") {
             title.setChecked(true);
         }
 
-        if (currentSortOrder == "author") {
+        if (currentSortCriteria == "author") {
             author.setChecked(true);
         }
 

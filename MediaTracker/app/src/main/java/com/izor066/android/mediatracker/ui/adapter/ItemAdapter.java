@@ -24,15 +24,15 @@ import java.util.List;
  */
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemAdapterViewHolder> {
 
-    private String currentSortOrder = "added"; // "title", "author"
+    private String currentSortCriteria = "added"; // "title", "author"
     private final OnBookClickListener listener;
 
     public interface OnBookClickListener {
         void onBookClick(Book book);
     }
 
-    public void changeSortOrder(String currentSortOrder) {
-        this.currentSortOrder = currentSortOrder;
+    public void changeSortCriteria(String currentSortCriteria) {
+        this.currentSortCriteria = currentSortCriteria;
     }
 
 
@@ -51,7 +51,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemAdapterVie
         List<Book> bookList = new ArrayList<Book>();
         bookList = MediaTrackerApplication.getSharedDataSource().getAllBooks();
 
-        if (currentSortOrder == "title") {
+        if (currentSortCriteria == "title") {
 
             Collections.sort(bookList, new Comparator<Book>() {
                 public int compare(Book b1, Book b2) {
@@ -60,7 +60,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemAdapterVie
             });
         }
 
-        if (currentSortOrder == "author") {
+        if (currentSortCriteria == "author") {
 
             Collections.sort(bookList, new Comparator<Book>() {
                 public int compare(Book b1, Book b2) {
@@ -69,7 +69,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemAdapterVie
             });
         }
 
-        if (currentSortOrder == "added") {
+        if (currentSortCriteria == "added") {
 
             Collections.sort(bookList, new Comparator<Book>() {
                 public int compare(Book b1, Book b2) {

@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     String TAG = getClass().getSimpleName();
     private ItemAdapter itemAdapter;
-    private String currentSortOrder = "added";
+    private String currentSortCriteria = "added";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,7 +145,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void showSortItemsDialogFragment() {
         Bundle args = new Bundle();
-        args.putString("sort", currentSortOrder);
+        args.putString("sort", currentSortCriteria);
         FragmentManager fragmentManager = getSupportFragmentManager();
         SortItemsDialogFragment sortItemsDialogFragment = new SortItemsDialogFragment();
         sortItemsDialogFragment.setArguments(args);
@@ -161,16 +161,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onTitleSelected() {
         Toast.makeText(this, "TITLE", Toast.LENGTH_SHORT).show();
-        currentSortOrder = "title";
-        itemAdapter.changeSortOrder(currentSortOrder);
+        currentSortCriteria = "title";
+        itemAdapter.changeSortCriteria(currentSortCriteria);
         itemAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onAuthorSelected() {
         Toast.makeText(this, "AUTHOR", Toast.LENGTH_SHORT).show();
-        currentSortOrder = "author";
-        itemAdapter.changeSortOrder(currentSortOrder);
+        currentSortCriteria = "author";
+        itemAdapter.changeSortCriteria(currentSortCriteria);
         itemAdapter.notifyDataSetChanged();
 
     }
@@ -178,8 +178,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onAddedSelected() {
         Toast.makeText(this, "ADDED", Toast.LENGTH_SHORT).show();
-        currentSortOrder = "added";
-        itemAdapter.changeSortOrder(currentSortOrder);
+        currentSortCriteria = "added";
+        itemAdapter.changeSortCriteria(currentSortCriteria);
         itemAdapter.notifyDataSetChanged();
     }
 }
