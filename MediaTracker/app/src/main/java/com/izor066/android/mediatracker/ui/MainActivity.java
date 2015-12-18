@@ -25,13 +25,15 @@ import com.izor066.android.mediatracker.R;
 import com.izor066.android.mediatracker.api.model.Book;
 import com.izor066.android.mediatracker.ui.adapter.ItemAdapter;
 import com.izor066.android.mediatracker.ui.fragment.AddBookDialogFragment;
+import com.izor066.android.mediatracker.ui.fragment.SortItemsDialogFragment;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, ItemAdapter.OnBookClickListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, ItemAdapter.OnBookClickListener, SortItemsDialogFragment.OnSortingOptionSelectedListener {
 
     String TAG = getClass().getSimpleName();
     private ItemAdapter itemAdapter;
+    private String currentSortOrder = "added";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +97,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_sort) {
+            showSortItemsDialogFragment();
             return true;
         }
 
@@ -140,9 +143,37 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         addBookDialogFragment.show(fragmentManager, "New Entry");
     }
 
+    private void showSortItemsDialogFragment() {
+        Bundle args = new Bundle();
+        args.putString("sort", currentSortOrder);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        SortItemsDialogFragment sortItemsDialogFragment = new SortItemsDialogFragment();
+        sortItemsDialogFragment.setArguments(args);
+        sortItemsDialogFragment.show(fragmentManager, "Sort");
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
         itemAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onTitleSelected() {
+        Toast.makeText(this, "TITLE", Toast.LENGTH_SHORT).show();
+        currentSortOrder = "title";
+    }
+
+    @Override
+    public void onAuthorSelected() {
+        Toast.makeText(this, "AUTHOR", Toast.LENGTH_SHORT).show();
+        currentSortOrder = "author";
+
+    }
+
+    @Override
+    public void onAddedSelected() {
+        Toast.makeText(this, "ADDED", Toast.LENGTH_SHORT).show();
+        currentSortOrder = "added";
     }
 }
