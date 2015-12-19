@@ -13,6 +13,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.izor066.android.mediatracker.R;
+import com.izor066.android.mediatracker.ui.adapter.ItemAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,13 +25,19 @@ public class SortItemsDialogFragment extends DialogFragment implements RadioGrou
     private RadioButton added;
     private RadioGroup sortItems;
     private OnSortingOptionSelectedListener onSortingOptionSelectedListener;
-    private String currentSortCriteria = "added";
+    private ItemAdapter.SortCriteria currentSortCriteria = ItemAdapter.SortCriteria.ADDED;
     private boolean isAscending = true;
+    private static final String EXTRA_SORT_CRITERIA = "com.izor066.android.mediatracker.EXTRA_SORT_CRITERIA";
 
-
-    public SortItemsDialogFragment() {
-        // Required empty public constructor
+    public static SortItemsDialogFragment createWith(ItemAdapter.SortCriteria currentSortCriteria) {
+        Bundle args = new Bundle();
+        args.putSerializable(EXTRA_SORT_CRITERIA, currentSortCriteria);
+        SortItemsDialogFragment fragment = new SortItemsDialogFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
+
+
 
     public static interface OnSortingOptionSelectedListener {
         public void onTitleSelected();
@@ -69,21 +76,24 @@ public class SortItemsDialogFragment extends DialogFragment implements RadioGrou
         author = (RadioButton) view.findViewById(R.id.radio_author);
         added = (RadioButton) view.findViewById(R.id.radio_added);
 
-        currentSortCriteria = getArguments().getString("sort");
+        currentSortCriteria = (ItemAdapter.SortCriteria) getArguments().getSerializable(EXTRA_SORT_CRITERIA);
 
         sortItems = (RadioGroup) view.findViewById(R.id.rg_sort);
         sortItems.setOnCheckedChangeListener(this);
 
-        if (currentSortCriteria == "added") {
-            added.setChecked(true);
-        }
 
-        if (currentSortCriteria == "title") {
-            title.setChecked(true);
-        }
-
-        if (currentSortCriteria == "author") {
-            author.setChecked(true);
+        switch (currentSortCriteria) {
+            case TITLE:
+                title.setChecked(true);
+                break;
+            case AUTHOR:
+                author.setChecked(true);
+                break;
+            case ADDED:
+                added.setChecked(true);
+                break;
+            default:
+                throw new IllegalArgumentException("Cannot sort by: " + currentSortCriteria);
         }
 
 
@@ -95,19 +105,16 @@ public class SortItemsDialogFragment extends DialogFragment implements RadioGrou
     public void onCheckedChanged(RadioGroup group, int checkedId) {
 
         if (checkedId == R.id.radio_title) {
-            // Toast.makeText(getActivity(), "TITLE", Toast.LENGTH_SHORT).show();
             onSortingOptionSelectedListener.onTitleSelected();
 
         }
 
         if (checkedId == R.id.radio_author) {
-            // Toast.makeText(getActivity(), "AUTHOR", Toast.LENGTH_SHORT).show();
             onSortingOptionSelectedListener.onAuthorSelected();
 
         }
 
         if (checkedId == R.id.radio_added) {
-            // Toast.makeText(getActivity(), "ADDED", Toast.LENGTH_SHORT).show();
             onSortingOptionSelectedListener.onAddedSelected();
 
         }

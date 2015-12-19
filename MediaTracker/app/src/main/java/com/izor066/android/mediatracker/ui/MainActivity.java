@@ -33,8 +33,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private String TAG = getClass().getSimpleName();
     private ItemAdapter itemAdapter;
-    private String currentSortCriteria = "added";
+    private ItemAdapter.SortCriteria currentSortCriteria = ItemAdapter.SortCriteria.ADDED;
     private boolean isAscending = true;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,12 +153,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void showSortItemsDialogFragment() {
-        Bundle args = new Bundle();
-        args.putString("sort", currentSortCriteria);
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        SortItemsDialogFragment sortItemsDialogFragment = new SortItemsDialogFragment();
-        sortItemsDialogFragment.setArguments(args);
-        sortItemsDialogFragment.show(fragmentManager, "Sort");
+        SortItemsDialogFragment sortItemsDialogFragment = SortItemsDialogFragment.createWith(currentSortCriteria);
+        sortItemsDialogFragment.show(getSupportFragmentManager(), "sort");
     }
 
     @Override
@@ -168,8 +165,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onTitleSelected() {
-        Toast.makeText(this, "TITLE", Toast.LENGTH_SHORT).show();
-        currentSortCriteria = "title";
+        Toast.makeText(this, "Sorting by Title", Toast.LENGTH_SHORT).show();
+        currentSortCriteria = ItemAdapter.SortCriteria.TITLE;
         itemAdapter.changeSortCriteria(currentSortCriteria);
         itemAdapter.notifyDataSetChanged();
 
@@ -177,8 +174,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onAuthorSelected() {
-        Toast.makeText(this, "AUTHOR", Toast.LENGTH_SHORT).show();
-        currentSortCriteria = "author";
+        Toast.makeText(this, "Sorting by Author", Toast.LENGTH_SHORT).show();
+        currentSortCriteria = ItemAdapter.SortCriteria.AUTHOR;
         itemAdapter.changeSortCriteria(currentSortCriteria);
         itemAdapter.notifyDataSetChanged();
 
@@ -187,8 +184,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onAddedSelected() {
-        Toast.makeText(this, "ADDED", Toast.LENGTH_SHORT).show();
-        currentSortCriteria = "added";
+        Toast.makeText(this, "Sorting by Time Added", Toast.LENGTH_SHORT).show();
+        currentSortCriteria = ItemAdapter.SortCriteria.ADDED;
         itemAdapter.changeSortCriteria(currentSortCriteria);
         itemAdapter.notifyDataSetChanged();
 

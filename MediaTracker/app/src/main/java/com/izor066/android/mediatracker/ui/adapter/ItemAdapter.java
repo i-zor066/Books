@@ -24,7 +24,15 @@ import java.util.List;
  */
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemAdapterViewHolder> {
 
-    private String currentSortCriteria = "added"; // "title", "author"
+    public enum SortCriteria {
+        ADDED,
+        TITLE,
+        AUTHOR
+    }
+
+    private SortCriteria currentSortCriteria = SortCriteria.ADDED;
+
+    // private String currentSortCriteria = "added"; // "title", "author"
     private final OnBookClickListener listener;
     private boolean isAscending = true;
 
@@ -32,7 +40,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemAdapterVie
         void onBookClick(Book book);
     }
 
-    public void changeSortCriteria(String currentSortCriteria) {
+    public void changeSortCriteria(SortCriteria currentSortCriteria) {
         this.currentSortCriteria = currentSortCriteria;
     }
 
@@ -56,31 +64,31 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemAdapterVie
         List<Book> bookList = new ArrayList<Book>();
         bookList = MediaTrackerApplication.getSharedDataSource().getAllBooks();
 
-        if (currentSortCriteria == "title") {
 
-            Collections.sort(bookList, new Comparator<Book>() {
-                public int compare(Book b1, Book b2) {
-                    return b1.getTitle().compareToIgnoreCase(b2.getTitle());
-                }
-            });
-        }
-
-        if (currentSortCriteria == "author") {
-
-            Collections.sort(bookList, new Comparator<Book>() {
-                public int compare(Book b1, Book b2) {
-                    return b1.getAuthor().compareToIgnoreCase(b2.getAuthor());
-                }
-            });
-        }
-
-        if (currentSortCriteria == "added") {
-
-            Collections.sort(bookList, new Comparator<Book>() {
-                public int compare(Book b1, Book b2) {
-                    return Long.compare(b1.getTimeAdded(), b2.getTimeAdded());
-                }
-            });
+        switch (currentSortCriteria) {
+            case TITLE:
+                Collections.sort(bookList, new Comparator<Book>() {
+                    public int compare(Book b1, Book b2) {
+                        return b1.getTitle().compareToIgnoreCase(b2.getTitle());
+                    }
+                });
+                break;
+            case AUTHOR:
+                Collections.sort(bookList, new Comparator<Book>() {
+                    public int compare(Book b1, Book b2) {
+                        return b1.getAuthor().compareToIgnoreCase(b2.getAuthor());
+                    }
+                });
+                break;
+            case ADDED:
+                Collections.sort(bookList, new Comparator<Book>() {
+                    public int compare(Book b1, Book b2) {
+                        return Long.compare(b1.getTimeAdded(), b2.getTimeAdded()); // ToDo: is there a way to do it to support API below 19
+                    }
+                });
+                break;
+            default:
+                throw new IllegalArgumentException("Cannot sort by: " + currentSortCriteria);
         }
 
         if (!isAscending) {

@@ -107,21 +107,6 @@ public class AddNewEntryManually extends AppCompatActivity implements DatePicker
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btn_set_cover) {
-//            Log.e("WTF", addCover.getText().toString());
-//            if (addCover.getText().length() == 0) {
-//                coverPreview.setVisibility(View.VISIBLE);
-//                Picasso.with(this)
-//                        .load(mAddCover)
-//                        .into(coverPreview);
-//                Log.e(TAG, mAddCover);
-//            } else {
-//                mAddCover = addCover.getText().toString();
-//                Log.e("WTF", addCover.getText().toString());
-//                coverPreview.setVisibility(View.VISIBLE);
-//                Picasso.with(this)
-//                        .load(mAddCover)
-//                        .into(coverPreview);
-//            }
             loadCover();
         }
         if (v.getId() == R.id.btn_add_book_cancel) {
@@ -172,19 +157,7 @@ public class AddNewEntryManually extends AppCompatActivity implements DatePicker
         }
 
         if((EditorInfo.IME_ACTION_DONE == actionId) && (v.getId() == R.id.et_add_cover)) {
-
-//            if (addCover.getText().length() == 0) {
-//                coverPreview.setVisibility(View.VISIBLE);
-//                Picasso.with(this)
-//                        .load(mAddCover)
-//                        .into(coverPreview);
-//            } else {
-//                mAddCover = addCover.getText().toString();
-//                coverPreview.setVisibility(View.VISIBLE);
-//                Picasso.with(this)
-//                        .load(mAddCover)
-//                        .into(coverPreview);
-//            }
+            
             loadCover();
 
             // ToDO: URL validation
