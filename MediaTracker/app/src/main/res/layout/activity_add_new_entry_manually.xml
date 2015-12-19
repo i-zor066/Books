@@ -49,6 +49,38 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/tv_add_new_pages_label"
+            android:textSize="@dimen/abc_text_size_small_material"
+            android:text="@string/number_of_pages_label_string"
+            android:layout_marginTop="10dp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/et_add_new_pages"
+            android:inputType="number"
+            android:imeOptions="actionNext"
+            android:textSize="@dimen/abc_text_size_medium_material"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_add_new_publisher_label"
+            android:textSize="@dimen/abc_text_size_small_material"
+            android:text="@string/publisher_label_string"
+            android:layout_marginTop="10dp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/et_add_new_publisher"
+            android:inputType="text"
+            android:imeOptions="actionNext"
+            android:textSize="@dimen/abc_text_size_medium_material"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/tv_add_new_date_published_label"
             android:textSize="@dimen/abc_text_size_small_material"
             android:text="@string/string_date_published"

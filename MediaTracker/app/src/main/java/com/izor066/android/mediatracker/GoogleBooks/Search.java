@@ -1,7 +1,5 @@
 package com.izor066.android.mediatracker.GoogleBooks;
 
-import android.content.Context;
-
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 import com.google.api.client.googleapis.json.GoogleJsonResponseException;
@@ -28,7 +26,6 @@ public class Search {
 
     private static Books books;
 
-    Context context;
 
     static {
         books = new Books.Builder(HTTP_TRANSPORT, JSON_FACTORY, new HttpRequestInitializer() {

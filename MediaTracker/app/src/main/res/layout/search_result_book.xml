@@ -42,14 +42,11 @@
             android:id="@+id/tv_search_book_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="The Caves of Steel (Robot Series #1) adding adding adding "
+            android:text="The Caves of Steel (Robot Series #1) "
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/abc_text_size_medium_material"
             android:layout_toRightOf="@id/fl_search_image_header"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="0dp"
-            android:paddingTop="0dp"
-            android:paddingBottom="0dp"/>
+            android:layout_alignParentTop="true" />
 
         <LinearLayout
             android:id="@+id/ll_author_wrapper"
@@ -91,6 +88,5 @@
             android:src="@drawable/ic_add_black"
             android:background="@color/transBlack" />
     </RelativeLayout>
-
 
 </LinearLayout>

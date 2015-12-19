@@ -42,6 +42,9 @@ public class DataSource {
                 .setDatePublished(book.getDatePublished())
                 .setCoverImgUri(book.getCoverImgUri())
                 .setSynopsis(book.getSynopsis())
+                .setPages(book.getPages())
+                .setPublisher(book.getPublisher())
+                .setTimeAdded(System.currentTimeMillis())
                 .insert(writableDatabase);
 
     }
@@ -72,7 +75,10 @@ public class DataSource {
         long datePublished = BooksTable.getDatePublished(cursor);
         String coverimgUri = BooksTable.getCoverImgUri(cursor);
         String synopsis = BooksTable.getSynopsis(cursor);
-        return new Book(title, author, datePublished, coverimgUri, synopsis);
+        int pages = BooksTable.getPages(cursor);
+        String publisher = BooksTable.getPublisher(cursor);
+        long timeAdded = BooksTable.getTimeAdded(cursor);
+        return new Book(title, author, datePublished, coverimgUri, synopsis, pages, publisher, timeAdded);
     }
 
 
@@ -92,6 +98,9 @@ public class DataSource {
                         "Meanwhile, to the north lies the mammoth Wall of ice and stone — a structure only as strong as those guarding it. There, Jon Snow, 998th Lord Commander of the Night's Watch, will face his greatest challenge. For he has powerful foes not only within the Watch but also beyond, in the land of the creatures of ice.\n" +
                         "\n" +
                         "From all corners, bitter conflicts reignite, intimate betrayals are perpetrated, and a grand cast of outlaws and priests, soldiers and skinchangers, nobles and slaves, will face seemingly insurmountable obstacles. Some will fail, others will grow in the strength of darkness. But in a time of rising restlessness, the tides of destiny and politics will lead inevitably to the greatest dance of all.")
+                .setPages(505)
+                .setPublisher("Random House Publishing")
+                .setTimeAdded(System.currentTimeMillis())
                 .insert(writableDatabase);
 
         new BooksTable.Builder()
@@ -104,6 +113,9 @@ public class DataSource {
                         "In Dark Forest, Earth is reeling from the revelation of a coming alien invasion—four centuries in the future. The aliens' human collaborators have been defeated, but the presence of the sophons, the subatomic particles that allow Trisolaris instant access to all human information, means that Earth's defense plans are exposed to the enemy. Only the human mind remains a secret.\n" +
                         "\n" +
                         "This is the motivation for the Wallfacer Project, a daring plan that grants four men enormous resources to design secret strategies, hidden through deceit and misdirection from Earth and Trisolaris alike. Three of the Wallfacers are influential statesmen and scientists, but the fourth is a total unknown. Luo Ji, an unambitious Chinese astronomer and sociologist, is baffled by his new status. All he knows is that he's the one Wallfacer that Trisolaris wants dead.")
+                .setPages(505)
+                .setPublisher("Random House Publishing")
+                .setTimeAdded(System.currentTimeMillis())
                 .insert(writableDatabase);
 
 
@@ -113,6 +125,9 @@ public class DataSource {
                 .setDatePublished(957225600)
                 .setCoverImgUri("https://d.gr-assets.com/books/1388180931l/827.jpg")
                 .setSynopsis("The Diamond Age: Or, A Young Lady's Illustrated Primer is a postcyberpunk novel by Neal Stephenson. It is to some extent a science fiction coming-of-age story, focused on a young girl named Nell, and set in a future world in which nanotechnology affects all aspects of life. The novel deals with themes of education, social class, ethnicity, and the nature of artificial intelligence.")
+                .setPages(505)
+                .setPublisher("Random House Publishing")
+                .setTimeAdded(System.currentTimeMillis())
                 .insert(writableDatabase);
 
         new BooksTable.Builder()
@@ -133,6 +148,9 @@ public class DataSource {
                 .setDatePublished(1316476800)
                 .setCoverImgUri("https://d.gr-assets.com/books/1402651292l/20821159.jpg")
                 .setSynopsis("Where Flynne and her brother, Burton, live, jobs outside the drug business are rare. Fortunately, Burton has his veteran’s benefits, for neural damage he suffered from implants during his time in the USMC’s elite Haptic Recon force. Then one night Burton has to go out, but there’s a job he’s supposed to do—a job Flynne didn’t know he had. Beta-testing part of a new game, he tells her. The job seems to be simple: work a perimeter around the image of a tower building. Little buglike things turn up. He’s supposed to get in their way, edge them back. That’s all there is to it. He’s offering Flynne a good price to take over for him. What she sees, though, isn’t what Burton told her to expect. It might be a game, but it might also be murder.")
+                .setPages(505)
+                .setPublisher("Random House Publishing")
+                .setTimeAdded(System.currentTimeMillis())
                 .insert(writableDatabase);
 
         new BooksTable.Builder()
@@ -145,6 +163,9 @@ public class DataSource {
                         "Life couldn’t be better…until Andrew begins to pick up on the fact that (1) every Away Mission involves some kind of lethal confrontation with alien forces, (2) the ship’s captain, its chief science officer, and the handsome Lieutenant Kerensky always survive these confrontations, and (3) at least one low-ranked crew member is, sadly, always killed.\n" +
                         "\n" +
                         "Not surprisingly, a great deal of energy below decks is expended on avoiding, at all costs, being assigned to an Away Mission. Then Andrew stumbles on information that completely transforms his and his colleagues’ understanding of what the starship Intrepid really is…and offers them a crazy, high-risk chance to save their own lives")
+                .setPages(505)
+                .setPublisher("Random House Publishing")
+                .setTimeAdded(System.currentTimeMillis())
                 .insert(writableDatabase);
 
         new BooksTable.Builder()
@@ -153,6 +174,9 @@ public class DataSource {
                 .setDatePublished(1380585600)
                 .setCoverImgUri("https://d.gr-assets.com/books/1397215917l/17333324.jpg")
                 .setSynopsis("On a remote, icy planet, the soldier known as Breq is drawing closer to completing her quest. Once, she was the Justice of Toren - a colossal starship with an artificial intelligence linking thousands of soldiers in the service of the Radch, the empire that conquered the galaxy. Now, an act of treachery has ripped it all away, leaving her with one fragile human body, unanswered questions, and a burning desire for vengeance.")
+                .setPages(505)
+                .setPublisher("Random House Publishing")
+                .setTimeAdded(System.currentTimeMillis())
                 .insert(writableDatabase);
 
 

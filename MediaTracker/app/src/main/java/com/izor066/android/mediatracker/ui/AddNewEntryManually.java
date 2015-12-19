@@ -24,21 +24,25 @@ public class AddNewEntryManually extends AppCompatActivity implements DatePicker
 
     String TAG = getClass().getSimpleName();
 
-    private final String IMAGE_PLACEHOLDER = "https://s.gr-assets.com/assets/nophoto/book/blank-133x176-8b769f39ba6687a82d2eef30bdf46977.jpg";
+    private final String IMAGE_PLACEHOLDER = "https://s.gr-assets.com/assets/nophoto/book/blank-133x176-8b769f39ba6687a82d2eef30bdf46977.jpg"; // ToDo: your own resource for this
 
     private String mAddTitle ="";
-    EditText addTitle;
+    private EditText addTitle;
     private String mAddAuthor ="";
-    EditText addAuthor;
+    private EditText addAuthor;
     private int mPubDate = 0;
     private String mAddSynopsis = "";
-    EditText addSynopsis;
+    private EditText addSynopsis;
     private String mAddCover = IMAGE_PLACEHOLDER;
-    EditText addCover;
-    ImageView coverPreview;
-    Button setCover;
-    Button submit;
-    Button cancel;
+    private EditText addCover;
+    private ImageView coverPreview;
+    private Button setCover;
+    private Button submit;
+    private Button cancel;
+    private EditText addNumberOfPages;
+    private int mPages;
+    private EditText addPublisher;
+    private String mPublisher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +60,12 @@ public class AddNewEntryManually extends AppCompatActivity implements DatePicker
 
         addCover = (EditText) findViewById(R.id.et_add_cover);
         addCover.setOnEditorActionListener(this);
+
+        addNumberOfPages = (EditText) findViewById(R.id.et_add_new_pages);
+        addNumberOfPages.setOnEditorActionListener(this);
+
+        addPublisher = (EditText) findViewById(R.id.et_add_new_publisher);
+        addPublisher.setOnEditorActionListener(this);
 
         coverPreview = (ImageView) findViewById(R.id.iv_img_preview);
 
@@ -97,21 +107,22 @@ public class AddNewEntryManually extends AppCompatActivity implements DatePicker
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btn_set_cover) {
-            Log.e("WTF", addCover.getText().toString());
-            if (addCover.getText().length() == 0) {
-                coverPreview.setVisibility(View.VISIBLE);
-                Picasso.with(this)
-                        .load(mAddCover)
-                        .into(coverPreview);
-                Log.e(TAG, mAddCover);
-            } else {
-                mAddCover = addCover.getText().toString();
-                Log.e("WTF", addCover.getText().toString());
-                coverPreview.setVisibility(View.VISIBLE);
-                Picasso.with(this)
-                        .load(mAddCover)
-                        .into(coverPreview);
-            }
+//            Log.e("WTF", addCover.getText().toString());
+//            if (addCover.getText().length() == 0) {
+//                coverPreview.setVisibility(View.VISIBLE);
+//                Picasso.with(this)
+//                        .load(mAddCover)
+//                        .into(coverPreview);
+//                Log.e(TAG, mAddCover);
+//            } else {
+//                mAddCover = addCover.getText().toString();
+//                Log.e("WTF", addCover.getText().toString());
+//                coverPreview.setVisibility(View.VISIBLE);
+//                Picasso.with(this)
+//                        .load(mAddCover)
+//                        .into(coverPreview);
+//            }
+            loadCover();
         }
         if (v.getId() == R.id.btn_add_book_cancel) {
             finish();
@@ -122,13 +133,16 @@ public class AddNewEntryManually extends AppCompatActivity implements DatePicker
             mAddAuthor = addAuthor.getText().toString();
             mAddSynopsis = addSynopsis.getText().toString();
             mAddCover = addCover.getText().toString();
+            mPages = Integer.parseInt(addNumberOfPages.getText().toString());
+            mPublisher = addPublisher.getText().toString();
             Log.v(TAG, mAddSynopsis);
-            Book book = new Book(mAddTitle, mAddAuthor, (long) mPubDate, mAddCover, mAddSynopsis);
+            Book book = new Book(mAddTitle, mAddAuthor, (long) mPubDate, mAddCover, mAddSynopsis, mPages, mPublisher, System.currentTimeMillis());
             MediaTrackerApplication.getSharedDataSource().insertBookToDatabase(book);
             finish();
         }
 
     }
+
 
     @Override
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -147,20 +161,31 @@ public class AddNewEntryManually extends AppCompatActivity implements DatePicker
             Log.v(TAG, mAddSynopsis);
         }
 
+        if((EditorInfo.IME_ACTION_NEXT == actionId) && (v.getId() == R.id.et_add_new_pages)) {
+            mPages = Integer.parseInt(addNumberOfPages.getText().toString());
+            Log.v(TAG, String.valueOf(mPages));
+        }
+
+        if((EditorInfo.IME_ACTION_NEXT == actionId) && (v.getId() == R.id.et_add_new_publisher)) {
+            mPublisher = addPublisher.getText().toString();
+            Log.v(TAG, mPublisher);
+        }
+
         if((EditorInfo.IME_ACTION_DONE == actionId) && (v.getId() == R.id.et_add_cover)) {
 
-            if (addCover.getText().length() == 0) {
-                coverPreview.setVisibility(View.VISIBLE);
-                Picasso.with(this)
-                        .load(mAddCover)
-                        .into(coverPreview);
-            } else {
-                mAddCover = addCover.getText().toString();
-                coverPreview.setVisibility(View.VISIBLE);
-                Picasso.with(this)
-                        .load(mAddCover)
-                        .into(coverPreview);
-            }
+//            if (addCover.getText().length() == 0) {
+//                coverPreview.setVisibility(View.VISIBLE);
+//                Picasso.with(this)
+//                        .load(mAddCover)
+//                        .into(coverPreview);
+//            } else {
+//                mAddCover = addCover.getText().toString();
+//                coverPreview.setVisibility(View.VISIBLE);
+//                Picasso.with(this)
+//                        .load(mAddCover)
+//                        .into(coverPreview);
+//            }
+            loadCover();
 
             // ToDO: URL validation
 
@@ -182,5 +207,21 @@ public class AddNewEntryManually extends AppCompatActivity implements DatePicker
 
     public boolean onCreateOptionsMenu(Menu menu) {
         return true;
+    }
+
+    private void loadCover() {
+        if (addCover.getText().length() == 0) {
+            mAddCover = IMAGE_PLACEHOLDER;
+
+        } // has to be in, otherwise the placeholder won't load if the user enters a non-valid url and then deletes it
+
+        if (addCover.getText().length() > 0) {
+            mAddCover = addCover.getText().toString();
+        }
+
+        coverPreview.setVisibility(View.VISIBLE);
+        Picasso.with(this)
+                .load(mAddCover)
+                .into(coverPreview);
     }
 }

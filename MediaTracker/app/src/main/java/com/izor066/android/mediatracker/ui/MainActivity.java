@@ -1,6 +1,7 @@
 package com.izor066.android.mediatracker.ui;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -127,7 +128,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onBookClick(Book book) {
-        Toast.makeText(this, book.getTitle(), Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this, book.getTitle(), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, BookDetails.class);
+        intent.putExtra("Book", book);
+        this.startActivity(intent);
     }
 
     private void showAddBookDialogFragment() {
