@@ -97,16 +97,19 @@ public class SortItemsDialogFragment extends DialogFragment implements RadioGrou
         if (checkedId == R.id.radio_title) {
             // Toast.makeText(getActivity(), "TITLE", Toast.LENGTH_SHORT).show();
             onSortingOptionSelectedListener.onTitleSelected();
+
         }
 
         if (checkedId == R.id.radio_author) {
             // Toast.makeText(getActivity(), "AUTHOR", Toast.LENGTH_SHORT).show();
             onSortingOptionSelectedListener.onAuthorSelected();
+
         }
 
         if (checkedId == R.id.radio_added) {
             // Toast.makeText(getActivity(), "ADDED", Toast.LENGTH_SHORT).show();
             onSortingOptionSelectedListener.onAddedSelected();
+
         }
     }
 }

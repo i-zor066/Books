@@ -31,7 +31,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, ItemAdapter.OnBookClickListener, SortItemsDialogFragment.OnSortingOptionSelectedListener {
 
-    String TAG = getClass().getSimpleName();
+    private String TAG = getClass().getSimpleName();
     private ItemAdapter itemAdapter;
     private String currentSortCriteria = "added";
     private boolean isAscending = true;
@@ -172,6 +172,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         currentSortCriteria = "title";
         itemAdapter.changeSortCriteria(currentSortCriteria);
         itemAdapter.notifyDataSetChanged();
+
     }
 
     @Override
@@ -181,6 +182,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         itemAdapter.changeSortCriteria(currentSortCriteria);
         itemAdapter.notifyDataSetChanged();
 
+
     }
 
     @Override
@@ -189,5 +191,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         currentSortCriteria = "added";
         itemAdapter.changeSortCriteria(currentSortCriteria);
         itemAdapter.notifyDataSetChanged();
+
     }
 }
