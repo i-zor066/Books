@@ -26,9 +26,9 @@ public class AddNewEntryManually extends AppCompatActivity implements DatePicker
 
     private final String IMAGE_PLACEHOLDER = "https://s.gr-assets.com/assets/nophoto/book/blank-133x176-8b769f39ba6687a82d2eef30bdf46977.jpg"; // ToDo: your own resource for this
 
-    private String mAddTitle ="";
+    private String mAddTitle = "";
     private EditText addTitle;
-    private String mAddAuthor ="";
+    private String mAddAuthor = "";
     private EditText addAuthor;
     private int mPubDate = 0;
     private String mAddSynopsis = "";
@@ -113,7 +113,7 @@ public class AddNewEntryManually extends AppCompatActivity implements DatePicker
             finish();
         }
 
-        if (v.getId() == R.id.btn_add_book_submit){
+        if (v.getId() == R.id.btn_add_book_submit) {
             mAddTitle = addTitle.getText().toString();
             mAddAuthor = addAuthor.getText().toString();
             mAddSynopsis = addSynopsis.getText().toString();
@@ -131,33 +131,33 @@ public class AddNewEntryManually extends AppCompatActivity implements DatePicker
 
     @Override
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-        if((EditorInfo.IME_ACTION_NEXT == actionId ) && (v.getId() == R.id.et_add_new_title)) {
+        if ((EditorInfo.IME_ACTION_NEXT == actionId) && (v.getId() == R.id.et_add_new_title)) {
             mAddTitle = addTitle.getText().toString();
             Log.v(TAG, mAddTitle);
         }
 
-        if((EditorInfo.IME_ACTION_NEXT == actionId) &&  (v.getId() == R.id.et_add_new_author)) {
+        if ((EditorInfo.IME_ACTION_NEXT == actionId) && (v.getId() == R.id.et_add_new_author)) {
             mAddAuthor = addAuthor.getText().toString();
             Log.v(TAG, mAddAuthor);
         }
 
-        if((EditorInfo.IME_ACTION_NEXT == actionId) && (v.getId() == R.id.et_add_new_synopsis)) {
+        if ((EditorInfo.IME_ACTION_NEXT == actionId) && (v.getId() == R.id.et_add_new_synopsis)) {
             mAddSynopsis = addSynopsis.getText().toString();
             Log.v(TAG, mAddSynopsis);
         }
 
-        if((EditorInfo.IME_ACTION_NEXT == actionId) && (v.getId() == R.id.et_add_new_pages)) {
+        if ((EditorInfo.IME_ACTION_NEXT == actionId) && (v.getId() == R.id.et_add_new_pages)) {
             mPages = Integer.parseInt(addNumberOfPages.getText().toString());
             Log.v(TAG, String.valueOf(mPages));
         }
 
-        if((EditorInfo.IME_ACTION_NEXT == actionId) && (v.getId() == R.id.et_add_new_publisher)) {
+        if ((EditorInfo.IME_ACTION_NEXT == actionId) && (v.getId() == R.id.et_add_new_publisher)) {
             mPublisher = addPublisher.getText().toString();
             Log.v(TAG, mPublisher);
         }
 
-        if((EditorInfo.IME_ACTION_DONE == actionId) && (v.getId() == R.id.et_add_cover)) {
-            
+        if ((EditorInfo.IME_ACTION_DONE == actionId) && (v.getId() == R.id.et_add_cover)) {
+
             loadCover();
 
             // ToDO: URL validation

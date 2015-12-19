@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
 public class BooksTable extends Table {
 
 
-    private static final String NAME ="books";
+    private static final String NAME = "books";
 
     private static final String COLUMN_TITLE = "title";
     private static final String COLUMN_AUTHOR = "author";
@@ -64,7 +64,6 @@ public class BooksTable extends Table {
             values.put(COLUMN_TIME_ADDED, timeAdded);
             return this;
         }
-
 
 
         @Override

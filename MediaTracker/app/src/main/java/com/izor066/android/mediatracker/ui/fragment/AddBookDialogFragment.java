@@ -25,9 +25,6 @@ public class AddBookDialogFragment extends DialogFragment implements Button.OnCl
     Button cancel;
 
 
-    public AddBookDialogFragment() {
-        // Required empty public constructor
-    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -40,10 +37,9 @@ public class AddBookDialogFragment extends DialogFragment implements Button.OnCl
     }
 
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View view = inflater.inflate(R.layout.fragment_add_book_dialog, container, false);
         addManually = (Button) view.findViewById(R.id.bt_add_manually);
         searchGoodReads = (Button) view.findViewById(R.id.bt_search_goodreads);
@@ -61,12 +57,10 @@ public class AddBookDialogFragment extends DialogFragment implements Button.OnCl
     public void onClick(View v) {
 
         if (v == v.findViewById(R.id.bt_add_manually)) {
-           // Toast.makeText(getActivity(), "Launch new activity", Toast.LENGTH_SHORT).show();
             dismiss();
             Intent intent = new Intent(getActivity(), AddNewEntryManually.class);
             this.startActivity(intent);
         } else if (v == v.findViewById(R.id.bt_search_goodreads)) {
-            //Toast.makeText(getActivity(), "Search GoodReads", Toast.LENGTH_SHORT).show();
             dismiss();
             Intent intent = new Intent(getActivity(), SearchGoogleBooks.class);
             this.startActivity(intent);

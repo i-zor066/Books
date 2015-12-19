@@ -100,7 +100,7 @@ public class Book implements Parcelable {
     }
 
     public static final Parcelable.Creator<Book> CREATOR = new Parcelable.Creator<Book>() {
-        public Book createFromParcel(Parcel source){
+        public Book createFromParcel(Parcel source) {
             Bundle bundle = source.readBundle();
 
             return new Book(

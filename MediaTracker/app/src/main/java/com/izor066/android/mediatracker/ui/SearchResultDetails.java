@@ -33,7 +33,6 @@ public class SearchResultDetails extends AppCompatActivity implements View.OnCli
     private TextView publisher;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -31,8 +31,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemAdapterVie
     }
 
     private SortCriteria currentSortCriteria = SortCriteria.ADDED;
-
-    // private String currentSortCriteria = "added"; // "title", "author"
     private final OnBookClickListener listener;
     private boolean isAscending = true;
 
@@ -83,7 +81,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemAdapterVie
             case ADDED:
                 Collections.sort(bookList, new Comparator<Book>() {
                     public int compare(Book b1, Book b2) {
-                        return Long.compare(b1.getTimeAdded(), b2.getTimeAdded()); // ToDo: is there a way to do it to support API below 19
+                        return b1.getTimeAdded() < b2.getTimeAdded() ? -1 : (b1.getTimeAdded() == b2.getTimeAdded() ? 0 : 1);
                     }
                 });
                 break;
@@ -139,7 +137,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemAdapterVie
         @Override
         public void onClick(View v) {
             listener.onBookClick(book);
-            // Toast.makeText(itemView.getContext(), book.getTitle(), Toast.LENGTH_SHORT).show();
+
         }
     }
 

@@ -187,15 +187,15 @@
                             android:id="@+id/tv_details_date_published_label"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/published_label_string"/>
+                            android:text="@string/published_label_string" />
 
                         <TextView
                             android:id="@+id/tv_details_date_published"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/date_published_text_placeholder"
+                            android:layout_marginLeft="5dp"
                             android:layout_toRightOf="@+id/tv_details_date_published_label"
-                            android:layout_marginLeft="5dp"/>
+                            android:text="@string/date_published_text_placeholder" />
 
                     </RelativeLayout>
 
@@ -209,15 +209,15 @@
                             android:id="@+id/tv_details_publisher_label"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/publisher_label_string"/>
+                            android:text="@string/publisher_label_string" />
 
                         <TextView
                             android:id="@+id/tv_details_publisher"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/publisher_placeholder_string"
+                            android:layout_marginLeft="5dp"
                             android:layout_toRightOf="@+id/tv_details_publisher_label"
-                            android:layout_marginLeft="5dp"/>
+                            android:text="@string/publisher_placeholder_string" />
 
                     </RelativeLayout>
 
@@ -231,15 +231,15 @@
                             android:id="@+id/tv_details_pages_label"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/pages_label_string"/>
+                            android:text="@string/pages_label_string" />
 
                         <TextView
                             android:id="@+id/tv_details_pages"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/pages_placeholder_string"
+                            android:layout_marginLeft="5dp"
                             android:layout_toRightOf="@+id/tv_details_pages_label"
-                            android:layout_marginLeft="5dp"/>
+                            android:text="@string/pages_placeholder_string" />
 
                     </RelativeLayout>
 

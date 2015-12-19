@@ -38,10 +38,11 @@ public class SortItemsDialogFragment extends DialogFragment implements RadioGrou
     }
 
 
-
     public static interface OnSortingOptionSelectedListener {
         public void onTitleSelected();
+
         public void onAuthorSelected();
+
         public void onAddedSelected();
     }
 
