@@ -26,6 +26,10 @@
         <activity
             android:name=".ui.AddNewEntryManually"
             android:label="@string/add_new_entry_man_activity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity android:name=".ui.SearchGoogleBooks"
+            android:label="@string/search_google_books_string"
             android:screenOrientation="portrait">
         </activity>
     </application>

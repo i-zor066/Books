@@ -47,7 +47,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemAdapterVie
         return MediaTrackerApplication.getSharedDataSource().getAllBooks().size();
     }
 
-    class ItemAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    static class ItemAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView bookCover;
         TextView bookTitle;

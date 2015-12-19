@@ -1,4 +1,4 @@
-package com.izor066.android.mediatracker.ui;
+package com.izor066.android.mediatracker.util;
 
 import java.util.Calendar;
 

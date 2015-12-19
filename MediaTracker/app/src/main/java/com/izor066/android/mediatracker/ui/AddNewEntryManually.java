@@ -5,6 +5,8 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
@@ -24,14 +26,14 @@ public class AddNewEntryManually extends AppCompatActivity implements DatePicker
 
     private final String IMAGE_PLACEHOLDER = "https://s.gr-assets.com/assets/nophoto/book/blank-133x176-8b769f39ba6687a82d2eef30bdf46977.jpg";
 
-    String mAddTitle ="";
+    private String mAddTitle ="";
     EditText addTitle;
-    String mAddAuthor ="";
+    private String mAddAuthor ="";
     EditText addAuthor;
-    int mPubDate = 0;
-    String mAddSynopsis = "";
+    private int mPubDate = 0;
+    private String mAddSynopsis = "";
     EditText addSynopsis;
-    String mAddCover = IMAGE_PLACEHOLDER;
+    private String mAddCover = IMAGE_PLACEHOLDER;
     EditText addCover;
     ImageView coverPreview;
     Button setCover;
@@ -72,6 +74,7 @@ public class AddNewEntryManually extends AppCompatActivity implements DatePicker
         cancel = (Button) findViewById(R.id.btn_add_book_cancel);
         cancel.setOnClickListener(this);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }
 
@@ -94,11 +97,21 @@ public class AddNewEntryManually extends AppCompatActivity implements DatePicker
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btn_set_cover) {
-            mAddCover = addCover.getText().toString();
-            coverPreview.setVisibility(View.VISIBLE);
-            Picasso.with(this)
-                    .load(mAddCover)
-                    .into(coverPreview);
+            Log.e("WTF", addCover.getText().toString());
+            if (addCover.getText().length() == 0) {
+                coverPreview.setVisibility(View.VISIBLE);
+                Picasso.with(this)
+                        .load(mAddCover)
+                        .into(coverPreview);
+                Log.e(TAG, mAddCover);
+            } else {
+                mAddCover = addCover.getText().toString();
+                Log.e("WTF", addCover.getText().toString());
+                coverPreview.setVisibility(View.VISIBLE);
+                Picasso.with(this)
+                        .load(mAddCover)
+                        .into(coverPreview);
+            }
         }
         if (v.getId() == R.id.btn_add_book_cancel) {
             finish();
@@ -135,15 +148,39 @@ public class AddNewEntryManually extends AppCompatActivity implements DatePicker
         }
 
         if((EditorInfo.IME_ACTION_DONE == actionId) && (v.getId() == R.id.et_add_cover)) {
-            mAddCover = addCover.getText().toString();
-            Log.v(TAG, mAddCover);
-            coverPreview.setVisibility(View.VISIBLE);
-            Picasso.with(this)
-                    .load(mAddCover)
-                    .into(coverPreview);
+
+            if (addCover.getText().length() == 0) {
+                coverPreview.setVisibility(View.VISIBLE);
+                Picasso.with(this)
+                        .load(mAddCover)
+                        .into(coverPreview);
+            } else {
+                mAddCover = addCover.getText().toString();
+                coverPreview.setVisibility(View.VISIBLE);
+                Picasso.with(this)
+                        .load(mAddCover)
+                        .into(coverPreview);
+            }
+
+            // ToDO: URL validation
 
         }
 
         return false;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return true;
     }
 }

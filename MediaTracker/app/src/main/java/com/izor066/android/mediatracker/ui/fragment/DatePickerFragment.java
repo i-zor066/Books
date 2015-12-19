@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.widget.DatePicker;
 
-import com.izor066.android.mediatracker.ui.UIUtils;
+import com.izor066.android.mediatracker.util.UIUtils;
 
 import java.util.Calendar;
 

@@ -24,4 +24,9 @@
     <string name="string_submit">Submit</string>
     <string name="string_set_cover">Set cover</string>
     <string name="string_paste_url">Paste URL</string>
+    <string name="add_manualy_string">Add Manually</string>
+    <string name="search_googlebooks_string">Search Google Books</string>
+    <string name="cancel_string">Cancel</string>
+    <string name="search_google_books_string">Search Google Books</string>
+    <string name="search_hint_string">Search by Author or Title</string>
 </resources>

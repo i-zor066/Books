@@ -7,9 +7,9 @@ public class Book {
 
     private final String title;
     private final String author;
-    private long datePublished;
-    private String coverImgUri;
-    private String synopsis;
+    private final long datePublished;
+    private final String coverImgUri;
+    private final String synopsis;
     //ToDo: Add cover image
 
     public Book(String title, String author, long datePublished, String coverImgUri, String synopsis) {
