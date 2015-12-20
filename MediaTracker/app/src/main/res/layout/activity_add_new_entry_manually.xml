@@ -110,23 +110,24 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/et_add_cover"
-                android:layout_width="250dp"
+            <Button
+                android:id="@+id/btn_camera"
+                style="@style/Button"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
-                android:hint="@string/string_paste_url"
-                android:imeOptions="actionDone"
-                android:inputType="textUri"
-                android:textSize="@dimen/abc_text_size_small_material" />
+                android:layout_gravity="start"
+                android:text="@string/string_camera"
+                android:textAlignment="textStart"
+                android:textAllCaps="true"
+                android:textSize="@dimen/abc_text_size_button_material" />
 
             <Button
-                android:id="@+id/btn_set_cover"
+                android:id="@+id/btn_pick_img"
                 style="@style/Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:text="@string/string_set_cover"
+                android:text="@string/string_pick_img"
                 android:textAlignment="textEnd"
                 android:textAllCaps="true"
                 android:textSize="@dimen/abc_text_size_button_material" />

@@ -22,7 +22,7 @@
     <string name="string_synopsis">Synopsis:</string>
     <string name="string_add_cover">Add Cover:</string>
     <string name="string_submit">Submit</string>
-    <string name="string_set_cover">Set cover</string>
+    <string name="string_pick_img">Pick IMG</string>
     <string name="string_paste_url">Paste URL</string>
     <string name="add_manualy_string">Add Manually</string>
     <string name="search_googlebooks_string">Search Google Books</string>
@@ -40,4 +40,5 @@
     <string name="pages_placeholder_string">402</string>
     <string name="number_of_pages_label_string">Number of Pages:</string>
     <string name="action_sort">Sort</string>
+    <string name="string_camera">Camera</string>
 </resources>

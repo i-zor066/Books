@@ -1,6 +1,12 @@
 package com.izor066.android.mediatracker.ui;
 
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -20,11 +26,20 @@ import com.izor066.android.mediatracker.api.model.Book;
 import com.izor066.android.mediatracker.ui.fragment.DatePickerFragment;
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 public class AddNewEntryManually extends AppCompatActivity implements DatePickerFragment.OnDatePubSetListener, Button.OnClickListener, TextView.OnEditorActionListener {
 
     String TAG = getClass().getSimpleName();
 
-    private final String IMAGE_PLACEHOLDER = "https://s.gr-assets.com/assets/nophoto/book/blank-133x176-8b769f39ba6687a82d2eef30bdf46977.jpg"; // ToDo: your own resource for this
+    private final String IMAGE_PLACEHOLDER = Uri.parse("android.resource://com.izor066.android.mediatracker/" + R.drawable.cover_placeholder).toString();
+    private static final int RESULT_LOAD_IMAGE = 1;
+    private static final int REQUEST_IMAGE_CAPTURE = 1111;
+
 
     private String mAddTitle = "";
     private EditText addTitle;
@@ -34,8 +49,8 @@ public class AddNewEntryManually extends AppCompatActivity implements DatePicker
     private String mAddSynopsis = "";
     private EditText addSynopsis;
     private String mAddCover = IMAGE_PLACEHOLDER;
-    private EditText addCover;
     private ImageView coverPreview;
+    private Button camera;
     private Button setCover;
     private Button submit;
     private Button cancel;
@@ -43,6 +58,9 @@ public class AddNewEntryManually extends AppCompatActivity implements DatePicker
     private int mPages;
     private EditText addPublisher;
     private String mPublisher;
+    private boolean isImgLoaded = false;
+    private String mCurrentPhotoPath;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +76,6 @@ public class AddNewEntryManually extends AppCompatActivity implements DatePicker
         addSynopsis = (EditText) findViewById(R.id.et_add_new_synopsis);
         addSynopsis.setOnEditorActionListener(this);
 
-        addCover = (EditText) findViewById(R.id.et_add_cover);
-        addCover.setOnEditorActionListener(this);
 
         addNumberOfPages = (EditText) findViewById(R.id.et_add_new_pages);
         addNumberOfPages.setOnEditorActionListener(this);
@@ -76,7 +92,10 @@ public class AddNewEntryManually extends AppCompatActivity implements DatePicker
                     .into(coverPreview);
         }
 
-        setCover = (Button) findViewById(R.id.btn_set_cover);
+        camera = (Button) findViewById(R.id.btn_camera);
+        camera.setOnClickListener(this);
+
+        setCover = (Button) findViewById(R.id.btn_pick_img);
         setCover.setOnClickListener(this);
 
         submit = (Button) findViewById(R.id.btn_add_book_submit);
@@ -106,8 +125,12 @@ public class AddNewEntryManually extends AppCompatActivity implements DatePicker
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.btn_set_cover) {
-            loadCover();
+        if (v.getId() == R.id.btn_pick_img) {
+            captureCoverFromGallery();
+        }
+
+        if (v.getId() == R.id.btn_camera) {
+            captureCoverWithCamera();
         }
         if (v.getId() == R.id.btn_add_book_cancel) {
             finish();
@@ -117,8 +140,10 @@ public class AddNewEntryManually extends AppCompatActivity implements DatePicker
             mAddTitle = addTitle.getText().toString();
             mAddAuthor = addAuthor.getText().toString();
             mAddSynopsis = addSynopsis.getText().toString();
-            mAddCover = addCover.getText().toString();
             mPages = Integer.parseInt(addNumberOfPages.getText().toString());
+            if (!isImgLoaded) {
+                mAddCover = IMAGE_PLACEHOLDER;
+            }
             mPublisher = addPublisher.getText().toString();
             Log.v(TAG, mAddSynopsis);
             Book book = new Book(mAddTitle, mAddAuthor, (long) mPubDate, mAddCover, mAddSynopsis, mPages, mPublisher, System.currentTimeMillis());
@@ -156,13 +181,6 @@ public class AddNewEntryManually extends AppCompatActivity implements DatePicker
             Log.v(TAG, mPublisher);
         }
 
-        if ((EditorInfo.IME_ACTION_DONE == actionId) && (v.getId() == R.id.et_add_cover)) {
-
-            loadCover();
-
-            // ToDO: URL validation
-
-        }
 
         return false;
     }
@@ -182,19 +200,83 @@ public class AddNewEntryManually extends AppCompatActivity implements DatePicker
         return true;
     }
 
-    private void loadCover() {
-        if (addCover.getText().length() == 0) {
-            mAddCover = IMAGE_PLACEHOLDER;
+    private void captureCoverFromGallery() {
 
-        } // has to be in, otherwise the placeholder won't load if the user enters a non-valid url and then deletes it
+        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, RESULT_LOAD_IMAGE);
 
-        if (addCover.getText().length() > 0) {
-            mAddCover = addCover.getText().toString();
+    }
+
+    private void captureCoverWithCamera() {
+
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         }
 
-        coverPreview.setVisibility(View.VISIBLE);
-        Picasso.with(this)
-                .load(mAddCover)
-                .into(coverPreview);
+
+
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
+            Uri selectedImage = data.getData();
+            String[] filePathColumn = {MediaStore.Images.Media.DATA};
+
+            Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+            cursor.moveToFirst();
+
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            mAddCover = cursor.getString(columnIndex);
+            cursor.close();
+
+            Log.e(TAG, mAddCover);
+
+            coverPreview.setVisibility(View.VISIBLE);
+            Picasso.with(this)
+                    .load(new File(mAddCover))
+                            .into(coverPreview);
+            isImgLoaded = true;
+        }
+
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+
+            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+            imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, bytes);
+            File destination = new File(Environment.getExternalStorageDirectory(), System.currentTimeMillis() + ".jpg");
+
+            FileOutputStream fo;
+            try {
+                destination.createNewFile();
+                fo = new FileOutputStream(destination);
+                fo.write(bytes.toByteArray());
+                fo.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            mAddCover = destination.getAbsolutePath();
+
+
+            Log.e(TAG, mAddCover);
+
+            coverPreview.setVisibility(View.VISIBLE);
+
+            Picasso.with(this)
+                    .load(new File(mAddCover))
+                    .into(coverPreview);
+            isImgLoaded = true;
+
+        }
+
+    }
+
 }

@@ -31,7 +31,7 @@
                 android:layout_height="54dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:src="@drawable/ic_book_black"
+                android:src="@drawable/cover_placeholder"
                 android:scaleType="centerCrop"
                 android:layout_alignTop="@+id/tv_search_book_title"
                 android:layout_marginRight="15dp" />
