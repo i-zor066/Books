@@ -3,6 +3,7 @@ package com.izor066.android.mediatracker.ui;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -245,7 +246,8 @@ public class AddNewEntryManually extends AppCompatActivity implements DatePicker
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
 
             Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            Bitmap bitmapRaw = (Bitmap) extras.get("data");
+            Bitmap imageBitmap = rotateBitmap(bitmapRaw, 90);
 
             ByteArrayOutputStream bytes = new ByteArrayOutputStream();
             imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, bytes);
@@ -277,6 +279,13 @@ public class AddNewEntryManually extends AppCompatActivity implements DatePicker
 
         }
 
+    }
+
+    public static Bitmap rotateBitmap(Bitmap source, float angle)
+    {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
     }
 
 }
