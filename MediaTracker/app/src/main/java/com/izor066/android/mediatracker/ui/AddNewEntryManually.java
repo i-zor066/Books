@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.izor066.android.mediatracker.MediaTrackerApplication;
 import com.izor066.android.mediatracker.R;
@@ -60,7 +61,6 @@ public class AddNewEntryManually extends AppCompatActivity implements DatePicker
     private EditText addPublisher;
     private String mPublisher;
     private boolean isImgLoaded = false;
-    private String mCurrentPhotoPath;
 
 
     @Override
@@ -138,10 +138,27 @@ public class AddNewEntryManually extends AppCompatActivity implements DatePicker
         }
 
         if (v.getId() == R.id.btn_add_book_submit) {
-            mAddTitle = addTitle.getText().toString();
-            mAddAuthor = addAuthor.getText().toString();
+
+            if ((addTitle.getText().toString()).equals("")) {
+                Toast.makeText(this, "Title cannot be empty!", Toast.LENGTH_SHORT).show();
+                return;
+            } else {
+                mAddTitle = addTitle.getText().toString();
+            }
+
+            if ((addAuthor.getText().toString()).equals("")) {
+                mAddAuthor = "Unknown";
+            } else {
+                mAddAuthor = addAuthor.getText().toString();
+            }
             mAddSynopsis = addSynopsis.getText().toString();
-            mPages = Integer.parseInt(addNumberOfPages.getText().toString());
+
+            if ((addNumberOfPages.getText().toString()).equals("")) {
+                mPages = 0;
+            } else {
+                mPages = Integer.parseInt(addNumberOfPages.getText().toString());
+            }
+
             if (!isImgLoaded) {
                 mAddCover = IMAGE_PLACEHOLDER;
             }
@@ -203,8 +220,10 @@ public class AddNewEntryManually extends AppCompatActivity implements DatePicker
 
     private void captureCoverFromGallery() {
 
-        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(intent, RESULT_LOAD_IMAGE);
+        Intent pickPictureIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        if (pickPictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(pickPictureIntent, RESULT_LOAD_IMAGE);
+        }
 
     }
 
@@ -214,7 +233,6 @@ public class AddNewEntryManually extends AppCompatActivity implements DatePicker
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         }
-
 
 
     }
@@ -239,7 +257,7 @@ public class AddNewEntryManually extends AppCompatActivity implements DatePicker
             coverPreview.setVisibility(View.VISIBLE);
             Picasso.with(this)
                     .load(new File(mAddCover))
-                            .into(coverPreview);
+                    .into(coverPreview);
             isImgLoaded = true;
         }
 
@@ -281,8 +299,7 @@ public class AddNewEntryManually extends AppCompatActivity implements DatePicker
 
     }
 
-    public static Bitmap rotateBitmap(Bitmap source, float angle)
-    {
+    public static Bitmap rotateBitmap(Bitmap source, float angle) {
         Matrix matrix = new Matrix();
         matrix.postRotate(angle);
         return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);

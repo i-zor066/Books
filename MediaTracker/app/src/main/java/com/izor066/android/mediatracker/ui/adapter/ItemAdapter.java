@@ -14,6 +14,7 @@ import com.izor066.android.mediatracker.R;
 import com.izor066.android.mediatracker.api.model.Book;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -127,9 +128,15 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemAdapterVie
 
             Context context = bookCover.getContext();
 
-            Picasso.with(context)
-                    .load(book.getCoverImgUri())
-                    .into(bookCover);
+            if (book.getCoverImgUri().startsWith("http")) {
+                Picasso.with(context)
+                        .load(book.getCoverImgUri())
+                        .into(bookCover);
+            } else {
+                Picasso.with(context)
+                        .load(new File(book.getCoverImgUri()))
+                        .into(bookCover);
+            }
         }
 
         // OnClickListener
