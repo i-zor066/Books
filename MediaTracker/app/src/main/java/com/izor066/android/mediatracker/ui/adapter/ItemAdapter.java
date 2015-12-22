@@ -128,7 +128,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemAdapterVie
 
             Context context = bookCover.getContext();
 
-            if (book.getCoverImgUri().startsWith("http")) {
+            if (book.getCoverImgUri().startsWith("http") || book.getCoverImgUri().startsWith("android.resource"))   {
                 Picasso.with(context)
                         .load(book.getCoverImgUri())
                         .into(bookCover);

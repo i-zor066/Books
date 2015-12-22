@@ -8,6 +8,7 @@ import com.izor066.android.mediatracker.BuildConfig;
 import com.izor066.android.mediatracker.api.model.Book;
 import com.izor066.android.mediatracker.api.model.database.DatabaseOpenHelper;
 import com.izor066.android.mediatracker.api.model.database.table.BooksTable;
+import com.izor066.android.mediatracker.api.model.database.table.Table;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,8 +50,31 @@ public class DataSource {
 
     }
 
+    public void editBookForRowId(Book book, long rowId) {
+        SQLiteDatabase writableDatabase = databaseOpenHelper.getWritableDatabase();
+        new BooksTable.Builder()
+                .setTitle(book.getTitle())
+                .setAuthor(book.getAuthor())
+                .setDatePublished(book.getDatePublished())
+                .setCoverImgUri(book.getCoverImgUri())
+                .setSynopsis(book.getSynopsis())
+                .setPages(book.getPages())
+                .setPublisher(book.getPublisher())
+                .setTimeAdded(System.currentTimeMillis())
+                .updateForRowId(writableDatabase, rowId);
+
+    }
+
     public Book getBookFromDBwithTitle(String title) {
         Cursor cursor = BooksTable.getRowFromTitle(databaseOpenHelper.getReadableDatabase(), title);
+        cursor.moveToFirst();
+        Book book = bookFromCursor(cursor);
+        cursor.close();
+        return book;
+    }
+
+    public Book getBookWithId(long rowId) {
+        Cursor cursor = BooksTable.getRowWithId(databaseOpenHelper.getReadableDatabase(), rowId);
         cursor.moveToFirst();
         Book book = bookFromCursor(cursor);
         cursor.close();
@@ -70,6 +94,7 @@ public class DataSource {
     }
 
     private static Book bookFromCursor(Cursor cursor) {
+        long rowId = Table.getRowId(cursor);
         String title = BooksTable.getTitle(cursor);
         String author = BooksTable.getAuthor(cursor);
         long datePublished = BooksTable.getDatePublished(cursor);
@@ -78,7 +103,7 @@ public class DataSource {
         int pages = BooksTable.getPages(cursor);
         String publisher = BooksTable.getPublisher(cursor);
         long timeAdded = BooksTable.getTimeAdded(cursor);
-        return new Book(title, author, datePublished, coverimgUri, synopsis, pages, publisher, timeAdded);
+        return new Book(rowId, title, author, datePublished, coverimgUri, synopsis, pages, publisher, timeAdded);
     }
 
 

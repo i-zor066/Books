@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
+
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
@@ -29,11 +30,11 @@
         <activity
             android:name=".ui.AddNewEntryManually"
             android:label="@string/add_new_entry_man_activity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.SearchGoogleBooks"
             android:label="@string/search_google_books_string"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.BookDetails"
             android:label="@string/book_details_string"
@@ -43,13 +44,18 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.MainActivity" />
         </activity>
-        <activity android:name=".ui.SearchResultDetails"
+        <activity
+            android:name=".ui.SearchResultDetails"
             android:label="@string/book_details_string"
             android:parentActivityName=".ui.SearchGoogleBooks"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.SearchGoogleBooks" /></activity>
+                android:value=".ui.SearchGoogleBooks" />
+        </activity>
+        <activity android:name=".ui.EditEntry"
+            android:label="@string/string_edit"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

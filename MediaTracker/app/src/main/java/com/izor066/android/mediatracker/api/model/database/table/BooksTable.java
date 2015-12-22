@@ -65,6 +65,10 @@ public class BooksTable extends Table {
             return this;
         }
 
+        public void updateForRowId(SQLiteDatabase writableDB, long rowId) {
+            writableDB.update(BooksTable.NAME, values, COLUMN_ID + " = ?", new String[]{String.valueOf(rowId)}); //ToDo check if correct
+        }
+
 
         @Override
         public long insert(SQLiteDatabase writableDB) {
@@ -105,9 +109,13 @@ public class BooksTable extends Table {
         return getLong(cursor, COLUMN_TIME_ADDED);
     }
 
+    public static Cursor getRowWithId(SQLiteDatabase readonlyDatabase, long rowId) {
+        return readonlyDatabase.query(true, NAME, null, COLUMN_ID + " = ?", new String[]{String.valueOf(rowId)}, null, null, null, null);
+    }
+
     public static Cursor getRowFromTitle(SQLiteDatabase readonlyDatabase, String title) {
         return readonlyDatabase.query(true, NAME, null, COLUMN_TITLE + " = ?", new String[]{title}, null, null, null, null);
-    } // ToDo: Implement a different recovery method, titles might duplicate
+    }
 
     public static Cursor fetchAllBooks(SQLiteDatabase readonlyDatabase) {
         return readonlyDatabase.rawQuery("SELECT * FROM " + NAME + " ORDER BY ?", new String[]{COLUMN_TITLE});

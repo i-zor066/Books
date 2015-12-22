@@ -36,7 +36,7 @@ public class ApplicationTest extends ApplicationTestCase<MediaTrackerApplication
 
         assertNotNull(application.getDataSource());
 
-        Book testBook = new Book("Plese z zmaji", "Zorz DvojniR Martinov", 1380585600, "https://d.gr-assets.com/books/1397215917l/17333324.jpg", "Povzetek");
+        Book testBook = new Book(2l, "Plese z zmaji", "Zorz DvojniR Martinov", 1380585600, "https://d.gr-assets.com/books/1397215917l/17333324.jpg", "Povzetek", 4, "Self", 5l);
 
         application.getDataSource().insertBookToDatabase(testBook);
 
