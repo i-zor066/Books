@@ -6,51 +6,53 @@
     tools:context="com.izor066.android.mediatracker.ui.fragment.AddBookDialogFragment">
 
     <TextView
+        android:id="@+id/fr_add_a_new_entry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/fr_add_a_new_entry"
-        android:text="@string/add_new_entry_text"
         android:padding="22dp"
-        android:textSize="@dimen/abc_text_size_medium_material"/>
+        android:text="@string/add_new_entry_text"
+        android:textSize="@dimen/abc_text_size_medium_material" />
 
     <LinearLayout
+        android:id="@+id/ll_new_entry_buttons_wrapper"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/ll_new_entry_buttons_wrapper"
-        android:orientation="vertical"
         android:layout_gravity="right|bottom"
-        android:layout_margin="14dp">
+        android:layout_margin="14dp"
+        android:orientation="vertical">
 
         <Button
             android:id="@+id/bt_add_manually"
             style="@style/Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/add_manualy_string"
-            android:textSize="@dimen/abc_text_size_button_material"
             android:layout_gravity="end"
+            android:text="@string/add_manualy_string"
             android:textAlignment="textEnd"
-            android:textAllCaps="true"/>
+            android:textAllCaps="true"
+            android:textSize="@dimen/abc_text_size_button_material" />
+
         <Button
             android:id="@+id/bt_search_goodreads"
             style="@style/Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/search_googlebooks_string"
-            android:textSize="@dimen/abc_text_size_button_material"
             android:layout_gravity="end"
+            android:text="@string/search_googlebooks_string"
             android:textAlignment="textEnd"
-            android:textAllCaps="true"/>
+            android:textAllCaps="true"
+            android:textSize="@dimen/abc_text_size_button_material" />
+
         <Button
             android:id="@+id/bt_add_book_cancel"
             style="@style/Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/cancel_string"
-            android:textSize="@dimen/abc_text_size_button_material"
             android:layout_gravity="end"
+            android:text="@string/cancel_string"
             android:textAlignment="textEnd"
-            android:textAllCaps="true"/>
+            android:textAllCaps="true"
+            android:textSize="@dimen/abc_text_size_button_material" />
 
     </LinearLayout>
 

@@ -11,21 +11,42 @@ import android.widget.TextView;
 
 import com.izor066.android.mediatracker.MediaTrackerApplication;
 import com.izor066.android.mediatracker.R;
-import com.izor066.android.mediatracker.api.DataSource;
 import com.izor066.android.mediatracker.api.model.Book;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * Created by igor on 13/11/15.
  */
-public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemAdapterViewHolder>  {
+public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemAdapterViewHolder> {
+
+    public enum SortCriteria {
+        ADDED,
+        TITLE,
+        AUTHOR
+    }
+
+    private SortCriteria currentSortCriteria = SortCriteria.ADDED;
+    private final OnBookClickListener listener;
+    private boolean isAscending = true;
 
     public interface OnBookClickListener {
-         void onBookClick(Book book);
+        void onBookClick(Book book);
     }
-    
-    private final OnBookClickListener listener;
-    
+
+    public void changeSortCriteria(SortCriteria currentSortCriteria) {
+        this.currentSortCriteria = currentSortCriteria;
+    }
+
+    public void changeSortOrder() {
+        isAscending = !isAscending;
+    }
+
+
     public ItemAdapter(OnBookClickListener listener) {
         this.listener = listener;
     }
@@ -38,8 +59,42 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemAdapterVie
 
     @Override
     public void onBindViewHolder(ItemAdapterViewHolder itemAdapterViewHolder, int i) {
-        DataSource sharedDataSource = MediaTrackerApplication.getSharedDataSource();
-        itemAdapterViewHolder.update(sharedDataSource.getAllBooks().get(i), listener);
+        List<Book> bookList = new ArrayList<Book>();
+        bookList = MediaTrackerApplication.getSharedDataSource().getAllBooks();
+
+
+        switch (currentSortCriteria) {
+            case TITLE:
+                Collections.sort(bookList, new Comparator<Book>() {
+                    public int compare(Book b1, Book b2) {
+                        return b1.getTitle().compareToIgnoreCase(b2.getTitle());
+                    }
+                });
+                break;
+            case AUTHOR:
+                Collections.sort(bookList, new Comparator<Book>() {
+                    public int compare(Book b1, Book b2) {
+                        return b1.getAuthor().compareToIgnoreCase(b2.getAuthor());
+                    }
+                });
+                break;
+            case ADDED:
+                Collections.sort(bookList, new Comparator<Book>() {
+                    public int compare(Book b1, Book b2) {
+                        return b1.getTimeAdded() < b2.getTimeAdded() ? -1 : (b1.getTimeAdded() == b2.getTimeAdded() ? 0 : 1);
+                    }
+                });
+                break;
+            default:
+                throw new IllegalArgumentException("Cannot sort by: " + currentSortCriteria);
+        }
+
+        if (!isAscending) {
+            Collections.reverse(bookList);
+        }
+
+
+        itemAdapterViewHolder.update(bookList.get(i), listener);
     }
 
     @Override
@@ -54,6 +109,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemAdapterVie
         TextView bookAuthor;
         Book book;
         OnBookClickListener listener;
+
 
         public ItemAdapterViewHolder(View itemView) {
             super(itemView);
@@ -81,10 +137,9 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemAdapterVie
         @Override
         public void onClick(View v) {
             listener.onBookClick(book);
-           // Toast.makeText(itemView.getContext(), book.getTitle(), Toast.LENGTH_SHORT).show();
+
         }
     }
-
 
 
 }

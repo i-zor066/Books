@@ -99,7 +99,7 @@ public class SearchGoogleBooks extends AppCompatActivity implements TextView.OnE
             Toast.makeText(this, "Search for: " + searchString, Toast.LENGTH_SHORT).show();
             SearchTask task = new SearchTask(resultsToAdd, searchResultsAdapter, pb, recyclerView);
             task.execute(searchString);
-            InputMethodManager inputMethodManager = (InputMethodManager)  this.getSystemService(Activity.INPUT_METHOD_SERVICE);
+            InputMethodManager inputMethodManager = (InputMethodManager) this.getSystemService(Activity.INPUT_METHOD_SERVICE);
             inputMethodManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
             return true;
         }
@@ -171,51 +171,19 @@ public class SearchGoogleBooks extends AppCompatActivity implements TextView.OnE
             for (int i = 0; i < searchListResponse.getItems().size(); i++) {
                 Volume volume = searchListResponse.getItems().get(i);
 
-                String authorsAll;
-
-                if (volume.getVolumeInfo().getAuthors() == null) {
-                   authorsAll = AUTHOR_PLACEHOLDER;
-                } else {
-
                 List<String> authors = volume.getVolumeInfo().getAuthors();
-                StringBuilder sb = new StringBuilder();
-                for (String author : authors) {
-                    sb.append(", " + author);
-                }
-                authorsAll = sb.toString().replaceFirst(", ", "");
-                }
+                String authorsAll = createAllAuthorsFrom(authors);
 
-                String thumbnail;
 
-                if (volume.getVolumeInfo().getImageLinks() == null) {
-                    thumbnail = IMAGE_PLACEHOLDER;
-                } else {
-                    thumbnail = volume.getVolumeInfo().getImageLinks().getThumbnail();
-                }
+                String thumbnail = getThumbnails(volume);
+
 
                 String dateString = volume.getVolumeInfo().getPublishedDate();
                 Log.e(TAG, "Date: " + dateString);
 
 
-                Date date = new Date();
-                if (dateString!=null) {
+                Date date = parseDate(dateString);
 
-                    try {
-                        date = simpleDateformatComplete.parse(dateString);
-                    } catch (ParseException e) {
-                        Log.e(TAG, "Could not parse: " + dateString + ", switching to yyyy-MM format.");
-                        try {
-                            date = simpleDateFormatYm.parse(dateString);
-                        } catch (ParseException f) {
-                            Log.e(TAG, "Could not parse: " + dateString + ", switching to yyyy format.");
-                            try {
-                                date = simpleDateFormatY.parse(dateString);
-                            } catch (ParseException g) {
-                                Log.e(TAG, "Could not parse: " + dateString + ". Human sacrifice, dogs and cats living together, mass hysteria.");
-                            }
-                        }
-                    }
-                }
 
                 String publisher = "Unknown";
                 if (volume.getVolumeInfo().getPublisher() != null) {
@@ -251,6 +219,51 @@ public class SearchGoogleBooks extends AppCompatActivity implements TextView.OnE
             recyclerView.setVisibility(View.VISIBLE);
 
 
+        }
+
+        private String createAllAuthorsFrom(List<String> authors) {
+            if (authors == null) {
+                return AUTHOR_PLACEHOLDER;
+            }
+
+            StringBuilder sb = new StringBuilder();
+            for (String author : authors) {
+                sb.append(", " + author);
+            }
+            return sb.toString().replaceFirst(", ", "");
+        }
+
+        private String getThumbnails(Volume volume) {
+            if (volume.getVolumeInfo().getImageLinks() == null) {
+                return IMAGE_PLACEHOLDER;
+            } else {
+                return volume.getVolumeInfo().getImageLinks().getThumbnail();
+            }
+        }
+
+        private Date parseDate(String dateString) {
+            Date date = new Date();
+
+            if (dateString != null) {
+
+                try {
+                    date = simpleDateformatComplete.parse(dateString);
+                } catch (ParseException e) {
+                    Log.e(TAG, "Could not parse: " + dateString + ", switching to yyyy-MM format.");
+                    try {
+                        date = simpleDateFormatYm.parse(dateString);
+                    } catch (ParseException f) {
+                        Log.e(TAG, "Could not parse: " + dateString + ", switching to yyyy format.");
+                        try {
+                            date = simpleDateFormatY.parse(dateString);
+                        } catch (ParseException g) {
+                            Log.e(TAG, "Could not parse: " + dateString + ". Human sacrifice, dogs and cats living together, mass hysteria.");
+                        }
+                    }
+                }
+            }
+
+            return date;
         }
 
 

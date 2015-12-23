@@ -25,13 +25,17 @@ import com.izor066.android.mediatracker.R;
 import com.izor066.android.mediatracker.api.model.Book;
 import com.izor066.android.mediatracker.ui.adapter.ItemAdapter;
 import com.izor066.android.mediatracker.ui.fragment.AddBookDialogFragment;
+import com.izor066.android.mediatracker.ui.fragment.SortItemsDialogFragment;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, ItemAdapter.OnBookClickListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, ItemAdapter.OnBookClickListener, SortItemsDialogFragment.OnSortingOptionSelectedListener {
 
-    String TAG = getClass().getSimpleName();
+    private String TAG = getClass().getSimpleName();
     private ItemAdapter itemAdapter;
+    private ItemAdapter.SortCriteria currentSortCriteria = ItemAdapter.SortCriteria.ADDED;
+    private boolean isAscending = true;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +99,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_order) {
+            isAscending = !isAscending;
+            itemAdapter.changeSortOrder();
+            itemAdapter.notifyDataSetChanged();
+            return true;
+        }
+
+        if (id == R.id.action_sort) {
+            showSortItemsDialogFragment();
             return true;
         }
 
@@ -122,13 +134,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onClick(View v) {
-        //Toast.makeText(this, "Add new entry", Toast.LENGTH_SHORT).show();
         showAddBookDialogFragment();
     }
 
     @Override
     public void onBookClick(Book book) {
-       // Toast.makeText(this, book.getTitle(), Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, BookDetails.class);
         intent.putExtra("Book", book);
         this.startActivity(intent);
@@ -140,9 +150,42 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         addBookDialogFragment.show(fragmentManager, "New Entry");
     }
 
+    private void showSortItemsDialogFragment() {
+        SortItemsDialogFragment sortItemsDialogFragment = SortItemsDialogFragment.createWith(currentSortCriteria);
+        sortItemsDialogFragment.show(getSupportFragmentManager(), "sort");
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
         itemAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onTitleSelected() {
+        Toast.makeText(this, "Sorting by Title", Toast.LENGTH_SHORT).show();
+        currentSortCriteria = ItemAdapter.SortCriteria.TITLE;
+        itemAdapter.changeSortCriteria(currentSortCriteria);
+        itemAdapter.notifyDataSetChanged();
+
+    }
+
+    @Override
+    public void onAuthorSelected() {
+        Toast.makeText(this, "Sorting by Author", Toast.LENGTH_SHORT).show();
+        currentSortCriteria = ItemAdapter.SortCriteria.AUTHOR;
+        itemAdapter.changeSortCriteria(currentSortCriteria);
+        itemAdapter.notifyDataSetChanged();
+
+
+    }
+
+    @Override
+    public void onAddedSelected() {
+        Toast.makeText(this, "Sorting by Time Added", Toast.LENGTH_SHORT).show();
+        currentSortCriteria = ItemAdapter.SortCriteria.ADDED;
+        itemAdapter.changeSortCriteria(currentSortCriteria);
+        itemAdapter.notifyDataSetChanged();
+
     }
 }
