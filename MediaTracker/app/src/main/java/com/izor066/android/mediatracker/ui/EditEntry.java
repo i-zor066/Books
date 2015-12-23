@@ -47,7 +47,7 @@ public class EditEntry extends AppCompatActivity implements DatePickerFragment.O
     private EditText addTitle;
     private String mAddAuthor = "";
     private EditText addAuthor;
-    private int mPubDate = 0;
+    private long mPubDate = 0;
     private String mAddSynopsis = "";
     private EditText addSynopsis;
     private String mAddCover = IMAGE_PLACEHOLDER;
@@ -107,7 +107,7 @@ public class EditEntry extends AppCompatActivity implements DatePickerFragment.O
                     .into(coverPreview);
         }
 
-        mPubDate = (int) bookFromIntent.getDatePublished();
+        mPubDate =  bookFromIntent.getDatePublished();
 
         camera = (Button) findViewById(R.id.btn_camera);
         camera.setOnClickListener(this);
@@ -125,8 +125,15 @@ public class EditEntry extends AppCompatActivity implements DatePickerFragment.O
     }
 
     public void showDatePickerDialog(View v) {
+
+        Bundle args = new Bundle();
+        args.putLong("datePublished", mPubDate);
+        Log.e(TAG, String.valueOf(mPubDate));
+
+        android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
         DialogFragment newFragment = new DatePickerFragment();
-        newFragment.show(getSupportFragmentManager(), "datePicker");
+        newFragment.setArguments(args);
+        newFragment.show(fm, "datePicker");
     }
 
     public void updateDatePub(int datePub) {
@@ -134,7 +141,7 @@ public class EditEntry extends AppCompatActivity implements DatePickerFragment.O
     }
 
     @Override
-    public void onDatePubSet(int datePub) {
+    public void onDatePubSet(long datePub) {
         mPubDate = datePub;
 
         Log.v(TAG, String.valueOf(mPubDate));
@@ -182,7 +189,7 @@ public class EditEntry extends AppCompatActivity implements DatePickerFragment.O
 
             mPublisher = addPublisher.getText().toString();
             Log.v(TAG, mAddSynopsis);
-            Book book = new Book(bookFromIntent.getRowId(), mAddTitle, mAddAuthor, (long) mPubDate, mAddCover, mAddSynopsis, mPages, mPublisher, System.currentTimeMillis());
+            Book book = new Book(bookFromIntent.getRowId(), mAddTitle, mAddAuthor, mPubDate, mAddCover, mAddSynopsis, mPages, mPublisher, System.currentTimeMillis());
             Log.e(TAG, book.toString());
             MediaTrackerApplication.getSharedDataSource().editBookForRowId(book, bookFromIntent.getRowId());
             Book testis = MediaTrackerApplication.getSharedDataSource().getBookWithId(bookFromIntent.getRowId());

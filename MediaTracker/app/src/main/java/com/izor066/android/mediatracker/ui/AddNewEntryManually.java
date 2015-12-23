@@ -47,7 +47,7 @@ public class AddNewEntryManually extends AppCompatActivity implements DatePicker
     private EditText addTitle;
     private String mAddAuthor = "";
     private EditText addAuthor;
-    private int mPubDate = 0;
+    private long mPubDate = 0;
     private String mAddSynopsis = "";
     private EditText addSynopsis;
     private String mAddCover = IMAGE_PLACEHOLDER;
@@ -118,10 +118,10 @@ public class AddNewEntryManually extends AppCompatActivity implements DatePicker
     }
 
     @Override
-    public void onDatePubSet(int datePub) {
+    public void onDatePubSet(long datePub) {
         mPubDate = datePub;
 
-        Log.v(TAG, String.valueOf(mPubDate));
+        Log.e(TAG, String.valueOf(mPubDate) + " " + String.valueOf(datePub));
     }
 
     @Override
@@ -166,7 +166,7 @@ public class AddNewEntryManually extends AppCompatActivity implements DatePicker
 
             mPublisher = addPublisher.getText().toString();
             Log.v(TAG, mAddSynopsis);
-            Book book = new Book(1L, mAddTitle, mAddAuthor, (long) mPubDate, mAddCover, mAddSynopsis, mPages, mPublisher, System.currentTimeMillis());
+            Book book = new Book(1L, mAddTitle, mAddAuthor, mPubDate, mAddCover, mAddSynopsis, mPages, mPublisher, System.currentTimeMillis());
             MediaTrackerApplication.getSharedDataSource().insertBookToDatabase(book);
             finish();
         }

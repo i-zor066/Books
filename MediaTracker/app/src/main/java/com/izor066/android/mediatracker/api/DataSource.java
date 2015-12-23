@@ -114,7 +114,7 @@ public class DataSource {
         new BooksTable.Builder()
                 .setTitle("A Dance With Dragons")
                 .setAuthor("George R.R. Martin")
-                .setDatePublished(1310428800)
+                .setDatePublished(1310428800000l)
                 .setCoverImgUri("https://d.gr-assets.com/books/1327885335l/10664113.jpg")
                 .setSynopsis("In the aftermath of a colossal battle, the future of the Seven Kingdoms hangs in the balance — beset by newly emerging threats from every direction. In the east, Daenerys Targaryen, the last scion of House Targaryen, rules with her three dragons as queen of a city built on dust and death. But Daenerys has thousands of enemies, and many have set out to find her. As they gather, one young man embarks upon his own quest for the queen, with an entirely different goal in mind.\n" +
                         "\n" +
@@ -131,7 +131,7 @@ public class DataSource {
         new BooksTable.Builder()
                 .setTitle("The Dark Forest")
                 .setAuthor("Liu Cixin")
-                .setDatePublished(1439251200)
+                .setDatePublished(1439251200000l)
                 .setCoverImgUri("https://d.gr-assets.com/books/1412064931l/23168817.jpg")
                 .setSynopsis("This is the second novel in the \"Three Body\" near-future trilogy. Written by the China's multiple-award-winning science fiction author, Cixin Liu.\n" +
                         "\n" +
@@ -147,7 +147,7 @@ public class DataSource {
         new BooksTable.Builder()
                 .setTitle("The Diamond Age: or, A Young Lady's Illustrated Primer")
                 .setAuthor("Neal Stephenson")
-                .setDatePublished(957225600)
+                .setDatePublished(957225600000l)
                 .setCoverImgUri("https://d.gr-assets.com/books/1388180931l/827.jpg")
                 .setSynopsis("The Diamond Age: Or, A Young Lady's Illustrated Primer is a postcyberpunk novel by Neal Stephenson. It is to some extent a science fiction coming-of-age story, focused on a young girl named Nell, and set in a future world in which nanotechnology affects all aspects of life. The novel deals with themes of education, social class, ethnicity, and the nature of artificial intelligence.")
                 .setPages(505)
@@ -158,7 +158,7 @@ public class DataSource {
         new BooksTable.Builder()
                 .setTitle("Reamde")
                 .setAuthor("Neal Stephenson")
-                .setDatePublished(1316476800)
+                .setDatePublished(1316476800000l)
                 .setCoverImgUri("https://d.gr-assets.com/books/1305993115l/10552338.jpg")
                 .setSynopsis("Four decades ago, Richard Forthrast, the black sheep of an Iowa family, fled to a wild and lonely mountainous corner of British Columbia to avoid the draft. Smuggling backpack loads of high-grade marijuana across the border into Northern Idaho, he quickly amassed an enormous and illegal fortune. With plenty of time and money to burn, he became addicted to an online fantasy game in which opposing factions battle for power and treasure in a vast cyber realm. Like many serious gamers, he began routinely purchasing virtual gold pieces and other desirables from Chinese gold farmers—young professional players in Asia who accumulated virtual weapons and armor to sell to busy American and European buyers.\n" +
                         "\n" +
@@ -170,7 +170,7 @@ public class DataSource {
         new BooksTable.Builder()
                 .setTitle("The Peripheral ")
                 .setAuthor("William Gibson")
-                .setDatePublished(1316476800)
+                .setDatePublished(1316476800000l)
                 .setCoverImgUri("https://d.gr-assets.com/books/1402651292l/20821159.jpg")
                 .setSynopsis("Where Flynne and her brother, Burton, live, jobs outside the drug business are rare. Fortunately, Burton has his veteran’s benefits, for neural damage he suffered from implants during his time in the USMC’s elite Haptic Recon force. Then one night Burton has to go out, but there’s a job he’s supposed to do—a job Flynne didn’t know he had. Beta-testing part of a new game, he tells her. The job seems to be simple: work a perimeter around the image of a tower building. Little buglike things turn up. He’s supposed to get in their way, edge them back. That’s all there is to it. He’s offering Flynne a good price to take over for him. What she sees, though, isn’t what Burton told her to expect. It might be a game, but it might also be murder.")
                 .setPages(505)
@@ -181,7 +181,7 @@ public class DataSource {
         new BooksTable.Builder()
                 .setTitle("Redshirts: A Novel with Three Codas ")
                 .setAuthor("John Scalzi")
-                .setDatePublished(1370390400)
+                .setDatePublished(1370390400000l)
                 .setCoverImgUri("https://d.gr-assets.com/books/1339166503l/15517815.jpg")
                 .setSynopsis("Ensign Andrew Dahl has just been assigned to the Universal Union Capital Ship Intrepid, flagship of the Universal Union since the year 2456. It’s a prestige posting, and Andrew is thrilled all the more to be assigned to the ship’s Xenobiology laboratory.\n" +
                         "\n" +
@@ -196,7 +196,7 @@ public class DataSource {
         new BooksTable.Builder()
                 .setTitle("Ancilliary Justice")
                 .setAuthor("Ann Leckie")
-                .setDatePublished(1380585600)
+                .setDatePublished(1380585600000l)
                 .setCoverImgUri("https://d.gr-assets.com/books/1397215917l/17333324.jpg")
                 .setSynopsis("On a remote, icy planet, the soldier known as Breq is drawing closer to completing her quest. Once, she was the Justice of Toren - a colossal starship with an artificial intelligence linking thousands of soldiers in the service of the Radch, the empire that conquered the galaxy. Now, an act of treachery has ripped it all away, leaving her with one fragile human body, unanswered questions, and a burning desire for vengeance.")
                 .setPages(505)
