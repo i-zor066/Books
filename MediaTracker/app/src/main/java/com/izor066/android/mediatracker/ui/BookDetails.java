@@ -31,7 +31,6 @@ public class BookDetails extends AppCompatActivity implements View.OnClickListen
     private TextView title;
     private TextView author;
     private ImageView cover;
-    private TextView tags;
     private TextView synopsis;
     private FloatingActionButton fabEdit;
     private TextView datePublished;
@@ -48,7 +47,6 @@ public class BookDetails extends AppCompatActivity implements View.OnClickListen
         title = (TextView) findViewById(R.id.tv_book_details_title);
         author = (TextView) findViewById(R.id.tv_book_details_author);
         cover = (ImageView) findViewById(R.id.iv_img_details_placeholder);
-        tags = (TextView) findViewById(R.id.tv_details_tags);
         synopsis = (TextView) findViewById(R.id.tv_details_synopsis);
         datePublished = (TextView) findViewById(R.id.tv_details_date_published);
         pages = (TextView) findViewById(R.id.tv_details_pages);
@@ -144,7 +142,6 @@ public class BookDetails extends AppCompatActivity implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
-        Toast.makeText(this, "Edit details of the book: " + book.getTitle(), Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, EditEntry.class);
         intent.putExtra("book", book);
         this.startActivity(intent);

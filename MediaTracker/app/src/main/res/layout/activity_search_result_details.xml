@@ -79,7 +79,7 @@
                     android:layout_marginTop="0dp"
                     android:layout_toRightOf="@id/fl_image_details_header"
                     android:paddingTop="0dp"
-                    android:text="The Caves of Steel (Robot Series #1) "
+                    android:text=""
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/abc_text_size_large_material" />
 
@@ -104,7 +104,7 @@
                         android:id="@+id/tv_book_details_author"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Isaac Asimov"
+                        android:text=""
                         android:textSize="@dimen/abc_text_size_medium_material" />
                 </LinearLayout>
 
