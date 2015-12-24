@@ -39,9 +39,12 @@
     <string name="pages_label_string">Pages:</string>
     <string name="pages_placeholder_string">402</string>
     <string name="number_of_pages_label_string">Number of Pages:</string>
-    <string name="action_sort">Sort</string>
+    <string name="action_sort">Sort Criteria</string>
     <string name="string_camera">Camera</string>
     <string name="string_edit">Edit</string>
     <string name="string_delete">Delete</string>
     <string name="string_delete_entry">Would you like to delete the entry?</string>
+    <string name="search_string_result">Searching ...</string>
+    <string name="search_hint">Search by Title or Author</string>
+    <string name="string_sort_order">Sort Order</string>
 </resources>

@@ -100,6 +100,18 @@ public class DataSource {
         return allBooks;
     }
 
+    public List<Book> searchResults(String query) {
+        Cursor cursor = BooksTable.getAllForTitleAndAuthor(databaseOpenHelper.getReadableDatabase(), query); //ToDo: add duplicate check
+        List<Book> allBooks = new ArrayList<Book>();
+        if (cursor.moveToFirst()) {
+            do {
+                allBooks.add(bookFromCursor(cursor));
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        return allBooks;
+    }
+
     private static Book bookFromCursor(Cursor cursor) {
         long rowId = Table.getRowId(cursor);
         String title = BooksTable.getTitle(cursor);
