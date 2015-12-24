@@ -67,7 +67,7 @@
                         android:layout_alignTop="@+id/tv_book_details_title"
                         android:layout_marginRight="15dp"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/ic_book_black" />
+                        android:src="@drawable/cover_placeholder" />
 
                 </FrameLayout>
 

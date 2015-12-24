@@ -13,6 +13,7 @@ import com.izor066.android.mediatracker.R;
 import com.izor066.android.mediatracker.api.model.Book;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -58,9 +59,15 @@ public class BookDetails extends AppCompatActivity implements View.OnClickListen
         pages.setText(String.valueOf(book.getPages()));
         publisher.setText(book.getPublisher());
 
-        Picasso.with(this)
-                .load(book.getCoverImgUri())
-                .into(cover);
+        if (book.getCoverImgUri().startsWith("http")) {
+            Picasso.with(this)
+                    .load(book.getCoverImgUri())
+                    .into(cover);
+        } else {
+            Picasso.with(this)
+                    .load(new File(book.getCoverImgUri()))
+                    .into(cover);
+        }
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("d MMMM, y");
         String datePub = "Unknown";

@@ -2,6 +2,7 @@ package com.izor066.android.mediatracker.ui;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -128,7 +129,7 @@ public class SearchGoogleBooks extends AppCompatActivity implements TextView.OnE
         private final SimpleDateFormat simpleDateformatComplete = new SimpleDateFormat("yyyy-MM-dd");
         private final SimpleDateFormat simpleDateFormatYm = new SimpleDateFormat("yyyy-MM");
         private final SimpleDateFormat simpleDateFormatY = new SimpleDateFormat("yyyy");
-        private final String IMAGE_PLACEHOLDER = "https://s.gr-assets.com/assets/nophoto/book/blank-133x176-8b769f39ba6687a82d2eef30bdf46977.jpg";
+        private final String IMAGE_PLACEHOLDER = Uri.parse("android.resource://com.izor066.android.mediatracker/" + R.drawable.cover_placeholder).toString();
         private final String AUTHOR_PLACEHOLDER = "Anonymous";
 
         private final String TAG = getClass().getSimpleName();
