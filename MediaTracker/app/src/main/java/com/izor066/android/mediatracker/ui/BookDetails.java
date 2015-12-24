@@ -3,6 +3,7 @@ package com.izor066.android.mediatracker.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,13 +15,14 @@ import android.widget.Toast;
 import com.izor066.android.mediatracker.MediaTrackerApplication;
 import com.izor066.android.mediatracker.R;
 import com.izor066.android.mediatracker.api.model.Book;
+import com.izor066.android.mediatracker.ui.fragment.DeleteEntryDialogFragment;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class BookDetails extends AppCompatActivity implements View.OnClickListener {
+public class BookDetails extends AppCompatActivity implements View.OnClickListener, DeleteEntryDialogFragment.OnDeleteConfirmationListener {
 
     private final String TAG = getClass().getSimpleName();
 
@@ -99,7 +101,7 @@ public class BookDetails extends AppCompatActivity implements View.OnClickListen
         int id = item.getItemId();
 
         if (id == R.id.action_delete) {
-            Toast.makeText(this, "Launch confirmation fragment", Toast.LENGTH_SHORT).show();
+            showDeleteEntryConfirmationFragment();
             return true;
         }
 
@@ -149,4 +151,16 @@ public class BookDetails extends AppCompatActivity implements View.OnClickListen
 
     }
 
+    private void showDeleteEntryConfirmationFragment() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        DeleteEntryDialogFragment deleteEntryDialogFragment = new DeleteEntryDialogFragment();
+        deleteEntryDialogFragment.show(fragmentManager, "New Entry");
+    }
+
+    @Override
+    public void onDeleteSelected() {
+        MediaTrackerApplication.getSharedDataSource().deleteBookForRowId(book.getRowId());
+        Toast.makeText(this, book.getTitle() + " deleted.", Toast.LENGTH_SHORT).show();
+        this.finish();
+    }
 }
