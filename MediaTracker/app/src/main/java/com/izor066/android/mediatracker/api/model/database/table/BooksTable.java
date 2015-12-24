@@ -123,9 +123,8 @@ public class BooksTable extends Table {
     }
 
     public static Cursor getAllForTitleAndAuthor(SQLiteDatabase readonlyDatabase, String query) {
-        // return readonlyDatabase.query(true, NAME, null, COLUMN_TITLE + " LIKE % ? % OR " + COLUMN_AUTHOR + " LIKE % ? %", new String[]{query}, null, null, null, null);
-        return readonlyDatabase.query(true, NAME, null, COLUMN_TITLE+ " LIKE" + "'%" + query + "%' OR " + COLUMN_AUTHOR +
-                " LIKE" + "'%"  + query + "%'", null, null, null, null, null);
+       // return readonlyDatabase.query(true, NAME, null, COLUMN_TITLE + " LIKE ? OR " + COLUMN_AUTHOR + " LIKE  ? ", new String[]{"%" + query + "%"}, null, null, null, null);
+         return readonlyDatabase.query(true, NAME, null, COLUMN_TITLE+ " LIKE" + "'%" + query + "%' OR " + COLUMN_AUTHOR + " LIKE" + "'%"  + query + "%'", null, null, null, null, null);
     }
 
     public static Cursor fetchAllBooks(SQLiteDatabase readonlyDatabase) {
