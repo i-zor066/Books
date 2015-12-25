@@ -159,7 +159,7 @@ public class BookDetails extends AppCompatActivity implements View.OnClickListen
     @Override
     public void onDeleteSelected() {
         MediaTrackerApplication.getSharedDataSource().deleteBookForRowId(book.getRowId());
-        Toast.makeText(this, book.getTitle() + " deleted.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, book.getTitle() + " Deleted!", Toast.LENGTH_SHORT).show();
         if (isEntrySearchResult) {
             Intent intent = new Intent(this, MainActivity.class);
             this.startActivity(intent);

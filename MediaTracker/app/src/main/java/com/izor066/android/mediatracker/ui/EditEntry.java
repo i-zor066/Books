@@ -182,11 +182,9 @@ public class EditEntry extends AppCompatActivity implements DatePickerFragment.O
 
             if (isImgLoaded = false) {
                 mAddCover = IMAGE_PLACEHOLDER;
-                Log.e(TAG, mAddCover);
             }
 
             mPublisher = addPublisher.getText().toString();
-            Log.v(TAG, mAddSynopsis);
             Book book = new Book(bookFromIntent.getRowId(), mAddTitle, mAddAuthor, mPubDate, mAddCover, mAddSynopsis, mPages, mPublisher, System.currentTimeMillis());
             Log.e(TAG, book.toString());
             MediaTrackerApplication.getSharedDataSource().editBookForRowId(book, bookFromIntent.getRowId());
@@ -200,27 +198,22 @@ public class EditEntry extends AppCompatActivity implements DatePickerFragment.O
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
         if ((EditorInfo.IME_ACTION_NEXT == actionId) && (v.getId() == R.id.et_add_new_title)) {
             mAddTitle = addTitle.getText().toString();
-            Log.v(TAG, mAddTitle);
         }
 
         if ((EditorInfo.IME_ACTION_NEXT == actionId) && (v.getId() == R.id.et_add_new_author)) {
             mAddAuthor = addAuthor.getText().toString();
-            Log.v(TAG, mAddAuthor);
         }
 
         if ((EditorInfo.IME_ACTION_NEXT == actionId) && (v.getId() == R.id.et_add_new_synopsis)) {
             mAddSynopsis = addSynopsis.getText().toString();
-            Log.v(TAG, mAddSynopsis);
         }
 
         if ((EditorInfo.IME_ACTION_NEXT == actionId) && (v.getId() == R.id.et_add_new_pages)) {
             mPages = Integer.parseInt(addNumberOfPages.getText().toString());
-            Log.v(TAG, String.valueOf(mPages));
         }
 
         if ((EditorInfo.IME_ACTION_NEXT == actionId) && (v.getId() == R.id.et_add_new_publisher)) {
             mPublisher = addPublisher.getText().toString();
-            Log.v(TAG, mPublisher);
         }
 
 
@@ -276,7 +269,6 @@ public class EditEntry extends AppCompatActivity implements DatePickerFragment.O
             mAddCover = cursor.getString(columnIndex);
             cursor.close();
 
-            Log.e(TAG, mAddCover);
 
             coverPreview.setVisibility(View.VISIBLE);
             Picasso.with(this)

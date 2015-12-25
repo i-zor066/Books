@@ -5,7 +5,6 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.util.Log;
 import android.widget.DatePicker;
 
 import com.izor066.android.mediatracker.util.UIUtils;
@@ -30,7 +29,6 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 
         if (getArguments() != null) {
             long datePub = getArguments().getLong("datePublished");
-            Log.e("What", String.valueOf(datePub));
             c = Calendar.getInstance();
             c.setTimeInMillis(datePub);
         }

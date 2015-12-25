@@ -120,8 +120,6 @@ public class AddNewEntryManually extends AppCompatActivity implements DatePicker
     @Override
     public void onDatePubSet(long datePub) {
         mPubDate = datePub;
-
-        Log.e(TAG, String.valueOf(mPubDate) + " " + String.valueOf(datePub));
     }
 
     @Override
@@ -161,11 +159,9 @@ public class AddNewEntryManually extends AppCompatActivity implements DatePicker
 
             if (isImgLoaded = false) {
                 mAddCover = IMAGE_PLACEHOLDER;
-                Log.e(TAG, mAddCover);
             }
 
             mPublisher = addPublisher.getText().toString();
-            Log.v(TAG, mAddSynopsis);
             Book book = new Book(1L, mAddTitle, mAddAuthor, mPubDate, mAddCover, mAddSynopsis, mPages, mPublisher, System.currentTimeMillis());
             MediaTrackerApplication.getSharedDataSource().insertBookToDatabase(book);
             finish();
@@ -178,27 +174,22 @@ public class AddNewEntryManually extends AppCompatActivity implements DatePicker
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
         if ((EditorInfo.IME_ACTION_NEXT == actionId) && (v.getId() == R.id.et_add_new_title)) {
             mAddTitle = addTitle.getText().toString();
-            Log.v(TAG, mAddTitle);
         }
 
         if ((EditorInfo.IME_ACTION_NEXT == actionId) && (v.getId() == R.id.et_add_new_author)) {
             mAddAuthor = addAuthor.getText().toString();
-            Log.v(TAG, mAddAuthor);
         }
 
         if ((EditorInfo.IME_ACTION_NEXT == actionId) && (v.getId() == R.id.et_add_new_synopsis)) {
             mAddSynopsis = addSynopsis.getText().toString();
-            Log.v(TAG, mAddSynopsis);
         }
 
         if ((EditorInfo.IME_ACTION_NEXT == actionId) && (v.getId() == R.id.et_add_new_pages)) {
             mPages = Integer.parseInt(addNumberOfPages.getText().toString());
-            Log.v(TAG, String.valueOf(mPages));
         }
 
         if ((EditorInfo.IME_ACTION_NEXT == actionId) && (v.getId() == R.id.et_add_new_publisher)) {
             mPublisher = addPublisher.getText().toString();
-            Log.v(TAG, mPublisher);
         }
 
 
@@ -254,8 +245,6 @@ public class AddNewEntryManually extends AppCompatActivity implements DatePicker
             mAddCover = cursor.getString(columnIndex);
             cursor.close();
 
-            Log.e(TAG, mAddCover);
-
             coverPreview.setVisibility(View.VISIBLE);
             Picasso.with(this)
                     .load(new File(mAddCover))
@@ -286,9 +275,6 @@ public class AddNewEntryManually extends AppCompatActivity implements DatePicker
             }
 
             mAddCover = destination.getAbsolutePath();
-
-
-            Log.e(TAG, mAddCover);
 
             coverPreview.setVisibility(View.VISIBLE);
 

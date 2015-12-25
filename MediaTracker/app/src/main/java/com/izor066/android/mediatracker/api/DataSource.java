@@ -101,7 +101,7 @@ public class DataSource {
     }
 
     public List<Book> searchResults(String query) {
-        Cursor cursor = BooksTable.getAllForTitleAndAuthor(databaseOpenHelper.getReadableDatabase(), query); //ToDo: add duplicate check
+        Cursor cursor = BooksTable.getAllForTitleAndAuthor(databaseOpenHelper.getReadableDatabase(), query);
         List<Book> allBooks = new ArrayList<Book>();
         if (cursor.moveToFirst()) {
             do {
