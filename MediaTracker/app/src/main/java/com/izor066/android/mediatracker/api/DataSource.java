@@ -95,8 +95,8 @@ public class DataSource {
             do {
                 allBooks.add(bookFromCursor(cursor));
             } while (cursor.moveToNext());
-            cursor.close();
         }
+        cursor.close();
         return allBooks;
     }
 
@@ -107,8 +107,8 @@ public class DataSource {
             do {
                 allBooks.add(bookFromCursor(cursor));
             } while (cursor.moveToNext());
-            cursor.close();
         }
+        cursor.close();
         return allBooks;
     }
 

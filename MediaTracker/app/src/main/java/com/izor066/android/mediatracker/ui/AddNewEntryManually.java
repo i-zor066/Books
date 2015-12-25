@@ -3,7 +3,6 @@ package com.izor066.android.mediatracker.ui;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -26,6 +25,7 @@ import com.izor066.android.mediatracker.MediaTrackerApplication;
 import com.izor066.android.mediatracker.R;
 import com.izor066.android.mediatracker.api.model.Book;
 import com.izor066.android.mediatracker.ui.fragment.DatePickerFragment;
+import com.izor066.android.mediatracker.util.UIUtils;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
@@ -267,7 +267,7 @@ public class AddNewEntryManually extends AppCompatActivity implements DatePicker
 
             Bundle extras = data.getExtras();
             Bitmap bitmapRaw = (Bitmap) extras.get("data");
-            Bitmap imageBitmap = rotateBitmap(bitmapRaw, 90);
+            Bitmap imageBitmap = UIUtils.rotateBitmap(bitmapRaw, 90);
 
             ByteArrayOutputStream bytes = new ByteArrayOutputStream();
             imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, bytes);
@@ -280,9 +280,9 @@ public class AddNewEntryManually extends AppCompatActivity implements DatePicker
                 fo.write(bytes.toByteArray());
                 fo.close();
             } catch (FileNotFoundException e) {
-                e.printStackTrace();
+                Log.e(TAG, e.toString());
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.e(TAG, e.toString());
             }
 
             mAddCover = destination.getAbsolutePath();
@@ -299,12 +299,6 @@ public class AddNewEntryManually extends AppCompatActivity implements DatePicker
 
         }
 
-    }
-
-    public static Bitmap rotateBitmap(Bitmap source, float angle) {
-        Matrix matrix = new Matrix();
-        matrix.postRotate(angle);
-        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
     }
 
 }

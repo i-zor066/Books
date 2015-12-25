@@ -42,15 +42,14 @@ public class SearchableActivity extends AppCompatActivity {
     }
 
     private void doMySearch(String query) {
-        Toast.makeText(this, query, Toast.LENGTH_SHORT).show();
         List<Book> searchResultList = new ArrayList<>();
         searchResultList = MediaTrackerApplication.getSharedDataSource().searchResults(query);
         if (searchResultList.size() == 0) {
-            Toast.makeText(this, "Nothing found", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Nothing Found!", Toast.LENGTH_SHORT).show();
             this.finish();
         } else {
             Intent intent = new Intent(this, EntrySearchResultsActivity.class);
-            intent.putParcelableArrayListExtra("resultList", (ArrayList<? extends Parcelable>) searchResultList);
+            intent.putParcelableArrayListExtra(EntrySearchResultsActivity.EXTRA_RESULT_LIST, (ArrayList<? extends Parcelable>) searchResultList);
             startActivity(intent);
             this.finish();
         }
