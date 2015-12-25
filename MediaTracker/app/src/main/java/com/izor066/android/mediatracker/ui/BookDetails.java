@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.izor066.android.mediatracker.MediaTrackerApplication;
 import com.izor066.android.mediatracker.R;
 import com.izor066.android.mediatracker.api.model.Book;
 import com.squareup.picasso.Picasso;
@@ -59,7 +60,7 @@ public class BookDetails extends AppCompatActivity implements View.OnClickListen
         pages.setText(String.valueOf(book.getPages()));
         publisher.setText(book.getPublisher());
 
-        if (book.getCoverImgUri().startsWith("http")) {
+        if (book.getCoverImgUri().startsWith("http") || book.getCoverImgUri().startsWith("android.resource"))  {
             Picasso.with(this)
                     .load(book.getCoverImgUri())
                     .into(cover);
@@ -85,9 +86,46 @@ public class BookDetails extends AppCompatActivity implements View.OnClickListen
 
     }
 
+    void updateDisplay() {
+        Book update = MediaTrackerApplication.getSharedDataSource().getBookWithId(book.getRowId());
+        book = update;
+        title.setText(book.getTitle());
+        author.setText(book.getAuthor());
+        synopsis.setText(book.getSynopsis());
+        pages.setText(String.valueOf(book.getPages()));
+        publisher.setText(book.getPublisher());
+
+
+        if (book.getCoverImgUri().startsWith("http") || book.getCoverImgUri().startsWith("android.resource"))  {
+            Picasso.with(this)
+                    .load(book.getCoverImgUri())
+                    .into(cover);
+        } else {
+            Picasso.with(this)
+                    .load(new File(book.getCoverImgUri()))
+                    .into(cover);
+        }
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("d MMMM, y");
+        String datePub = "Unknown";
+        Date date = new Date(book.getDatePublished());
+        datePub = simpleDateFormat.format(date);
+
+        datePublished.setText(datePub);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateDisplay();
+    }
+
     @Override
     public void onClick(View v) {
         Toast.makeText(this, "Edit details of the book: " + book.getTitle(), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, EditEntry.class);
+        intent.putExtra("book", book);
+        this.startActivity(intent);
 
     }
 

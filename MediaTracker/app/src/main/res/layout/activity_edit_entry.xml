@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:scrollbars="none"
+    tools:context="com.izor066.android.mediatracker.ui.EditEntry">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_add_new_title_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/string_title"
+            android:textSize="@dimen/abc_text_size_small_material" />
+
+        <EditText
+            android:id="@+id/et_add_new_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            android:textSize="@dimen/abc_text_size_medium_material" />
+
+        <TextView
+            android:id="@+id/tv_add_new_author_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/string_author"
+            android:textSize="@dimen/abc_text_size_small_material" />
+
+        <EditText
+            android:id="@+id/et_add_new_author"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            android:textSize="@dimen/abc_text_size_medium_material" />
+
+        <TextView
+            android:id="@+id/tv_add_new_pages_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/number_of_pages_label_string"
+            android:textSize="@dimen/abc_text_size_small_material" />
+
+        <EditText
+            android:id="@+id/et_add_new_pages"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:textSize="@dimen/abc_text_size_medium_material" />
+
+        <TextView
+            android:id="@+id/tv_add_new_publisher_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/publisher_label_string"
+            android:textSize="@dimen/abc_text_size_small_material" />
+
+        <EditText
+            android:id="@+id/et_add_new_publisher"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            android:textSize="@dimen/abc_text_size_medium_material" />
+
+        <TextView
+            android:id="@+id/tv_add_new_date_published_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/string_date_published"
+            android:textSize="@dimen/abc_text_size_small_material" />
+
+        <Button
+            android:id="@+id/btn_add_new_pick_date"
+            style="@style/Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:onClick="showDatePickerDialog"
+            android:text="@string/pick_date"
+            android:textAlignment="textStart" />
+
+        <TextView
+            android:id="@+id/tv_add_cover_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/string_add_cover"
+            android:textSize="@dimen/abc_text_size_small_material" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_camera"
+                style="@style/Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:text="@string/string_camera"
+                android:textAlignment="textStart"
+                android:textAllCaps="true"
+                android:textSize="@dimen/abc_text_size_button_material" />
+
+            <Button
+                android:id="@+id/btn_pick_img"
+                style="@style/Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="@string/string_pick_img"
+                android:textAlignment="textEnd"
+                android:textAllCaps="true"
+                android:textSize="@dimen/abc_text_size_button_material" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_img_preview"
+            android:layout_width="100dp"
+            android:layout_height="144dp"
+            android:scaleType="centerCrop"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_add_new_synopsis_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/string_synopsis"
+            android:textSize="@dimen/abc_text_size_small_material" />
+
+        <EditText
+            android:id="@+id/et_add_new_synopsis"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top|left"
+            android:imeOptions="actionDone"
+            android:inputType="textMultiLine"
+            android:lines="10"
+            android:maxLines="25"
+            android:minLines="6"
+            android:scrollbars="vertical"
+            android:textSize="@dimen/abc_text_size_medium_material" />
+
+
+        <LinearLayout
+            android:id="@+id/ll_add_new_buttons_wrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="right"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_add_book_cancel"
+                style="@style/Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="Cancel"
+                android:textAlignment="textEnd"
+                android:textAllCaps="true"
+                android:textSize="@dimen/abc_text_size_button_material" />
+
+            <Button
+                android:id="@+id/btn_add_book_submit"
+                style="@style/Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="@string/string_submit"
+                android:textAlignment="textEnd"
+                android:textAllCaps="true"
+                android:textSize="@dimen/abc_text_size_button_material" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</ScrollView>

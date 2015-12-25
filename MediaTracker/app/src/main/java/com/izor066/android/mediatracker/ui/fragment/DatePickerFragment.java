@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.widget.DatePicker;
 
 import com.izor066.android.mediatracker.util.UIUtils;
@@ -17,25 +18,35 @@ import java.util.Calendar;
 public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
     public interface OnDatePubSetListener {
-        public void onDatePubSet (int datePub);
+        public void onDatePubSet(long datePub);
     }
 
     OnDatePubSetListener onDatePubSetListener;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        // Use the current date as the default date in the picker
-        final Calendar c = Calendar.getInstance();
+
+        Calendar c = Calendar.getInstance();
+
+        if (getArguments() != null) {
+            long datePub = getArguments().getLong("datePublished");
+            Log.e("What", String.valueOf(datePub));
+            c = Calendar.getInstance();
+            c.setTimeInMillis(datePub);
+        }
+
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
 
-        // Create a new instance of DatePickerDialog and return it
+
         return new DatePickerDialog(getActivity(), this, year, month, day);
+
+
     }
 
     public void onDateSet(DatePicker view, int year, int month, int day) {
-        int datePub = UIUtils.componentTimeToTimestamp(year, month, day);
+        long datePub = UIUtils.componentTimeToTimestamp(year, month, day);
         onDatePubSetListener.onDatePubSet(datePub);
 
 

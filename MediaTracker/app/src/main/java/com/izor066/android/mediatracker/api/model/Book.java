@@ -9,6 +9,7 @@ import android.os.Parcelable;
  */
 public class Book implements Parcelable {
 
+    private final long rowId;
     private final String title;
     private final String author;
     private final long datePublished;
@@ -19,7 +20,8 @@ public class Book implements Parcelable {
     private final long timeAdded;
 
 
-    public Book(String title, String author, long datePublished, String coverImgUri, String synopsis, int pages, String publisher, long timeAdded) {
+    public Book(long rowId, String title, String author, long datePublished, String coverImgUri, String synopsis, int pages, String publisher, long timeAdded) {
+        this.rowId = rowId;
         this.title = title;
         this.author = author;
         this.datePublished = datePublished;
@@ -33,7 +35,8 @@ public class Book implements Parcelable {
     @Override
     public String toString() {
         return "Book{" +
-                "title='" + title + '\'' +
+                "rowId='" + rowId + '\'' +
+                ", title='" + title + '\'' +
                 ", author='" + author + '\'' +
                 ", datePublished=" + datePublished +
                 ", coverImgUri='" + coverImgUri + '\'' +
@@ -42,6 +45,10 @@ public class Book implements Parcelable {
                 ", publisher='" + publisher + '\'' +
                 ", timeAdded='" + timeAdded + '\'' +
                 '}';
+    }
+
+    public long getRowId() {
+        return rowId;
     }
 
     public String getTitle() {
@@ -86,6 +93,7 @@ public class Book implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         Bundle bundle = new Bundle();
 
+        bundle.putLong("rowId", rowId);
         bundle.putString("title", title);
         bundle.putString("author", author);
         bundle.putLong("datePublished", datePublished);
@@ -104,6 +112,7 @@ public class Book implements Parcelable {
             Bundle bundle = source.readBundle();
 
             return new Book(
+                    bundle.getLong("rowId"),
                     bundle.getString("title"),
                     bundle.getString("author"),
                     bundle.getLong("datePublished"),

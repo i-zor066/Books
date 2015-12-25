@@ -34,7 +34,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class AddNewEntryManually extends AppCompatActivity implements DatePickerFragment.OnDatePubSetListener, Button.OnClickListener, TextView.OnEditorActionListener {
+public class EditEntry extends AppCompatActivity implements DatePickerFragment.OnDatePubSetListener, Button.OnClickListener, TextView.OnEditorActionListener {
 
     String TAG = getClass().getSimpleName();
 
@@ -42,7 +42,7 @@ public class AddNewEntryManually extends AppCompatActivity implements DatePicker
     private static final int RESULT_LOAD_IMAGE = 1;
     private static final int REQUEST_IMAGE_CAPTURE = 1111;
 
-
+    private Book bookFromIntent;
     private String mAddTitle = "";
     private EditText addTitle;
     private String mAddAuthor = "";
@@ -66,32 +66,48 @@ public class AddNewEntryManually extends AppCompatActivity implements DatePicker
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_new_entry_manually);
+        setContentView(R.layout.activity_edit_entry);
+
+        Intent intent = getIntent();
+        bookFromIntent = intent.getParcelableExtra("book");
 
         addTitle = (EditText) findViewById(R.id.et_add_new_title);
         addTitle.setOnEditorActionListener(this);
+        addTitle.setText(bookFromIntent.getTitle(), TextView.BufferType.EDITABLE);
 
         addAuthor = (EditText) findViewById(R.id.et_add_new_author);
         addAuthor.setOnEditorActionListener(this);
+        addAuthor.setText(bookFromIntent.getAuthor(), TextView.BufferType.EDITABLE);
 
         addSynopsis = (EditText) findViewById(R.id.et_add_new_synopsis);
         addSynopsis.setOnEditorActionListener(this);
+        addSynopsis.setText(bookFromIntent.getSynopsis(), TextView.BufferType.EDITABLE);
 
 
         addNumberOfPages = (EditText) findViewById(R.id.et_add_new_pages);
         addNumberOfPages.setOnEditorActionListener(this);
+        addNumberOfPages.setText(String.valueOf(bookFromIntent.getPages()), TextView.BufferType.EDITABLE);
 
         addPublisher = (EditText) findViewById(R.id.et_add_new_publisher);
         addPublisher.setOnEditorActionListener(this);
+        addPublisher.setText(bookFromIntent.getPublisher(), TextView.BufferType.EDITABLE);
 
         coverPreview = (ImageView) findViewById(R.id.iv_img_preview);
+        mAddCover = bookFromIntent.getCoverImgUri();
 
-        if (mAddCover != IMAGE_PLACEHOLDER) {
-            coverPreview.setVisibility(View.VISIBLE);
+        coverPreview.setVisibility(View.VISIBLE);
+
+        if (mAddCover.startsWith("http") || mAddCover.startsWith("android.resource"))   {
             Picasso.with(this)
                     .load(mAddCover)
                     .into(coverPreview);
+        } else {
+            Picasso.with(this)
+                    .load(new File(mAddCover))
+                    .into(coverPreview);
         }
+
+        mPubDate =  bookFromIntent.getDatePublished();
 
         camera = (Button) findViewById(R.id.btn_camera);
         camera.setOnClickListener(this);
@@ -109,8 +125,15 @@ public class AddNewEntryManually extends AppCompatActivity implements DatePicker
     }
 
     public void showDatePickerDialog(View v) {
+
+        Bundle args = new Bundle();
+        args.putLong("datePublished", mPubDate);
+        Log.e(TAG, String.valueOf(mPubDate));
+
+        android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
         DialogFragment newFragment = new DatePickerFragment();
-        newFragment.show(getSupportFragmentManager(), "datePicker");
+        newFragment.setArguments(args);
+        newFragment.show(fm, "datePicker");
     }
 
     public void updateDatePub(int datePub) {
@@ -121,7 +144,7 @@ public class AddNewEntryManually extends AppCompatActivity implements DatePicker
     public void onDatePubSet(long datePub) {
         mPubDate = datePub;
 
-        Log.e(TAG, String.valueOf(mPubDate) + " " + String.valueOf(datePub));
+        Log.v(TAG, String.valueOf(mPubDate));
     }
 
     @Override
@@ -166,8 +189,11 @@ public class AddNewEntryManually extends AppCompatActivity implements DatePicker
 
             mPublisher = addPublisher.getText().toString();
             Log.v(TAG, mAddSynopsis);
-            Book book = new Book(1L, mAddTitle, mAddAuthor, mPubDate, mAddCover, mAddSynopsis, mPages, mPublisher, System.currentTimeMillis());
-            MediaTrackerApplication.getSharedDataSource().insertBookToDatabase(book);
+            Book book = new Book(bookFromIntent.getRowId(), mAddTitle, mAddAuthor, mPubDate, mAddCover, mAddSynopsis, mPages, mPublisher, System.currentTimeMillis());
+            Log.e(TAG, book.toString());
+            MediaTrackerApplication.getSharedDataSource().editBookForRowId(book, bookFromIntent.getRowId());
+            Book testis = MediaTrackerApplication.getSharedDataSource().getBookWithId(bookFromIntent.getRowId());
+            Log.e(TAG, testis.toString());
             finish();
         }
 
