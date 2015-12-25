@@ -156,11 +156,11 @@
             android:gravity="top|left"
             android:imeOptions="actionDone"
             android:inputType="textMultiLine"
-            android:lines="10"
+            android:lines="18"
             android:maxLines="25"
             android:minLines="6"
             android:scrollbars="vertical"
-            android:textSize="@dimen/abc_text_size_medium_material" />
+            android:textSize="@dimen/abc_text_size_small_material" />
 
 
         <LinearLayout

@@ -66,8 +66,13 @@ public class BooksTable extends Table {
         }
 
         public void updateForRowId(SQLiteDatabase writableDB, long rowId) {
-            writableDB.update(BooksTable.NAME, values, COLUMN_ID + " = ?", new String[]{String.valueOf(rowId)}); //ToDo check if correct
+            writableDB.update(BooksTable.NAME, values, COLUMN_ID + " = ?", new String[]{String.valueOf(rowId)});
         }
+
+        public void deleteForRowId(SQLiteDatabase writableDB, long rowId) {
+            writableDB.delete(BooksTable.NAME, COLUMN_ID + " = ?", new String[]{String.valueOf(rowId)});
+        }
+
 
 
         @Override

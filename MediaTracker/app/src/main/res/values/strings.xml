@@ -42,4 +42,6 @@
     <string name="action_sort">Sort</string>
     <string name="string_camera">Camera</string>
     <string name="string_edit">Edit</string>
+    <string name="string_delete">Delete</string>
+    <string name="string_delete_entry">Would you like to delete the entry?</string>
 </resources>

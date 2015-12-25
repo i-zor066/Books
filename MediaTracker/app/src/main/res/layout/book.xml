@@ -75,34 +75,11 @@
 
     </RelativeLayout>
 
-    <LinearLayout
-        android:id="@+id/ll_tag_wrapper"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_below="@+id/rl_book_wrapper">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/tv_tags_label"
-            android:layout_marginRight="2dp"
-            android:text="@string/tags_label"
-            android:textSize="@dimen/abc_text_size_small_material"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/tv_tags"
-            android:text="Tag 1, Tag 2"
-            android:textSize="@dimen/abc_text_size_small_material"/>
-    </LinearLayout>
-
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"
-        android:layout_below="@+id/ll_tag_wrapper"
+        android:layout_below="@+id/rl_book_wrapper"
         android:layout_marginTop="16dp"/>
 
 </RelativeLayout>

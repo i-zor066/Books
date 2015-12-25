@@ -1,0 +1,51 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context="com.izor066.android.mediatracker.ui.fragment.AddBookDialogFragment">
+
+    <TextView
+        android:id="@+id/tv_delete_entry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="22dp"
+        android:text="@string/string_delete_entry"
+        android:textSize="@dimen/abc_text_size_medium_material" />
+
+    <LinearLayout
+        android:id="@+id/ll_delete_entry_buttons_wrapper"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|bottom"
+        android:layout_margin="14dp"
+        android:orientation="horizontal">
+
+
+        <Button
+            android:id="@+id/bt_delete_entry_cancel"
+            style="@style/Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:text="@string/cancel_string"
+            android:textAlignment="textEnd"
+            android:textAllCaps="true"
+            android:textSize="@dimen/abc_text_size_button_material" />
+
+        <Button
+            android:id="@+id/bt_delete_entry"
+            style="@style/Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginRight="8dp"
+            android:text="@string/string_delete"
+            android:textAlignment="textEnd"
+            android:textAllCaps="true"
+            android:textSize="@dimen/abc_text_size_button_material" />
+
+    </LinearLayout>
+
+</LinearLayout>
+

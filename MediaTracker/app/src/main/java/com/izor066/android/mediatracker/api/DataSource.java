@@ -65,6 +65,13 @@ public class DataSource {
 
     }
 
+    public void deleteBookForRowId(long rowId) {
+        SQLiteDatabase writableDatabase = databaseOpenHelper.getWritableDatabase();
+        new BooksTable.Builder()
+                .deleteForRowId(writableDatabase, rowId);
+
+    }
+
     public Book getBookFromDBwithTitle(String title) {
         Cursor cursor = BooksTable.getRowFromTitle(databaseOpenHelper.getReadableDatabase(), title);
         cursor.moveToFirst();

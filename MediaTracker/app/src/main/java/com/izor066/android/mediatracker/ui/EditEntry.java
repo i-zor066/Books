@@ -128,8 +128,6 @@ public class EditEntry extends AppCompatActivity implements DatePickerFragment.O
 
         Bundle args = new Bundle();
         args.putLong("datePublished", mPubDate);
-        Log.e(TAG, String.valueOf(mPubDate));
-
         android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.setArguments(args);
