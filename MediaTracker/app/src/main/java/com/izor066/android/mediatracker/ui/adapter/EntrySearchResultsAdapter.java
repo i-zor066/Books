@@ -12,6 +12,7 @@ import com.izor066.android.mediatracker.R;
 import com.izor066.android.mediatracker.api.model.Book;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,9 +75,15 @@ public class EntrySearchResultsAdapter extends RecyclerView.Adapter<EntrySearchR
 
             Context context = bookCover.getContext();
 
-            Picasso.with(context)
-                    .load(book.getCoverImgUri())
-                    .into(bookCover);
+            if (book.getCoverImgUri().startsWith("http") || book.getCoverImgUri().startsWith("android.resource"))   {
+                Picasso.with(context)
+                        .load(book.getCoverImgUri())
+                        .into(bookCover);
+            } else {
+                Picasso.with(context)
+                        .load(new File(book.getCoverImgUri()))
+                        .into(bookCover);
+            }
         }
 
 

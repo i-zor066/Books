@@ -39,8 +39,12 @@ public class EntrySearchResultsActivity extends AppCompatActivity implements Ent
 
     @Override
     public void onEntryClick(Book book) {
+        boolean isEntrySearchResult = true;
         Intent intent = new Intent(this, BookDetails.class);
         intent.putExtra("Book", book);
+        intent.putExtra("isEntrySearchResult", isEntrySearchResult);
         this.startActivity(intent);
     }
+
+
 }

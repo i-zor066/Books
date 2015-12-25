@@ -52,6 +52,7 @@ public class SearchableActivity extends AppCompatActivity {
             Intent intent = new Intent(this, EntrySearchResultsActivity.class);
             intent.putParcelableArrayListExtra("resultList", (ArrayList<? extends Parcelable>) searchResultList);
             startActivity(intent);
+            this.finish();
         }
     }
 }
