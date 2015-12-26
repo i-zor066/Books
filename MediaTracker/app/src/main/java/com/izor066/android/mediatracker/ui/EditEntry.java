@@ -3,7 +3,6 @@ package com.izor066.android.mediatracker.ui;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -26,6 +25,7 @@ import com.izor066.android.mediatracker.MediaTrackerApplication;
 import com.izor066.android.mediatracker.R;
 import com.izor066.android.mediatracker.api.model.Book;
 import com.izor066.android.mediatracker.ui.fragment.DatePickerFragment;
+import com.izor066.android.mediatracker.util.UIUtils;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
@@ -182,16 +182,12 @@ public class EditEntry extends AppCompatActivity implements DatePickerFragment.O
 
             if (isImgLoaded = false) {
                 mAddCover = IMAGE_PLACEHOLDER;
-                Log.e(TAG, mAddCover);
             }
 
             mPublisher = addPublisher.getText().toString();
-            Log.v(TAG, mAddSynopsis);
             Book book = new Book(bookFromIntent.getRowId(), mAddTitle, mAddAuthor, mPubDate, mAddCover, mAddSynopsis, mPages, mPublisher, System.currentTimeMillis());
             Log.e(TAG, book.toString());
             MediaTrackerApplication.getSharedDataSource().editBookForRowId(book, bookFromIntent.getRowId());
-            Book testis = MediaTrackerApplication.getSharedDataSource().getBookWithId(bookFromIntent.getRowId());
-            Log.e(TAG, testis.toString());
             finish();
         }
 
@@ -202,27 +198,22 @@ public class EditEntry extends AppCompatActivity implements DatePickerFragment.O
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
         if ((EditorInfo.IME_ACTION_NEXT == actionId) && (v.getId() == R.id.et_add_new_title)) {
             mAddTitle = addTitle.getText().toString();
-            Log.v(TAG, mAddTitle);
         }
 
         if ((EditorInfo.IME_ACTION_NEXT == actionId) && (v.getId() == R.id.et_add_new_author)) {
             mAddAuthor = addAuthor.getText().toString();
-            Log.v(TAG, mAddAuthor);
         }
 
         if ((EditorInfo.IME_ACTION_NEXT == actionId) && (v.getId() == R.id.et_add_new_synopsis)) {
             mAddSynopsis = addSynopsis.getText().toString();
-            Log.v(TAG, mAddSynopsis);
         }
 
         if ((EditorInfo.IME_ACTION_NEXT == actionId) && (v.getId() == R.id.et_add_new_pages)) {
             mPages = Integer.parseInt(addNumberOfPages.getText().toString());
-            Log.v(TAG, String.valueOf(mPages));
         }
 
         if ((EditorInfo.IME_ACTION_NEXT == actionId) && (v.getId() == R.id.et_add_new_publisher)) {
             mPublisher = addPublisher.getText().toString();
-            Log.v(TAG, mPublisher);
         }
 
 
@@ -278,7 +269,6 @@ public class EditEntry extends AppCompatActivity implements DatePickerFragment.O
             mAddCover = cursor.getString(columnIndex);
             cursor.close();
 
-            Log.e(TAG, mAddCover);
 
             coverPreview.setVisibility(View.VISIBLE);
             Picasso.with(this)
@@ -291,7 +281,7 @@ public class EditEntry extends AppCompatActivity implements DatePickerFragment.O
 
             Bundle extras = data.getExtras();
             Bitmap bitmapRaw = (Bitmap) extras.get("data");
-            Bitmap imageBitmap = rotateBitmap(bitmapRaw, 90);
+            Bitmap imageBitmap = UIUtils.rotateBitmap(bitmapRaw, 90);
 
             ByteArrayOutputStream bytes = new ByteArrayOutputStream();
             imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, bytes);
@@ -304,9 +294,9 @@ public class EditEntry extends AppCompatActivity implements DatePickerFragment.O
                 fo.write(bytes.toByteArray());
                 fo.close();
             } catch (FileNotFoundException e) {
-                e.printStackTrace();
+                Log.e(TAG, e.toString());
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.e(TAG, e.toString());
             }
 
             mAddCover = destination.getAbsolutePath();
@@ -325,10 +315,5 @@ public class EditEntry extends AppCompatActivity implements DatePickerFragment.O
 
     }
 
-    public static Bitmap rotateBitmap(Bitmap source, float angle) {
-        Matrix matrix = new Matrix();
-        matrix.postRotate(angle);
-        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
-    }
 
 }

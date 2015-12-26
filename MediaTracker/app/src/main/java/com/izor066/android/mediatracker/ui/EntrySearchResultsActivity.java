@@ -15,9 +15,11 @@ import java.util.ArrayList;
 
 public class EntrySearchResultsActivity extends AppCompatActivity implements EntrySearchResultsAdapter.OnEntryClickListener {
 
-    private ArrayList<Book> searchResults = new ArrayList<>(); // get from intent
+    private ArrayList<Book> searchResults = new ArrayList<>();
     private EntrySearchResultsAdapter entrySearchResultsAdapter;
     private RecyclerView recyclerView;
+
+    public static final String EXTRA_RESULT_LIST = "resultList";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +27,7 @@ public class EntrySearchResultsActivity extends AppCompatActivity implements Ent
         setContentView(R.layout.activity_entry_search_results);
 
         Intent intent = getIntent();
-        searchResults =  intent.getParcelableArrayListExtra("resultList");
+        searchResults =  intent.getParcelableArrayListExtra(EXTRA_RESULT_LIST);
         entrySearchResultsAdapter = new EntrySearchResultsAdapter(searchResults, this);
 
         recyclerView = (RecyclerView) findViewById(R.id.rv_entry_search_results);

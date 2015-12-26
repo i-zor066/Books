@@ -29,11 +29,9 @@ public class AddBookDialogFragment extends DialogFragment implements Button.OnCl
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Dialog dialog = super.onCreateDialog(savedInstanceState);
-        //dialog.getWindow().requestFeature(Window.FEATURE_CUSTOM_TITLE);
         dialog.setTitle("New Entry");
         return dialog;
 
-        // ToDO: Show Title "New Entry"
     }
 
 

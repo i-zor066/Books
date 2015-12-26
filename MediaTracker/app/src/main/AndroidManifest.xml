@@ -73,9 +73,13 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-        <activity android:name=".ui.EntrySearchResultsActivity"
+        <activity
+            android:name=".ui.EntrySearchResultsActivity"
             android:label="@string/string_search_results"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.About"
+            android:label="@string/string_action_about"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
