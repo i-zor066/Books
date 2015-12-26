@@ -27,6 +27,7 @@ public class BookDetails extends AppCompatActivity implements View.OnClickListen
     private final String TAG = getClass().getSimpleName();
 
     private Book book;
+    private boolean isEntrySearchResult = false;
 
     private TextView title;
     private TextView author;
@@ -54,6 +55,7 @@ public class BookDetails extends AppCompatActivity implements View.OnClickListen
 
         Intent intent = getIntent();
         book = intent.getParcelableExtra("Book");
+        isEntrySearchResult = intent.getBooleanExtra("isEntrySearchResult", false);
 
         title.setText(book.getTitle());
         author.setText(book.getAuthor());
@@ -158,6 +160,12 @@ public class BookDetails extends AppCompatActivity implements View.OnClickListen
     public void onDeleteSelected() {
         MediaTrackerApplication.getSharedDataSource().deleteBookForRowId(book.getRowId());
         Toast.makeText(this, book.getTitle() + " deleted.", Toast.LENGTH_SHORT).show();
-        this.finish();
+        if (isEntrySearchResult) {
+            Intent intent = new Intent(this, MainActivity.class);
+            this.startActivity(intent);
+            this.finish();
+        } else {
+            this.finish();
+        }
     }
 }
