@@ -29,7 +29,7 @@ public class DataSource {
 
         if (BuildConfig.DEBUG) {
             context.deleteDatabase(DatabaseOpenHelper.NAME);
-            createPlaceholderData();
+            //createPlaceholderData();
 
         }
     }

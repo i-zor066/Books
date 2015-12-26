@@ -19,21 +19,19 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.izor066.android.mediatracker.MediaTrackerApplication;
 import com.izor066.android.mediatracker.R;
 import com.izor066.android.mediatracker.api.model.Book;
 import com.izor066.android.mediatracker.ui.adapter.ItemAdapter;
 import com.izor066.android.mediatracker.ui.fragment.AddBookDialogFragment;
 import com.izor066.android.mediatracker.ui.fragment.SortItemsDialogFragment;
 
-import java.util.List;
-
-public class MainActivity extends AppCompatActivity implements  View.OnClickListener, ItemAdapter.OnBookClickListener, SortItemsDialogFragment.OnSortingOptionSelectedListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, ItemAdapter.OnBookClickListener, SortItemsDialogFragment.OnSortingOptionSelectedListener {
 
     private String TAG = getClass().getSimpleName();
     private ItemAdapter itemAdapter;
     private ItemAdapter.SortCriteria currentSortCriteria = ItemAdapter.SortCriteria.ADDED;
     private boolean isAscending = true;
+    private TextView firstRun;
 
 
     @Override
@@ -49,10 +47,6 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
         fab.setOnClickListener(this);
 
 
-
-        List<Book> allbooks = MediaTrackerApplication.getSharedDataSource().getAllBooks();
-
-
         itemAdapter = new ItemAdapter(this);
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_activity_media_tracker);
@@ -61,11 +55,8 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(itemAdapter);
 
-        TextView firstRun = (TextView) findViewById(R.id.tv_click_plus);
+        firstRun = (TextView) findViewById(R.id.tv_click_plus);
 
-        if (allbooks.size() > 0) {
-            firstRun.setVisibility(View.GONE);
-        }
 
     }
 
@@ -93,6 +84,12 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
 
         if (id == R.id.action_sort) {
             showSortItemsDialogFragment();
+            return true;
+        }
+
+        if (id == R.id.action_about) {
+            Intent intent = new Intent(this, About.class);
+            this.startActivity(intent);
             return true;
         }
 
@@ -127,6 +124,12 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
     protected void onResume() {
         super.onResume();
         itemAdapter.notifyDataSetChanged();
+
+        if (itemAdapter.getItemCount() > 0) {
+            firstRun.setVisibility(View.GONE);
+        } else {
+            firstRun.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

@@ -48,4 +48,5 @@
     <string name="search_hint">Search by Title or Author</string>
     <string name="string_sort_order">Sort Order</string>
     <string name="string_search_results">Search Results</string>
+    <string name="string_action_about">About</string>
 </resources>

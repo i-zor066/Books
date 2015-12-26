@@ -58,7 +58,9 @@ public class SearchGoogleBooks extends AppCompatActivity implements TextView.OnE
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Book placeholderBook = MediaTrackerApplication.getSharedDataSource().getAllBooks().get(0);
+
+        Book placeholderBook = new Book(1, "Placeholder", "Placeholder", 0, Uri.parse("android.resource://com.izor066.android.mediatracker/" + R.drawable.cover_placeholder).toString(),
+                "Placeholder", 999, "Placeholder", 0);
         resultsToAdd.add(placeholderBook);
 
         searchResultsAdapter = new SearchResultsAdapter(resultsToAdd, this);
@@ -97,7 +99,7 @@ public class SearchGoogleBooks extends AppCompatActivity implements TextView.OnE
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
         if (actionId == EditorInfo.IME_ACTION_SEARCH) {
             searchString = searchGoogleBooks.getText().toString();
-            Toast.makeText(this, "Search for: " + searchString, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Searching for: " + searchString, Toast.LENGTH_SHORT).show();
             SearchTask task = new SearchTask(resultsToAdd, searchResultsAdapter, pb, recyclerView);
             task.execute(searchString);
             InputMethodManager inputMethodManager = (InputMethodManager) this.getSystemService(Activity.INPUT_METHOD_SERVICE);
