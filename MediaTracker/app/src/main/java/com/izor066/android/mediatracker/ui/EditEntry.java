@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
@@ -34,7 +35,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class EditEntry extends AppCompatActivity implements DatePickerFragment.OnDatePubSetListener, Button.OnClickListener, TextView.OnEditorActionListener {
+public class EditEntry extends AppCompatActivity implements DatePickerFragment.OnDatePubSetListener, Button.OnClickListener, TextView.OnEditorActionListener, View.OnTouchListener {
 
     String TAG = getClass().getSimpleName();
 
@@ -82,6 +83,7 @@ public class EditEntry extends AppCompatActivity implements DatePickerFragment.O
         addSynopsis = (EditText) findViewById(R.id.et_add_new_synopsis);
         addSynopsis.setOnEditorActionListener(this);
         addSynopsis.setText(bookFromIntent.getSynopsis(), TextView.BufferType.EDITABLE);
+        addSynopsis.setOnTouchListener(this);
 
 
         addNumberOfPages = (EditText) findViewById(R.id.et_add_new_pages);
@@ -316,4 +318,14 @@ public class EditEntry extends AppCompatActivity implements DatePickerFragment.O
     }
 
 
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        v.getParent().requestDisallowInterceptTouchEvent(true);
+        switch (event.getAction() & MotionEvent.ACTION_MASK) {
+            case MotionEvent.ACTION_UP:
+                v.getParent().requestDisallowInterceptTouchEvent(false);
+                break;
+        }
+        return false;
+    }
 }

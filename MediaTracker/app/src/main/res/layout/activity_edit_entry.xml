@@ -151,13 +151,14 @@
 
         <EditText
             android:id="@+id/et_add_new_synopsis"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="top|left"
             android:imeOptions="actionDone"
             android:inputType="textMultiLine"
-            android:lines="18"
-            android:maxLines="25"
+            android:singleLine="false"
+            android:lines="15"
+            android:maxLines="50"
             android:minLines="6"
             android:scrollbars="vertical"
             android:textSize="@dimen/abc_text_size_small_material" />
