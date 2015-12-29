@@ -13,7 +13,95 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_licences"
+        android:id="@+id/tv_app_version"
+        android:textSize="@dimen/abc_text_size_medium_material"
         android:text="Books Version 1.0.0"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal"
+        android:id="@+id/rv_wrapper_icon">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_icon"
+        android:text="Icon made by Freepik from www.flaticon.com "/>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:id="@+id/tv_os_licenses_label"
+        android:text="Application uses the following open source components:"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:id="@+id/tv_os_component1"
+        android:text="- google-api-client-1.21.0"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_os_component2"
+        android:text="- google-api-services-books-v1-rev76-1.21.0"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_os_component3"
+        android:text="- google-http-client-1.21.0"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_os_component4"
+        android:text="- google-http-client-android-1.21.0 "/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_os_component5"
+        android:text="- google-http-client-jackson2-1.21.0"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_os_component6"
+        android:text="- google-oauth-client-1.21.0 "/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_os_component7"
+        android:text="- guava-jdk5-17.0"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_os_component8"
+        android:text="- jackson-core-2.1.3"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_os_component9"
+        android:text="- picasso-2.5.2"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_notice"
+        android:layout_marginTop="5dp"
+        android:gravity="start"
+        android:text="All of the components are licensed under the Apache License, Version 2.0. You may obtain a copy of the license at: \n \nhttp://www.apache.org/licenses/LICENSE-2.0"/>
+
+
 
 </LinearLayout>
